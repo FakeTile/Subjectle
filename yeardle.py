@@ -91,16 +91,14 @@ subjects = {
 
 
 def output():
-
     output = ""
     for index, val in enumerate(data[inp]):
         output += f"line {(index + 1)}: "
-        print(index, val)
+        # print(index, val)
         if val == data[guesee][index]:
             output += f"{GREEN}{subjects[val]} - {val.split('-')[0]}{RESET}"
-        elif subjects[val] in [subjects[teacher] for teacher in data[guesee] if teacher != val]:
+        elif any(subjects.get(val) == subjects.get(other) for i, other in enumerate(data[guesee]) if i != index):
             output += f"{YELLOW}{subjects[val]} - {val.split('-')[0]}{RESET}"
-
         else:
             output += f"{GREY}{subjects[val]} - {val.split('-')[0]}{RESET}"
         output += "\n"
