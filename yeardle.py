@@ -85,26 +85,39 @@ subjects = {
     "Wellings": "Music",
     "Woodley": "Mathematics advanced",
     "Milnes": "Visual art",
-    
 }
  
 
-
 def output():
     output = ""
-    for index, val in enumerate(data[inp]):
+    guess = data[inp]
+    target = data[guesee]
+    unmatched = target.copy()
+    usedSubjs = [None if guess[i] == target[i] else target[i] for i in range(len(target))]
+
+    for index, val in enumerate(guess):
         output += f"line {(index + 1)}: "
-        # print(index, val)
-        if val == data[guesee][index]:
+
+        if val == target[index]:
             output += f"{GREEN}{subjects[val]} - {val.split('-')[0]}{RESET}"
-        elif any(subjects.get(val) == subjects.get(other) for i, other in enumerate(data[guesee]) if i != index):
+            unmatched[index] = None
+            usedSubjs[index] = None
+
+        elif val in unmatched:
             output += f"{YELLOW}{subjects[val]} - {val.split('-')[0]}{RESET}"
+            unmatched[unmatched.index(val)] = None  # prevent dup yellow
+
+        elif subjects.get(val) in [subjects.get(code) for code in usedSubjs if code]:
+            output += f"{YELLOW}{subjects[val]} - {val.split('-')[0]}{RESET}"
+            firstMatch = next(i for i, code in enumerate(usedSubjs) if code and subjects.get(code) == subjects.get(val))
+            usedSubjs[firstMatch] = None  # prevent dup yellow on same subj
+
         else:
             output += f"{GREY}{subjects[val]} - {val.split('-')[0]}{RESET}"
-        output += "\n"
-    return output
 
-guesee = choice(list(data.keys()))
+        output += "\n"
+
+    return output
 
 def getInp() -> str:
     while True:
@@ -119,6 +132,8 @@ def getInp() -> str:
             pass
     return key
 
+guesee = choice(list(data.keys()))
+
 if __name__ == "__main__":
     guesses = 0
     while True:
@@ -132,7 +147,7 @@ if __name__ == "__main__":
         if guesee == inp:
             print("You win")
             break
-        elif guesses > 4:
+        elif guesses > 5:
             print(f"You lose\nThe person was {guesee}")
             break
         print(output())
