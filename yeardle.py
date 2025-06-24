@@ -1,5 +1,6 @@
-from random import choice
+import random
 import csv
+from datetime import datetime
 
 PATH = 'ppl.csv'
 
@@ -132,7 +133,18 @@ def getInp() -> str:
             pass
     return key
 
-guesee = choice(list(data.keys()))
+cur_time = datetime.now()
+
+# get days num days since
+i = (cur_time.date() - datetime(1970, 1, 1).date()).days
+
+l = list(data.keys())
+
+rng = random.Random("soham")
+rng.shuffle(l)
+
+guesee = l[i % len(l)]
+
 
 if __name__ == "__main__":
     guesses = 0
