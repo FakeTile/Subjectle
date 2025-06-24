@@ -1,0 +1,69 @@
+body {
+    background-color: #121213;
+}
+
+.grid-container {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5%;
+    height: 80vh;
+    width: 80vw;
+}
+
+.card {
+    border: 0.5vh solid #3A3A3C;
+    padding: 10%;
+}
+
+.card h2 {
+    color: white;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.suggestions {
+    background: #3A3A3C;
+    color: #F8F8F8;
+    position: absolute;       /* ⬅️ make it float above the input */
+    bottom: 100%;             /* ⬅️ place above the input field */
+    left: 0;
+    right: 0;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    z-index: 10;
+}
+
+.suggestions div {
+    padding: 6px 10px;
+}
+.suggestions div.top-option {
+    background-color: #084079; /* nice blue */
+  }
+
+.suggestions div:hover {
+    background-color: #444;
+}
+
+.suggestions div.top-option:hover {
+    background-color: #054a94;  /* slightly darker blue on hover */
+    color: white;
+  }
+
+.name-input {
+    background-color: #3A3A3C;
+    color: #F8F8F8;
+    padding: 3px;
+}
+  

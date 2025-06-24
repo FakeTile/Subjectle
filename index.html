@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <<p>Hello World bimmel bimmel</p>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Color Selector</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid" id="card-container"></div>
+  
+    <template id="card-template">
+      <div class="card">
+        <h2></h2>
+        <div class="input-wrapper">
+          <div class="suggestions" id="suggestions"></div>
+          <input type="text" id="name-input" placeholder="Enter Guess" class="name-input">
+        </div>
+      </div>
+    </template>
+
+  </div> 
+  <script src="script.js"></script>
+  <script src="textbox.js"></script>
+</body>
 </html>
