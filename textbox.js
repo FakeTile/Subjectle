@@ -3,15 +3,19 @@ studentNames = []
 fetch('ppl.csv')
   .then(response => {
     if (!response.ok) {
-      throw new Error('stinky stinky failed reading csv');
+      throw new Error('failed reading csv');
     }
     return response.text();
   })
   .then(csvText => {
-    const lines = csvText.trim().split('\n');
-    for (const line in lines) {
+    const lines = csvText.split('\n');
+    for (const line of lines.slice(1)) {
         const values = line.split(',');
-        studentNames.push(values[2].trim());
+        let name = values[2].slice(1, -1);
+        let nameSplit = name.split(' ')
+        nameSplit[1] = nameSplit[1][0];
+        console.log(nameSplit);
+        studentNames.push(nameSplit[0] + ' ' + nameSplit[1]);
     }
   })
  
