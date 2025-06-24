@@ -1,18 +1,26 @@
-const countries = [
-    "Australia", "Austria", "Argentina", "Brazil", "Belgium", "Canada", "China",
-    "Denmark", "Dominican Republic", "Egypt", "France", "Finland", "Germany",
-    "Greece", "Hungary", "India", "Indonesia", "Italy", "Japan", "Kenya", "Mexico",
-    "Netherlands", "New Zealand", "Norway", "Poland", "Portugal", "Russia", "Spain",
-    "Sweden", "Switzerland", "Thailand", "Turkey", "United Kingdom", "United States",
-    "Vietnam", "Zimbabwe"
-  ];
-  
+studentNames = []
+
+fetch('ppl.csv')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('stinky stinky failed reading csv');
+    }
+    return response.text();
+  })
+  .then(csvText => {
+    const lines = csvText.trim().split('\n');
+    for (const line in lines) {
+        const values = lines.split(',');
+        studentNames.push(values[2].trim());
+    }
+  })
+ 
   const input = document.getElementById("name-input");
   const suggestionsDiv = document.getElementById("suggestions");
   
   function getMatches(query) {
     query = query.toLowerCase();
-    return countries.filter(country =>
+    return studentNames.filter(country =>
       country.toLowerCase().startsWith(query)
     );
   }
@@ -56,7 +64,7 @@ const countries = [
   
     if (e.key === "Enter") {
       const value = input.value.trim().toLowerCase();
-      if (countries.some(c => c.toLowerCase() === value)) {
+      if (studentNames.some(c => c.toLowerCase() === value)) {
         console.log("valid");
       }
     }

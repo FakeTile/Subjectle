@@ -137,11 +137,13 @@ cur_time = datetime.now()
 
 # get days num days since
 i = (cur_time.date() - datetime(1970, 1, 1).date()).days
+print(i)
 
 l = list(data.keys())
 
-rng = random.Random("soham")
-rng.shuffle(l)
+random.seed('soham')
+random.shuffle(l)
+print(l)
 
 guesee = l[i % len(l)]
 
