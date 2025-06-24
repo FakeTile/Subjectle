@@ -10,7 +10,7 @@ fetch('ppl.csv')
   .then(csvText => {
     const lines = csvText.trim().split('\n');
     for (const line in lines) {
-        const values = lines.split(',');
+        const values = line.split(',');
         studentNames.push(values[2].trim());
     }
   })
