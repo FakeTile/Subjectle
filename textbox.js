@@ -46,7 +46,7 @@ fetch('ppl.csv')
   
     function showSuggestions(matches) {
       suggestionsDiv.innerHTML = "";
-      matches.slice(0, 1).reverse().forEach((match, idx, arr) => {
+      matches.slice(0, 3).reverse().forEach((match, idx, arr) => {
         const div = document.createElement("div");
         div.className = "suggestion";
         div.textContent = match;
