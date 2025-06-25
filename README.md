@@ -4,6 +4,7 @@
 there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
 
 // TODO:
+Add Neil
 
 Get everybody on
 
@@ -13,9 +14,11 @@ Settings Menu
 
 Get all data correct (remote etc.)
 
+
 Game Functionality
 - Some kind of introduction / key for colours, to help users get accustomed to rules
 - Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M'
+- Add leaderboard 
 
 Cookies
  - Save settings
