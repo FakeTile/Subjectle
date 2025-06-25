@@ -11,6 +11,7 @@ cardIds.forEach(id => {
   const card = clone.querySelector('.card');
   card.id = id;
   container.appendChild(clone);
+  let visibleSuggestions = [];
 });
 
 const cards = document.querySelectorAll(".card");
