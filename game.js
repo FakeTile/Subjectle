@@ -132,13 +132,20 @@ function enterGuess(name) {
   const input_wrapper = card.querySelector('.input-wrapper');
   const input_element = input_wrapper.querySelector('input');
   input_element.disabled = true;
+  if (name === guesee) {
+    alert("You win");
+    return;
+  }
+  if (num_guesses === 4) {
+    alert("You lose refresh the page if you want idk");
+    return;
+  };
   num_guesses += 1;
   document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
   wrappers.forEach((wrapper, index) => {
     const hint = wrapper.querySelector('.hint');
-    console.log(o);
     hint.textContent = o[index][1];
     hint.style.backgroundColor = o[index][0];
   });
@@ -148,8 +155,6 @@ function output(name) {
   let guess = data[name];
   let target = data[guesee];
   let unmatched = target.slice();
-  console.log(guesee);
-  console.log(target);
   const usedSubjs = target.map((char, i) => guess[i] === char ? null : char);
   let out = [];
   guess.forEach((val, index) => {
