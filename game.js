@@ -148,6 +148,8 @@ function output(name) {
   let guess = data[name];
   let target = data[guesee];
   let unmatched = target.slice();
+  console.log(guesee);
+  console.log(target);
   const usedSubjs = target.map((char, i) => guess[i] === char ? null : char);
   let out = [];
   guess.forEach((val, index) => {
