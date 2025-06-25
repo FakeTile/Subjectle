@@ -82,10 +82,8 @@ fetch("ppl.csv")
       });
       data[`${nameSplit[0]} ${nameSplit[1]}`] = subj;
     }
+    // ---- TARGET ----
+    const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
+    const names = Object.keys(data);
+    console.log(names);
 });
-
-
-// ---- TARGET ----
-const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
-const names = Object.keys(data);
-console.log(names);
