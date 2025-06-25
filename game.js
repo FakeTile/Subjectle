@@ -119,6 +119,9 @@ function seededShuffle(array, seed) {
 
   return arr;
 }
+const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
+const names = seededShuffle(Object.keys(data), "soham");
+const guesee = names[daysSinceEpoch % names.length];
 
 let num_guesses = 0;
 
