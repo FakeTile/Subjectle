@@ -92,24 +92,31 @@ cards.forEach(card => {
   });
 
   input.addEventListener("keydown", (e) => {
-    if (visibleSuggestions.length === 0) return;
+  if (visibleSuggestions.length === 0) return;
 
-    if (e.key === "ArrowDown") {
-  e.preventDefault();
-  if (selectedSuggestionIndex > 0) {
-    selectedSuggestionIndex--;
-    updateSuggestionHighlight(selectedSuggestionIndex);
-  }
-} else if (e.key === "ArrowUp") {
-  e.preventDefault();
-  if (selectedSuggestionIndex < visibleSuggestions.length - 1) {
-    selectedSuggestionIndex++;
-    updateSuggestionHighlight(selectedSuggestionIndex);
-  }
-    } else if (e.key === "Tab" || e.key === "Enter") {
-      if (selectedSuggestionIndex === -1) return; // only apply if user selected
-      e.preventDefault();
-      const selected = visibleSuggestions[selectedSuggestionIndex];
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (selectedSuggestionIndex < visibleSuggestions.length - 1) {
+      selectedSuggestionIndex++;
+      updateSuggestionHighlight(selectedSuggestionIndex);
+    }
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (selectedSuggestionIndex > 0) {
+      selectedSuggestionIndex--;
+      updateSuggestionHighlight(selectedSuggestionIndex);
+    }
+  } else if (e.key === "Tab" || e.key === "Enter") {
+    e.preventDefault();
+
+    // Select first suggestion by default if none selected
+    if (selectedSuggestionIndex === -1) {
+      selectedSuggestionIndex = 0;
+      updateSuggestionHighlight(selectedSuggestionIndex);
+    }
+
+    const selected = visibleSuggestions[selectedSuggestionIndex];
+    if (selected) {
       input.value = selected;
       suggestionsDiv.innerHTML = "";
 
@@ -118,7 +125,9 @@ cards.forEach(card => {
           enterGuess(selected);
         }
       }
-    } else {
     }
+  }
+});
+
   });
 });
