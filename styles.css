@@ -1,5 +1,5 @@
 body {
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: sans-serif;
   background: #121212;
   overflow-y: hidden;
   padding-bottom: 5vh;
@@ -111,7 +111,7 @@ body {
     width: 100%;
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
-    font-size: 1.5vh;
+    font-size: 1.4vh;
     height: 1.8vh;
     perspective: 1000px;
     transform-style: preserve-3d;
