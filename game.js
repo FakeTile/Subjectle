@@ -1,5 +1,4 @@
 const data = {
-{
 'Abdulmohimen T': ['Jones-ext', 'Treleavan', 'Silibek', 'Smith', 'Taylor', 'Foran', 'Free', 'Jones-ext', ],
 'Addyson G': ['Vyas-ext', 'Treleaven-ext', 'Clarke', 'Bullock', 'Smith', 'McGavock', 'Free', 'Vyas-ext', ],
 'Ajdin D': ['Robinson-ext', 'White', 'Herrman', 'Marsh', 'Taylor', 'Naito', 'Free', 'Robinson-ext', ],
