@@ -1,7 +1,7 @@
 # Subjectle
 [Subjectle access link](https://subjectle.online)
 
-CURRENT WORKAROUND FOR CERTIFICATE ERROR: CHANGE URL THEN USE THE BACK ARROW IN TOP OF SCREEN/GO TO PREVIOUS PAGE
+there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
 
 // TODO:
 
@@ -14,7 +14,6 @@ Settings Menu
 Get all data correct (remote etc.)
 
 Game Functionality
-- Don't allow guessing after win
 - Some kind of introduction / key for colours, to help users get accustomed to rules
 - Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M'
 
