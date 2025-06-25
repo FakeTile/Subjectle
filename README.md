@@ -9,6 +9,9 @@ Changelog
 
 Settings Menu
 
+Game Functionality
+- Don't allow guessing after win
+
 Cookies
  - Save settings
  - Keep guesses when page refresh
