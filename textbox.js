@@ -23,7 +23,7 @@ function getMatches(query) {
 }
 
 function isValidPerson(person) {
-  return person in window.data;
+  return person in studentNames;
 }
 
 cards.forEach(card => {
