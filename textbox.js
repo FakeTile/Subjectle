@@ -67,20 +67,43 @@ fetch('ppl.csv')
       showSuggestions(matches);
     });
   
-    input.addEventListener("keydown", (e) => {
-      const matches = getMatches(input.value.trim());
-  
-      if (e.key === "Tab" && matches.length > 0) {
-        e.preventDefault();
-        input.value = matches[0];
-        suggestionsDiv.innerHTML = "";
+    let selectedSuggestionIndex = -1;
+
+  input.addEventListener("keydown", (e) => {
+  const matches = getMatches(input.value.trim());
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (matches.length > 0) {
+      selectedSuggestionIndex = (selectedSuggestionIndex + 1) % matches.length;
+      updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
+    }
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (matches.length > 0) {
+      selectedSuggestionIndex = (selectedSuggestionIndex - 1 + matches.length) % matches.length;
+      updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
+    }
+  } else if (e.key === "Tab" || e.key === "Enter") {
+    if (matches.length > 0 && selectedSuggestionIndex >= 0) {
+      e.preventDefault();
+      input.value = matches[selectedSuggestionIndex];
+      suggestionsDiv.innerHTML = "";
+    } else if (e.key === "Enter") {
+      const value = input.value.trim();
+      if (studentNames.some(name => name === value)) {
+        enterGuess(value);
       }
-  
-      if (e.key === "Enter") {
-        const value = input.value.trim();
-        if (studentNames.some(name => name === value)) {
-          enterGuess(value); // adapt if needed
-        }
-      }
-    });
+    }
+  } else {
+    selectedSuggestionIndex = -1;
+  }
+});
+
+function updateSuggestionHighlight(container, index) {
+  const children = container.querySelectorAll(".suggestion");
+  children.forEach((child, i) => {
+    child.classList.toggle("highlighted", i === index);
+  });
+}
   });
