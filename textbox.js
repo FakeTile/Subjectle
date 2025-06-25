@@ -55,20 +55,23 @@ cards.forEach(card => {
   let selectedSuggestionIndex = -1;
 
   function showSuggestions(matches) {
-    selectedSuggestionIndex = -1;
-    suggestionsDiv.innerHTML = "";
-    visibleSuggestions = matches.slice(0, 3);
+  suggestionsDiv.innerHTML = "";
+  visibleSuggestions = matches.slice(0, 3);
 
-    visibleSuggestions.forEach((match, idx) => {
-      const div = document.createElement("div");
-      div.className = "suggestion";
-      div.textContent = match;
-      if (idx === 0) {
-        div.classList.add("highlighted");
-      }
-      suggestionsDiv.appendChild(div);
-    });
-  }
+  // Start by selecting the first item
+  selectedSuggestionIndex = 0;
+
+  visibleSuggestions.forEach((match, idx) => {
+    const div = document.createElement("div");
+    div.className = "suggestion";
+    div.textContent = match;
+    if (idx === selectedSuggestionIndex) {
+      div.classList.add("highlighted");
+    }
+    suggestionsDiv.appendChild(div);
+  });
+}
+
 
   function updateSuggestionHighlight(index) {
     const children = suggestionsDiv.querySelectorAll(".suggestion");
@@ -116,7 +119,6 @@ cards.forEach(card => {
         }
       }
     } else {
-      selectedSuggestionIndex = -1;
     }
   });
 });
