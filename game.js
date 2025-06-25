@@ -139,11 +139,19 @@ async function enterGuess(name) {
   };
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
+  
   wrappers.forEach((wrapper, index) => {
     const hint = wrapper.querySelector('.hint');
-    hint.textContent = o[index][1];
-    hint.style.backgroundColor = o[index][0];
+  
+    hint.classList.remove("flip");
+  
+    setTimeout(() => {
+      hint.textContent = o[index][1];
+      hint.style.backgroundColor = o[index][0];
+      hint.classList.add("flip");
+    }, index * 100);
   });
+  
   await sleep(250);
   if (name === guesee) {
     alert("You win");
