@@ -54,19 +54,18 @@ body {
     text-align: center;
 }
 .suggestions div.top-option {
-    background-color: #084079; /* nice blue */
     text-align: center;
     transition: background-color 0.3s;
-  }
+}
 
-.suggestions div.top-option:hover {
-    background-color: #054a94;  /* slightly darker blue on hover */
+.suggestions div.highlighted {
+    background-color: #084079;
     color: white;
-  }
+}
 
 .suggestions div:hover {
-    background-color: #444;
-    transition: background-color 0.3s;
+    background-color: #054a94;
+    color: white;
 }
 
 .name-input {
