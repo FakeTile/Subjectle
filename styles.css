@@ -5,8 +5,8 @@ body {
 .grid-container {
     position: fixed;
     top: 10%;
-    left: 10%;
-    width: 80%;
+    left: 25%;
+    width: 50%;
     height: 80%;
 }
 
@@ -16,12 +16,12 @@ body {
     grid-template-rows: 1fr 1fr;
     gap: 5%;
     height: 80vh;
-    width: 80vw;
+    width: 50vw;
 }
 
 .card {
     border: 0.5vh solid #3A3A3C;
-    padding: 10%;
+    padding: 5%;
 }
 
 .card h2 {
@@ -46,10 +46,12 @@ body {
 }
 
 .suggestions div {
-    padding: 6px 10px;
+    padding: 5px 10px;
+    text-align: center;
 }
 .suggestions div.top-option {
     background-color: #084079; /* nice blue */
+    text-align: center;
   }
 
 .suggestions div:hover {
@@ -64,6 +66,24 @@ body {
 .name-input {
     background-color: #3A3A3C;
     color: #F8F8F8;
-    padding: 3px;
+    width: 100%;
+    text-align: center;
+    font-size: 3vh;
+}
+
+.hint-wrapper {
+    padding: 0.5vh;
+}
+
+.hint {
+    background-color: #3A3A3C;
+    color: #F8F8F8;
+    text-align: center;
+    border-radius: 5px;
+    font-family: sans-serif;
+    width: 100%;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    font-size: 1.5vh;
 }
   
