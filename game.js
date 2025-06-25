@@ -126,7 +126,7 @@ function seededShuffle(array, seed) {
 }
 
 // Corrects for timezone, so it flips at 12am
-const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 36000000) / 86400000);
+const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 50400000) / 86400000);
 const names = seededShuffle(Object.keys(data), "soham");
 const guesee = names[daysSinceEpoch % names.length];
 
