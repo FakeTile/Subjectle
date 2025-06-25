@@ -130,4 +130,3 @@ cards.forEach(card => {
 });
 
   });
-});
