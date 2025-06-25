@@ -69,15 +69,18 @@ fetch("ppl.csv")
     const lines = text.trim().split("\n").slice(1);
     for (let line of lines) {
       const row = line.split(",");
-      const [first, last] = row[2].split(" ");
+      let name = row[2].slice(1, -1);
+      let nameSplit = name.split(' ');
+      nameSplit[1] = nameSplit[1][0];
+        
       const subj = row.slice(3, 11).map((raw, index) => {
-        let s = raw.split("-")[0].trim();
+        let s = raw.slice(1, -1).split("-")[0].trim();
         if (s === "Richmond" && index === 2) s += "-drama";
         else if (s === "Phelps" && index === 5) s += "-anc";
         else if (extensionTeachers.includes(s) && index > 5 && index < 8) s += "-ext";
         return s;
       });
-      data[`${first} ${last[0]}`] = subj;
+      data[`${nameSplit[0]} ${nameSplit[1]}`] = subj;
     }
 });
 
