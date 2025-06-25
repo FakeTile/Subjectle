@@ -127,4 +127,5 @@ cards.forEach(card => {
       }
     }
   }
+  }
 });
