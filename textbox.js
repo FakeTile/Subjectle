@@ -1,23 +1,4 @@
-// parse csv to get name list
-studentNames = [];
-let visibleSuggestions = [];
-fetch('ppl.csv')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('failed reading csv');
-    }
-    return response.text();
-  })
-  .then(csvText => {
-    const lines = csvText.split('\n');
-    for (const line of lines.slice(1)) {
-      const values = line.split(',');
-      let name = values[2].slice(1, -1);
-      let nameSplit = name.split(' ');
-      nameSplit[1] = nameSplit[1][0];
-      studentNames.push(nameSplit[0] + ' ' + nameSplit[1]);
-    }
-  });
+const studentNames = ['Abdulmohimen T', 'Addyson G', 'Aidan D', 'Ajdin D', 'Alan D', 'Alex S', 'Alicia S', 'Alyssa S', 'Angel A', 'Angelyn W', 'Anh N', 'Anouk M', 'Arva B', 'Ashley N', 'Augie F', 'Axl H', 'Ben H', 'Byron H', 'Caleb D', 'Calvin J', 'Catalina P', 'Charlie N', 'Ciaran S', 'Cooper F', 'Dane C', 'Dylan P', 'Eileen Z', 'Elizabeth A', 'Evan M', 'Finn D', 'Finn A', 'Fox L', 'Gwendolen T', 'Hamish M', 'Hamish N', 'Hannah M', 'Harrison S', 'Henry S', 'Holly P', 'Ilira V', 'Ingrid S', 'Isabel J', 'Isabella H', 'Izakk C', 'Jackson B', 'Jai M', 'Jayanth S', 'Jethro C', 'Johnny B', 'Josie H', 'Justin L', 'Kane G', 'Katherine L', 'Katie D', 'Kiah V', 'Larissa R', 'Lars A', 'Leki D', 'Lily B', 'Luke T', 'Marley N', 'Marlon M', 'Matthew E', 'Max H', 'Melody M', 'Milly D', 'Mollie F', 'Nancy L', 'Narelle B', 'Nat M', 'Ned M', 'Neil J', 'Nina M', 'Nyx B', 'Oliver E', 'Oliver S', 'Oscar S', 'Renu V', 'Rhys B', 'Riley G', 'Robert S', 'Ronan G', 'Ronin N', 'Rory M', 'Rosie V', 'Samuel P', 'Sarah S', 'Savannah H', 'Sean M', 'Sebin P', 'Soham M', 'Soli B', 'Tahlia R', 'Tijana P', 'Til C', 'Tilly F', 'Tilly M', 'Victor V', 'Victoria H', 'William Y', 'William M', 'William Z', 'William J', 'William B', 'William W', 'Zoe D'];
 
 const container = document.getElementById('card-container');
 const template = document.getElementById('card-template');
