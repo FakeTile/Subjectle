@@ -93,13 +93,13 @@ cards.forEach(card => {
   input.addEventListener("keydown", (e) => {
     if (visibleSuggestions.length === 0) return;
 
-    if (e.key === "ArrowDown") {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       if (selectedSuggestionIndex < visibleSuggestions.length - 1) {
         selectedSuggestionIndex++;
         updateSuggestionHighlight(selectedSuggestionIndex);
       }
-    } else if (e.key === "ArrowUp") {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (selectedSuggestionIndex > 0) {
         selectedSuggestionIndex--;
