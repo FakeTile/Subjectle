@@ -109,7 +109,7 @@ cards.forEach(card => {
         selectedSuggestionIndex--;
         updateSuggestionHighlight(selectedSuggestionIndex);
       }
-    } else if (e.key === "Tab") {
+    } else if (e.key === "Tab") || (e.key === "Enter") {
       e.preventDefault();
 
       // Select first suggestion by default if none selected
@@ -124,7 +124,7 @@ cards.forEach(card => {
         suggestionsDiv.innerHTML = "";
       }    
     
-     } else if (e.key === "Enter") {
+     } if (e.key === "Enter") {
       e.preventDefault();
       const finalInput = input.value.trim();
       if (isValidPerson(finalInput)) {
