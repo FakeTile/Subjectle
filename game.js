@@ -132,16 +132,10 @@ function enterGuess(name) {
   const input_wrapper = card.querySelector('.input-wrapper');
   const input_element = input_wrapper.querySelector('input');
   input_element.disabled = true;
-  if (name === guesee) {
-    alert("You win");
-    return;
-  }
   num_guesses += 1;
-  if (num_guesses === 4) {
-    alert("You lose refresh the page if you want idk");
-    return;
+  if (num_guesses !== 4) {
+    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
   };
-  document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
   wrappers.forEach((wrapper, index) => {
@@ -149,6 +143,19 @@ function enterGuess(name) {
     hint.textContent = o[index][1];
     hint.style.backgroundColor = o[index][0];
   });
+  await sleep(250);
+  if (name === guesee) {
+    alert("You win");
+    return;
+  }
+  if (num_guesses === 4) {
+    alert("You lose refresh the page if you want idk");
+    return;
+  };
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function output(name) {
