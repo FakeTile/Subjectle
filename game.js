@@ -153,16 +153,16 @@ async function enterGuess(name) {
       hint.textContent = o[index][1];
       hint.style.backgroundColor = o[index][0];
       hint.classList.add("flip");
-    }, index * 100);
+    }, index * 175);
   });
   
-  await sleep(1000);
+  await sleep(1500);
   if (name === guesee) {
-    alert(`You won in ${num_guesses} attempts`);
+    alert(`You won in ${num_guesses} attempts!`);
     return;
   }
   if (num_guesses === 6) {
-    alert(`You lose. The correct student was: ${guesee}`);
+    alert(`You lose. The correct student was: ${guesee}.`);
     return;
   };
 }
