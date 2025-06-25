@@ -22,7 +22,7 @@ fetch('ppl.csv')
   const template = document.getElementById('card-template');
 
   // initialise cards
-  const cardIds = ['card1', 'card2', 'card3', 'card4'];
+  const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 
   cardIds.forEach(id => {
     const clone = template.content.cloneNode(true);
