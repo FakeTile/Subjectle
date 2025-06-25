@@ -43,19 +43,26 @@ fetch('ppl.csv')
   cards.forEach(card => {
     const input = card.querySelector(".name-input");
     const suggestionsDiv = card.querySelector(".suggestions");
+    suggestionsDiv.addEventListener("click", (e) => {
+      if (e.target.classList.contains("suggestion")) {
+        input.value = e.target.textContent;
+        suggestionsDiv.innerHTML = "";
+  }
+});
   
     function showSuggestions(matches) {
-      suggestionsDiv.innerHTML = "";
-      matches.slice(0, 3).reverse().forEach((match, idx, arr) => {
-        const div = document.createElement("div");
-        div.className = "suggestion";
-        div.textContent = match;
-        if (idx === arr.length - 1) {
-          div.classList.add("top-option");
-        }
-        suggestionsDiv.appendChild(div);
-      });
+  selectedSuggestionIndex = -1;
+  suggestionsDiv.innerHTML = "";
+  matches.slice(0, 3).reverse().forEach((match, idx, arr) => {
+    const div = document.createElement("div");
+    div.className = "suggestion";
+    div.textContent = match;
+    if (idx === arr.length - 1) {
+      div.classList.add("top-option");
     }
+    suggestionsDiv.appendChild(div);
+  });
+}
   
     input.addEventListener("input", () => {
       const val = input.value.trim();
@@ -85,18 +92,18 @@ fetch('ppl.csv')
       updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
     }
   } else if (e.key === "Tab" || e.key === "Enter") {
-    if (matches.length > 0 && selectedSuggestionIndex >= 0) {
-      e.preventDefault();
-      input.value = matches[selectedSuggestionIndex];
-      suggestionsDiv.innerHTML = "";
-    } else if (e.key === "Enter") {
+      if (matches.length > 0 && selectedSuggestionIndex >= 0) {
+        e.preventDefault();
+        input.value = matches[selectedSuggestionIndex];
+        suggestionsDiv.innerHTML = "";
+  } else if (e.key === "Enter") {
       const value = input.value.trim();
       if (studentNames.some(name => name === value)) {
         enterGuess(value);
       }
     }
   } else {
-    selectedSuggestionIndex = -1;
+      selectedSuggestionIndex = -1;
   }
 });
 
