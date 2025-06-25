@@ -1,30 +1,101 @@
-const data = {};
-
-// ---- LOAD CSV ----
-fetch("ppl.csv")
-  .then(res => res.text())
-  .then(text => {
-    const lines = text.trim().split("\n").slice(1);
-    for (let line of lines) {
-      const row = line.split(",");
-      let name = row[2].slice(1, -1);
-      let nameSplit = name.split(' ');
-      nameSplit[1] = nameSplit[1][0];
-        
-      const subj = row.slice(3, 11).map((raw, index) => {
-        let s = raw.slice(1, -1).split("-")[0].trim();
-        if (s === "Richmond" && index === 2) s += "-drama";
-        else if (s === "Phelps" && index === 5) s += "-anc";
-        else if (extensionTeachers.includes(s) && index > 5 && index < 8) s += "-ext";
-        return s;
-      });
-      data[`${nameSplit[0]} ${nameSplit[1]}`] = subj;
-    }
-    const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
-    const names = seededShuffle(Object.keys(data), "soham");
-    const guesee = names[daysSinceEpoch % names.length];
-    console.log(guesee);
-});
+const data = {
+'Sebin Park': ['Unity', 'White', 'Silibek', 'Tweddle', 'Free', 'Naito', 'Doyle', 'Doyle', ],
+'Jackson Barrow': ['Unity', 'Richmond', 'Clarke', 'Free', 'Smith', 'Naito', 'Tsaccounis', 'Tsaccounis', ],
+'William Ye': ['Jones', 'Phelps', 'Silibek', 'Smith', 'Parkinson', 'Naito', 'Free', 'Jones', ],
+'Alan Du': ['Vyas', 'Penn', 'Clarke', 'Smith', 'Taylor', 'Groves', 'Free', 'Vyas', ],
+'Evan Murphy': ['Vyas', 'Phelps', 'Herrman', 'Marsh', 'Taylor', 'McGavock', 'Free', 'Vyas', ],
+'Justin Lum': ['Black', 'Treleaven', 'Clarke', 'Smith', 'Rayment', 'Naito', 'Free', 'Black', ],
+'Calvin Jameson': ['Black', 'Court', 'Herrman', 'Heka', 'Rayment', 'Moller', 'Free', 'Black', ],
+'Ronin Naumovski': ['Black', 'White', 'Free', 'Smith', 'Ireland', 'Foran', 'Treleaven', 'Black', ],
+'Oliver Ellmers': ['Weekes', 'Treleaven', 'Clarke', 'Heka', 'Ireland', 'Naito', 'Free', 'Free', ],
+'Matthew Exposito': ['Black', 'Court', 'Emaneni', 'Marsh', 'Smith', 'Foran', 'Free', 'Black', ],
+'Jethro Corby': ['Free', 'Penn', 'Metson', 'Heka', 'Ireland', 'Phelps', 'Treleaven', 'Offner', ],
+'Oscar Sun': ['Jones', 'Richmond', 'Herrman', 'Bullock', 'Rayment', 'Naito', 'Free', 'Jones', ],
+'Lars Ashtonwagner': ['Black', 'Richmond', 'Silibek', 'Smith', 'Taylor', 'Moller', 'Free', 'Black', ],
+'William Murray': ['Jones', 'Richmond', 'Herrman', 'Marsh', 'Emaneni', 'Naito', 'Free', 'Jones', ],
+'William Zang': ['Robinson', 'Court', 'Silibek', 'Bullock', 'Smith', 'Naito', 'Free', 'Robinson', ],
+'Byron Hastie': ['Jones', 'Richmond', 'Herrman', 'Marsh', 'Taylor', 'Groves', 'Free', 'Jones', ],
+'Ajdin Dozo': ['Robinson', 'White', 'Herrman', 'Marsh', 'Taylor', 'Naito', 'Free', 'Robinson', ],
+'Ben Howard': ['Black', 'Phelps', 'Herrman', 'Marsh', 'Taylor', 'McGavock', 'Free', 'Black', ],
+'Dylan Powell': ['Black', 'White', 'Herrman', 'Bullock', 'Limbrey', 'McGavock', 'Free', 'Black', ],
+'Neil Joseph': ['Robinson', 'Phelps', 'Herrman', 'Marsh', 'Taylor', 'Groves', 'Free', 'Robinson', ],
+'Marley Nees': ['Weekes', 'Treleaven', 'Free', 'Milnes', 'Rayment', 'Groves', 'Doyle', 'Doyle', ],
+'Ashley Nelson': ['Unity', 'White', 'Silibek', 'Tweddle', 'Parkinson', 'Moller', 'Penn', 'Free', ],
+'Holly Phang': ['Robinson', 'White', 'Bullock', 'Smith', 'Ireland', 'McGavock', 'Free', 'Robinson', ],
+'Hamish Mcdonald': ['Free', 'Penn', 'Richmond', 'Heka', 'Limbrey', 'Moller', 'Treleaven', 'Offner', ],
+'Tahlia Robson': ['Vyas', 'Penn', 'Bullock', 'Heka', 'Ireland', 'McGavock', 'Free', 'Vyas', ],
+'Victoria Ho': ['Vyas', 'White', 'Silibek', 'Heka', 'Ireland', 'Free', 'Treleaven', 'Vyas', ],
+'Ilira Voits': ['Weekes', 'White', 'Metson', 'Heka', 'Ireland', 'Free', 'Treleaven', 'Offner', ],
+'Isabella Harris': ['Weekes', 'Court', 'Free', 'Tweddle', 'Limbrey', 'Foran', 'Doyle', 'Doyle', ],
+'Rory Munn': ['Weekes', 'Treleaven', 'Richmond', 'Milnes', 'Free', 'Moller', 'Penn', 'Offner', ],
+'Larissa Rodgercarey': ['Weekes', 'Court', 'Richmond', 'Free', 'Parkinson', 'Moller', 'Treleaven', 'Offner', ],
+'Nina Murakamimozer': ['Black', 'Court', 'Silibek', 'Wellings', 'Parkinson', 'Phelps', 'Free', 'Black', ],
+'Elizabeth Andrievski': ['Unity', 'Phelps', 'Silibek', 'Heka', 'Ireland', 'Phelps', 'Penn', 'Free', ],
+'Ingrid Stephenson': ['Black', 'Treleaven', 'Herrman', 'Heka', 'Free', 'Naito', 'Treleaven', 'Black', ],
+'Chloe Berryman': ['Jones', 'Penn', 'Richmond', 'Marsh', 'Smith', 'Naito', 'Free', 'Jones', ],
+'Max Hinde': ['Jones', 'Richmond', 'Bullock', 'Smith', 'Free', 'McGavock', 'Offner', 'Jones', ],
+'Robert Shannon': ['Robinson', 'White', 'Silibek', 'Smith', 'Parkinson', 'Phelps', 'Free', 'Robinson', ],
+'Tilly Fikkers': ['Weekes', 'Penn', 'Bullock', 'Tweddle', 'Limbrey', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Axl Hornby': ['Unity', 'Treleaven', 'Free', 'Tweddle', 'Ireland', 'Groves', 'Tsaccounis', 'Tsaccounis', ],
+'Samuel Palermo': ['Woodley', 'Treleaven', 'Free', 'Tweddle', 'Limbrey', 'Groves', 'Tsaccounis', 'Tsaccounis', ],
+'Nat Moon': ['Unity', 'Court', 'Richmond', 'Free', 'Rayment', 'Moller', 'Doyle', 'Doyle', ],
+'Hamish Nutt': ['Weekes', 'Penn', 'Bullock', 'Tweddle', 'Taylor', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Hannah Marshall': ['Robinson', 'Court', 'Free', 'Bullock', 'Rayment', 'Phelps', 'Penn', 'Robinson', ],
+'Tijana Pjevac': ['Unity', 'Penn', 'Free', 'Tweddle', 'Ireland', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Charlie North': ['Woodley', 'Treleaven', 'Bullock', 'Milnes', 'Free', 'Naito', 'Treleaven', 'Offner', ],
+'Victor Vay': ['Vyas', 'Penn', 'Bullock', 'Marsh', 'Ireland', 'Naito', 'Free', 'Vyas', ],
+'Anouk Mackenziesteele': ['Weekes', 'Phelps', 'Free', 'Milnes', 'Limbrey', 'Phelps', 'Doyle', 'Free', ],
+'Melody Mihajlovic': ['Weekes', 'Penn', 'Hirsch', 'Free', 'Parkinson', 'Phelps', 'Penn', 'Offner', ],
+'Lily Brett': ['Black', 'Court', 'Hirsch', 'Bullock', 'Smith', 'McGavock', 'Free', 'Black', ],
+'Catalina Perez': ['Jones', 'White', 'Herrman', 'Wellings', 'Limbrey', 'Moller', 'Free', 'Jones', ],
+'Henry Smith': ['Weekes', 'Richmond', 'Richmond', 'Milnes', 'Free', 'Phelps', 'Doyle', 'Doyle', ],
+'Sarah Sun': ['Black', 'White', 'Metson', 'Bullock', 'Limbrey', 'Foran', 'Free', 'Black', ],
+'Alex Schmid': ['Vyas', 'Penn', 'Herrman', 'Heka', 'Rayment', 'Moller', 'Free', 'Vyas', ],
+'Leki Debol': ['Robinson', 'Phelps', 'Metson', 'Tweddle', 'Parkinson', 'Free', 'Penn', 'Robinson', ],
+'Isabel Jaravidal': ['Free', 'Phelps', 'Richmond', 'Milnes', 'Parkinson', 'Phelps', 'Treleaven', 'Free', ],
+'Eileen Zhou': ['Black', 'Penn', 'Silibek', 'Milnes', 'Parkinson', 'Naito', 'Free', 'Black', ],
+'Kiah Vallentine': ['Unity', 'Penn', 'Metson', 'Milnes', 'Limbrey', 'Foran', 'Penn', 'Free', ],
+'Fox Larkin': ['Black', 'White', 'Herrman', 'Tweddle', 'Taylor', 'McGavock', 'Free', 'Black', ],
+'Tilly Marshall': ['Vyas', 'Court', 'Silibek', 'Milnes', 'Parkinson', 'Free', 'Penn', 'Vyas', ],
+'William Jarvis': ['Jones', 'White', 'Herrman', 'Wellings', 'Rayment', 'Phelps', 'Free', 'Jones', ],
+'Nancy Li': ['Black', 'Penn', 'Bullock', 'Milnes', 'Rayment', 'Naito', 'Free', 'Black', ],
+'William Burns': ['Robinson', 'Phelps', 'Clarke', 'Wellings', 'Ireland', 'Foran', 'Free', 'Robinson', ],
+'Renu Vemulapalli': ['Unity', 'Penn', 'Silibek', 'Free', 'Limbrey', 'Phelps', 'Doyle', 'Doyle', ],
+'Josie Heinecke': ['Woodley', 'Phelps', 'Clarke', 'Free', 'Rayment', 'Phelps', 'Treleaven', 'Offner', ],
+'Luke Taylor': ['Jones', 'White', 'Silibek', 'Free', 'Smith', 'Groves', 'Offner', 'Jones', ],
+'Til Chevalier': ['Unity', 'Penn', 'Herrman', 'Marsh', 'Emaneni', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Johnny Ball': ['Woodley', 'White', 'Clarke', 'Heka', 'Limbrey', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Finn Dempsey': ['Robinson', 'Phelps', 'Clarke', 'Heka', 'Rayment', 'Foran', 'Free', 'Robinson', ],
+'Katherine Laing': ['Jones', 'Penn', 'Herrman', 'Heka', 'Taylor', 'Phelps', 'Free', 'Jones', ],
+'Milly Dimovski': ['Unity', 'Court', 'Clarke', 'Heka', 'Ireland', 'Foran', 'Treleaven', 'Free', ],
+'Rhys Bollard': ['Woodley', 'Treleaven', 'Hirsch', 'Free', 'Limbrey', 'Groves', 'Tsaccounis', 'Tsaccounis', ],
+'Angelyn Widjaja': ['Vyas', 'Treleaven', 'Free', 'Bullock', 'Rayment', 'Naito', 'Treleaven', 'Vyas', ],
+'Mollie Fitzpatrick': ['Robinson', 'Treleaven', 'Hirsch', 'Smith', 'Taylor', 'Free', 'Free', 'Robinson', ],
+'Soham Mudgil': ['Jones', 'Treleaven', 'Clarke', 'Bullock', 'Ireland', 'McGavock', 'Free', 'Jones', ],
+'Finn Alexander': ['Woodley', 'Court', 'Metson', 'Heka', 'Free', 'Foran', 'Penn', 'Offner', ],
+'Olive Dusting': ['Jones', 'Penn', 'Silibek', 'Bullock', 'Smith', 'Naito', 'Free', 'Jones', ],
+'Kane Gardiner': ['Vyas', 'White', 'Richmond', 'Milnes', 'Smith', 'Groves', 'Free', 'Vyas', ],
+'Arva Bayani': ['Robinson', 'Phelps', 'Bullock', 'Tweddle', 'Ireland', 'Foran', 'Free', 'Robinson', ],
+'Addyson Gray': ['Vyas', 'Treleaven', 'Clarke', 'Bullock', 'Smith', 'McGavock', 'Free', 'Vyas', ],
+'Izakk Curtin': ['Unity', 'Penn', 'Clarke', 'Smith', 'Taylor', 'Groves', 'Free', 'Free', ],
+'Harrison Smith': ['Jones', 'Richmond', 'Clarke', 'Smith', 'Taylor', 'Groves', 'Free', 'Jones', ],
+'Savannah Hincksman': ['Free', 'Penn', 'Bullock', 'Heka', 'Ireland', 'Phelps', 'Treleaven', 'Offner', ],
+'Dane Conklin': ['Unity', 'Penn', 'Clarke', 'Smith', 'Rayment', 'Free', 'Doyle', 'Doyle', ],
+'Angel Acosta': ['Jones', 'Richmond', 'Hirsch', 'Bullock', 'Rayment', 'Free', 'Offner', 'Jones', ],
+'Marlon Macnab': ['Vyas', 'Phelps', 'Clarke', 'Smith', 'Rayment', 'Groves', 'Free', 'Vyas', ],
+'Cooper Finnegan': ['Robinson', 'Court', 'Hirsch', 'Wellings', 'Smith', 'Groves', 'Free', 'Robinson', ],
+'Katie Dillonshallard': ['Woodley', 'Phelps', 'Clarke', 'Milnes', 'Free', 'Foran', 'Doyle', 'Doyle', ],
+'Sean Mcpherson': ['Woodley', 'Phelps', 'Bullock', 'Tweddle', 'Rayment', 'Foran', 'Free', 'Free', ],
+'Zoe Dunning': ['Woodley', 'White', 'Metson', 'Tweddle', 'Parkinson', 'Phelps', 'Treleaven', 'Free', ],
+'Soli Black': ['Woodley', 'White', 'Clarke', 'Tweddle', 'Limbrey', 'Free', 'Doyle', 'Free', ],
+'Narelle Berlanda': ['Jones', 'Court', 'Silibek', 'Bullock', 'Smith', 'Free', 'Free', 'Jones', ],
+'Gwendolen Twyford': ['Unity', 'Penn', 'Metson', 'Milnes', 'Parkinson', 'McGavock', 'Free', 'Free', ],
+'Ned Moffitt': ['Black', 'White', 'Herrman', 'Free', 'Taylor', 'McGavock', 'Offner', 'Black', ],
+'Abdulmohimen Tubbal': ['Jones', 'Treleavan', 'Silibek', 'Smith', 'Taylor', 'Foran', 'Free', 'Jones', ],
+'Jai Mittal': ['Woodley', 'Court', 'Silibek', 'Tweddle', 'Limbrey', 'Free', 'Tsaccounis', 'Tsaccounis', ],
+'Alyssa Sorensen': ['Unity', 'White', 'Free', 'Bullock', 'Ireland', 'Moller', 'Tsaccounis', 'Tsaccounis', ],
+'Rosie Van': ['Vyas', 'White', 'Silibek', 'Bullock', 'Limbrey', 'Foran', 'Free', 'Vyas', ],
+};
 
 // Seeded PRNG
 function mulberry32(seed) {
