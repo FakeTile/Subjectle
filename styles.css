@@ -1,5 +1,6 @@
 body {
-    background-color: #121213;
+  font-family: 'Trebuchet MS', sans-serif;
+  background: #121212;
 }
 
 .grid-container {
@@ -14,14 +15,16 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 5%;
+    gap: 3%;
     height: 80vh;
     width: 50vw;
 }
 
 .card {
-    border: 0.5vh solid #3A3A3C;
+    border: 0.35vh solid #2B2B2B;
     padding: 5%;
+    border-radius: 10px;
+    background: #20202080;
 }
 
 .card h2 {
@@ -30,10 +33,11 @@ body {
 
 .input-wrapper {
     position: relative;
+    padding-bottom: 10px;
 }
 
 .suggestions {
-    background: #3A3A3C;
+    background: #2C2C2C;
     color: #F8F8F8;
     position: absolute;       /* ⬅️ make it float above the input */
     bottom: 100%;             /* ⬅️ place above the input field */
@@ -52,34 +56,50 @@ body {
 .suggestions div.top-option {
     background-color: #084079; /* nice blue */
     text-align: center;
+    transition: background-color 0.3s;
   }
-
-.suggestions div:hover {
-    background-color: #444;
-}
 
 .suggestions div.top-option:hover {
     background-color: #054a94;  /* slightly darker blue on hover */
     color: white;
   }
 
+.suggestions div:hover {
+    background-color: #444;
+    transition: background-color 0.3s;
+}
+
 .name-input {
-    background-color: #3A3A3C;
-    color: #F8F8F8;
+    background-color: #2C2C2C;
+    color: white;
     width: 100%;
     text-align: center;
     font-size: 3vh;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 0px 5px 0px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.name-input:disabled {
+  color: #9A9A9A;
+  background-color: #242424;
+}
+
+.name-input:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .hint-wrapper {
-    padding: 0.5vh;
+    padding: 0.25vh;
 }
 
 .hint {
-    background-color: #121213;
-    color: #F8F8F8;
+    background-color: #2C2C2C;
+    color: #FAFAFA;
     text-align: center;
-    border: 1px solid #3A3A3C;
+    border: none;
     border-radius: 3px;
     font-family: sans-serif;
     width: 100%;
@@ -89,25 +109,31 @@ body {
     height: 1.8vh;
     perspective: 1000px;
     transform-style: preserve-3d;
-    transition: background-color 0.3s;
+    transition: background-color 0.6s;
     font-weight: bolder;
 }
 
 .hint.flip {
-    animation: flip 0.6s forwards;
+  animation: flip 500ms ease forwards;
 }
 
 @keyframes flip {
-    0% {
-      transform: rotateX(0);
-    }
-    49% {
-      transform: rotateX(90deg);
-    }
-    50% {
-      transform: rotateX(90deg);
-    }
-    100% {
-      transform: rotateX(0);
-    }
-  }  
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.suggestion {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.suggestion.highlighted {
+  background-color: #007bff;
+  color: white;
+}
