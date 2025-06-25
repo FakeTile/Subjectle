@@ -1,5 +1,5 @@
 # Subjectle
-subjectl.online
+subjectle.online
 
 // TODO:
 
