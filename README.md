@@ -1,5 +1,5 @@
 # Subjectle
-[Subjectle access link](https://www.subjectle.online)
+[Subjectle access link](subjectle.online)
 
 // TODO:
 
