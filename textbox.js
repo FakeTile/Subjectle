@@ -91,7 +91,9 @@ cards.forEach(card => {
   });
 
   input.addEventListener("keydown", (e) => {
-   if (e.key === "ArrowUp") {
+    if (visibleSuggestions.length === 0) return;
+
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       if (selectedSuggestionIndex < visibleSuggestions.length - 1) {
         selectedSuggestionIndex++;
@@ -106,20 +108,22 @@ cards.forEach(card => {
     } else if (e.key === "Tab" || e.key === "Enter") {
       e.preventDefault();
 
-      let inputVal = input.value.trim();
-      let selectedName = null;
-
-      if (inputVal !== "") {
-        selectedName = inputVal;
-      } else if (visibleSuggestions.length > 0) {
-        selectedName = visibleSuggestions[selectedSuggestionIndex] || visibleSuggestions[0];
-        input.value = selectedName;  
+      // Select first suggestion by default if none selected
+      if (selectedSuggestionIndex === -1) {
+        selectedSuggestionIndex = 0;
+        updateSuggestionHighlight(selectedSuggestionIndex);
       }
-  
-      suggestionsDiv.innerHTML = "";
-  
-      if (selectedName && studentNames.includes(selectedName)) {
-        enterGuess(selectedName);
+
+      const selected = visibleSuggestions[selectedSuggestionIndex];
+      if (selected) {
+        input.value = selected;
+        suggestionsDiv.innerHTML = "";
+
+        if (e.key === "Enter") {
+          if (studentNames.includes(selected)) {
+            enterGuess(selected);
+          }
+        }
       }
     }
   });
