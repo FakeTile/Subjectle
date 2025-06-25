@@ -156,13 +156,13 @@ async function enterGuess(name) {
     }, index * 100);
   });
   
-  await sleep(250);
+  await sleep(1000);
   if (name === guesee) {
     alert("You win");
     return;
   }
   if (num_guesses === 6) {
-    alert(`You lose. The correct student was: $guesee`);
+    alert(`You lose. The correct student was: ${guesee}`);
     return;
   };
 }
