@@ -53,7 +53,7 @@ fetch('ppl.csv')
     function showSuggestions(matches) {
   selectedSuggestionIndex = -1;
   suggestionsDiv.innerHTML = "";
-  matches.slice(0, 3).reverse().forEach((match, idx, arr) => {
+  matches.slice(0, 3).forEach((match, idx, arr) => {
     const div = document.createElement("div");
     div.className = "suggestion";
     div.textContent = match;
@@ -92,17 +92,21 @@ fetch('ppl.csv')
       updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
     }
   } else if (e.key === "Tab" || e.key === "Enter") {
-      if (matches.length > 0 && selectedSuggestionIndex >= 0) {
-        e.preventDefault();
-        input.value = matches[selectedSuggestionIndex];
-        suggestionsDiv.innerHTML = "";
-  } else if (e.key === "Enter") {
-      const value = input.value.trim();
-      if (studentNames.some(name => name === value)) {
-        enterGuess(value);
+  e.preventDefault();
+  if (matches.length > 0) {
+    const selected =
+      selectedSuggestionIndex >= 0 ? matches[selectedSuggestionIndex] : matches[0];
+    input.value = selected;
+    suggestionsDiv.innerHTML = "";
+
+    if (e.key === "Enter") {
+      // Immediately check guess if valid
+      if (studentNames.includes(selected)) {
+        enterGuess(selected);
       }
     }
-  } else {
+  }
+} else {
       selectedSuggestionIndex = -1;
   }
 });
