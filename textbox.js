@@ -15,7 +15,6 @@ fetch('ppl.csv')
         let name = values[2].slice(1, -1);
         let nameSplit = name.split(' ')
         nameSplit[1] = nameSplit[1][0];
-        console.log(nameSplit);
         studentNames.push(nameSplit[0] + ' ' + nameSplit[1]);
     }
   })
