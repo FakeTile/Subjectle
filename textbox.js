@@ -46,30 +46,13 @@ fetch('ppl.csv')
   
     function showSuggestions(matches) {
       suggestionsDiv.innerHTML = "";
-      matches.slice(0, 4).reverse().forEach((match, idx, arr) => {
+      matches.slice(0, 1).reverse().forEach((match, idx, arr) => {
         const div = document.createElement("div");
         div.className = "suggestion";
         div.textContent = match;
         if (idx === arr.length - 1) {
           div.classList.add("top-option");
         }
-  
-        div.onclick = () => {
-          input.value = match;
-          suggestionsDiv.innerHTML = "";
-  
-          // Optional: enable next input
-          const nextCard = card.nextElementSibling;
-          if (nextCard) {
-            const nextInput = nextCard.querySelector(".name-input");
-            if (nextInput) {
-              nextInput.disabled = false;
-              nextInput.focus();
-            }
-          }
-  
-          input.disabled = true;
-        };
         suggestionsDiv.appendChild(div);
       });
     }
