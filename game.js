@@ -87,6 +87,8 @@ const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 864000
 const keys = Object.keys(data);
 const seededKeys = [...keys].sort(); // to make shuffle deterministic
 const guesee = seededKeys[daysSinceEpoch % seededKeys.length];
+console.log(data);
+console.log(keys);
 console.log(daysSinceEpoch);
 console.log(seededKeys);
 console.log(guesee);
