@@ -1,6 +1,8 @@
 # Subjectle
 [Subjectle access link](https://subjectle.online)
 
+CURRENT WORKAROUND FOR CERTIFICATE ERROR: CHANGE URL THEN USE THE BACK ARROW IN TOP OF SCREEN/GO TO PREVIOUS PAGE
+
 // TODO:
 
 Get everybody on
