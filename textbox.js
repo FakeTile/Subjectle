@@ -1,6 +1,6 @@
 // parse csv to get name list
 studentNames = [];
-
+let visibleSuggestions = [];
 fetch('ppl.csv')
   .then(response => {
     if (!response.ok) {
@@ -51,14 +51,16 @@ fetch('ppl.csv')
 });
   
     function showSuggestions(matches) {
-   selectedSuggestionIndex = -1;
+  selectedSuggestionIndex = -1;
   suggestionsDiv.innerHTML = "";
-  matches.slice(0, 3).forEach((match, idx) => {
+  visibleSuggestions = matches.slice(0, 3); // Store only the shown ones
+
+  visibleSuggestions.forEach((match, idx) => {
     const div = document.createElement("div");
     div.className = "suggestion";
     div.textContent = match;
     if (idx === 0) {
-      div.classList.add("highlighted");
+      div.classList.add("highlighted"); // always highlight first shown
     }
     suggestionsDiv.appendChild(div);
   });
@@ -77,37 +79,34 @@ fetch('ppl.csv')
     let selectedSuggestionIndex = -1;
 
   input.addEventListener("keydown", (e) => {
-  const matches = getMatches(input.value.trim());
+  if (visibleSuggestions.length === 0) return;
 
   if (e.key === "ArrowDown") {
     e.preventDefault();
-    if (matches.length > 0) {
-      selectedSuggestionIndex = (selectedSuggestionIndex + 1) % matches.length;
-      updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
-    }
+    selectedSuggestionIndex =
+      (selectedSuggestionIndex + 1) % visibleSuggestions.length;
+    updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
   } else if (e.key === "ArrowUp") {
     e.preventDefault();
-    if (matches.length > 0) {
-      selectedSuggestionIndex = (selectedSuggestionIndex - 1 + matches.length) % matches.length;
-      updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
-    }
+    selectedSuggestionIndex =
+      (selectedSuggestionIndex - 1 + visibleSuggestions.length) % visibleSuggestions.length;
+    updateSuggestionHighlight(suggestionsDiv, selectedSuggestionIndex);
   } else if (e.key === "Tab" || e.key === "Enter") {
-  e.preventDefault();
-  if (matches.length > 0) {
+    e.preventDefault();
     const selected =
-      selectedSuggestionIndex >= 0 ? matches[selectedSuggestionIndex] : matches[0];
+      selectedSuggestionIndex >= 0
+        ? visibleSuggestions[selectedSuggestionIndex]
+        : visibleSuggestions[0];
     input.value = selected;
     suggestionsDiv.innerHTML = "";
 
     if (e.key === "Enter") {
-      // Immediately check guess if valid
       if (studentNames.includes(selected)) {
         enterGuess(selected);
       }
     }
-  }
-} else {
-      selectedSuggestionIndex = -1;
+  } else {
+    selectedSuggestionIndex = -1;
   }
 });
 
