@@ -9,9 +9,9 @@ const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 cardIds.forEach(id => {
   const clone = template.content.cloneNode(true);
   const card = clone.querySelector('.card');
+  let visibleSuggestions = [];
   card.id = id;
   container.appendChild(clone);
-  let visibleSuggestions = [];
 });
 
 const cards = document.querySelectorAll(".card");
@@ -56,7 +56,7 @@ cards.forEach(card => {
       }
       suggestionsDiv.appendChild(div);
     });
-  }  // 👈 FIXED: missing closing brace here
+  }
 
   function updateSuggestionHighlight(index) {
     const children = suggestionsDiv.querySelectorAll(".suggestion");
