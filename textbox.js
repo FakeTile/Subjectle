@@ -128,5 +128,3 @@ cards.forEach(card => {
     }
   }
 });
-
-  });
