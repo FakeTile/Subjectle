@@ -1,4 +1,4 @@
-const data = {
+window.data = {
 'Abdulmohimen T': ['Jones', 'Treleavan', 'Silibek', 'Smith', 'Taylor', 'Foran', 'Free', 'Jones-ext', ],
 'Addyson G': ['Vyas', 'Treleaven', 'Clarke', 'Bullock', 'Smith', 'McGavock', 'Free', 'Vyas-ext', ],
 'Aidan D': ['Black', 'White', 'Clarke', 'Heka', 'Ireland', 'McGavock', 'Free', 'Black-ext', ],
