@@ -16,9 +16,9 @@ with open(PATH, 'r') as f:
       s = str(raw.split('-')[0]).strip()
       if s == "Richmond" and index == 2:
         s = s + "-drama"
-      elif s == "Phelps" and 4 < index:
+      elif s == "Phelps" and index == 5:
         s = s + "-anc"
-      elif s in extensionTeachers and 9 > index:
+      elif s in extensionTeachers and index > 5:
         s = s + "-ext"
       print(f"'{s}', ", end='')
     print('],')
