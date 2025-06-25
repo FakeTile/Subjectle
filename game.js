@@ -126,7 +126,7 @@ const guesee = names[daysSinceEpoch % names.length];
 let num_guesses = 0;
 
 document.querySelector('#card1 .input-wrapper input').disabled = false;
-function enterGuess(name) {
+async function enterGuess(name) {
   const id = "card" + (num_guesses + 1);
   const card = document.getElementById(id);
   const input_wrapper = card.querySelector('.input-wrapper');
