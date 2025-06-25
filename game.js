@@ -28,7 +28,7 @@ const names = seededShuffle(Object.keys(data), "soham");
 const guesee = names[daysSinceEpoch % names.length];
 
 let num_guesses = 0;
-let hasWon = False;
+let hasWon = false;
 document.querySelector('#card1 .input-wrapper input').disabled = false;
 async function enterGuess(name) {
   if (hasWon || num_guesses >= 6) return; // prevent guesses if already won here !!
@@ -58,7 +58,7 @@ async function enterGuess(name) {
   
   await sleep(1500);
   if (name === guesee) {
-    hasWon = True;
+    hasWon = true;
     alert(`You won in ${num_guesses} attempts!`);
     return;
   }
