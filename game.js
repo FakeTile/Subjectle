@@ -1,3 +1,54 @@
+const data = {};
+
+// ---- LOAD CSV ----
+fetch("ppl.csv")
+  .then(res => res.text())
+  .then(text => {
+    const lines = text.trim().split("\n").slice(1);
+    for (let line of lines) {
+      const row = line.split(",");
+      let name = row[2].slice(1, -1);
+      let nameSplit = name.split(' ');
+      nameSplit[1] = nameSplit[1][0];
+        
+      const subj = row.slice(3, 11).map((raw, index) => {
+        let s = raw.slice(1, -1).split("-")[0].trim();
+        if (s === "Richmond" && index === 2) s += "-drama";
+        else if (s === "Phelps" && index === 5) s += "-anc";
+        else if (extensionTeachers.includes(s) && index > 5 && index < 8) s += "-ext";
+        return s;
+      });
+      data[`${nameSplit[0]} ${nameSplit[1]}`] = subj;
+    }
+    const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
+    const names = seededShuffle(Object.keys(data), "soham");
+    const guesee = names[daysSinceEpoch % names.length];
+    console.log(guesee);
+});
+
+// Seeded PRNG
+function mulberry32(seed) {
+  return function () {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Deterministic shuffle
+function seededShuffle(array, seed) {
+  const rng = mulberry32(seed);
+  const arr = array.slice();
+
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+}
+
 let num_guesses = 0;
 
 document.querySelector('#card1 .input-wrapper input').disabled = false;
@@ -101,58 +152,3 @@ const subjects = {
   "Woodley": "Mathematics advanced",
   "Milnes": "Visual art"
 };
-
-const data = {};
-
-// ---- LOAD CSV ----
-fetch("ppl.csv")
-  .then(res => res.text())
-  .then(text => {
-    const lines = text.trim().split("\n").slice(1);
-    for (let line of lines) {
-      const row = line.split(",");
-      let name = row[2].slice(1, -1);
-      let nameSplit = name.split(' ');
-      nameSplit[1] = nameSplit[1][0];
-        
-      const subj = row.slice(3, 11).map((raw, index) => {
-        let s = raw.slice(1, -1).split("-")[0].trim();
-        if (s === "Richmond" && index === 2) s += "-drama";
-        else if (s === "Phelps" && index === 5) s += "-anc";
-        else if (extensionTeachers.includes(s) && index > 5 && index < 8) s += "-ext";
-        return s;
-      });
-      data[`${nameSplit[0]} ${nameSplit[1]}`] = subj;
-    }
-    // ---- TARGET ----
-    const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
-    const names = Object.keys(data);
-    console.log(names);
-});
-
-// Seeded PRNG
-function mulberry32(seed) {
-  return function () {
-    let t = seed += 0x6D2B79F5;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// Deterministic shuffle
-function seededShuffle(array, seed) {
-  const rng = mulberry32(seed);
-  const arr = array.slice();
-
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-
-  return arr;
-}
-
-const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
-const names = seededShuffle(Object.keys(data), "soham");
-const guesee = names[daysSinceEpoch % names.length];
