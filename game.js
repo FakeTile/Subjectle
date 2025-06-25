@@ -136,11 +136,11 @@ function enterGuess(name) {
     alert("You win");
     return;
   }
+  num_guesses += 1;
   if (num_guesses === 4) {
     alert("You lose refresh the page if you want idk");
     return;
   };
-  num_guesses += 1;
   document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
