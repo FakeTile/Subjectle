@@ -9,9 +9,12 @@ Changelog
 
 Settings Menu
 
+Get all data correct (remote etc.)
+
 Game Functionality
 - Don't allow guessing after win
 - Some kind of introduction / key for colours, to help users get accustomed to rules
+- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M'
 
 Cookies
  - Save settings
