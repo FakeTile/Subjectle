@@ -109,7 +109,7 @@ cards.forEach(card => {
         selectedSuggestionIndex--;
         updateSuggestionHighlight(selectedSuggestionIndex);
       }
-    } else if (e.key === "Tab") || (e.key === "Enter") {
+    } else if (e.key === "Tab") {
       e.preventDefault();
 
       // Select first suggestion by default if none selected
