@@ -1,5 +1,5 @@
 // parse csv to get name list
-studentNames = ["Angel A", "Tilly C", "Alan D"];
+studentNames = [];
 
 fetch('ppl.csv')
   .then(response => {
