@@ -158,7 +158,7 @@ async function enterGuess(name) {
   
   await sleep(1000);
   if (name === guesee) {
-    alert("You win");
+    alert(`You won in ${num_guesses} attempts`);
     return;
   }
   if (num_guesses === 6) {
