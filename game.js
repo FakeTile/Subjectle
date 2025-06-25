@@ -131,8 +131,10 @@ const names = seededShuffle(Object.keys(data), "soham");
 const guesee = names[daysSinceEpoch % names.length];
 
 let num_guesses = 0;
+let hasNotWon = true;
 
 document.querySelector('#card1 .input-wrapper input').disabled = false;
+
 async function enterGuess(name) {
   const id = "card" + (num_guesses + 1);
   const card = document.getElementById(id);
@@ -140,34 +142,50 @@ async function enterGuess(name) {
   const input_element = input_wrapper.querySelector('input');
   input_element.disabled = true;
   num_guesses += 1;
-  if (num_guesses !== 6) {
-    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
-  };
+
+  if (hasNotWon && num_guesses !== 6) {
+    document.querySelector('#card' + (num_guesses + 1) + ' .input-wrapper input').disabled = false;
+  }
+
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
-  
+
   wrappers.forEach((wrapper, index) => {
     const hint = wrapper.querySelector('.hint');
-  
+
     hint.classList.remove("flip");
-  
+
     setTimeout(() => {
       hint.textContent = o[index][1];
       hint.style.backgroundColor = o[index][0];
       hint.classList.add("flip");
     }, index * 175);
   });
+
+  if (name === guesee) {
+    hasNotWon = false;
+    for (let i = num_guesses + 1; i <= 6; i++) {
+      const nextInput = document.querySelector('#card' + i + ' .input-wrapper input');
+      if (nextInput) {
+        nextInput.disabled = true;
+      }
+    }
+  }
   
-  await sleep(1500);
+  await sleep(1600);
+  
   if (name === guesee) {
     alert(`You won in ${num_guesses} attempts!`);
     return;
   }
+
   if (num_guesses === 6) {
+    await sleep(1600);
     alert(`You lose. The correct student was: ${guesee}.`);
     return;
-  };
+  }
 }
+
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
