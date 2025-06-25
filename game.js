@@ -2,7 +2,6 @@ let num_guesses = 0;
 
 document.querySelector('#card1 .input-wrapper input').disabled = false;
 function enterGuess(name) {
-  console.log(name);
   const id = "card" + (num_guesses + 1);
   const card = document.getElementById(id);
   const input_wrapper = card.querySelector('.input-wrapper');
@@ -11,14 +10,44 @@ function enterGuess(name) {
   num_guesses += 1;
   document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
   const wrappers = card.querySelectorAll('.hint-wrapper');
-
+  const o = output(name);
   wrappers.forEach((wrapper, index) => {
     const hint = wrapper.querySelector('.hint');
-    hint.textContent = index;
-    hint.style.backgroundColor = '#FF0000';
-    });
+    console.log(o);
+    hint.textContent = o[index][1];
+    hint.style.backgroundColor = o[index][0];
+  });
 }
-  
+
+function output(name) {
+  let guess = data[name];
+  let target = data[guesee];
+  let unmatched = target.slice();
+  const usedSubjs = target.map((char, i) => guess[i] === char ? null : char);
+  let out = [];
+  guess.forEach((val, index) => {
+
+      if (val === target[index]) {
+          out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
+          unmatched[index] = null;
+          usedSubjs[index] = null;
+
+      } else if (unmatched.includes(val)) {
+          out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
+          unmatched[unmatched.indexOf(val)] = null; // prevent dup yellow
+
+      } else if (Object.values(subjects).includes(subjects[val]) && usedSubjs.some(code => code && subjects[code] === subjects[val])) {
+          out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
+          let firstMatch = usedSubjs.findIndex(code => code && subjects[code] === subjects[val]);
+          usedSubjs[firstMatch] = null; // prevent dup yellow on same subj
+
+      } else {
+          out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`])
+      }
+  });
+
+  return out;
+}
 
 const PATH = "ppl.csv";
 const extensionTeachers = ["Robinson", "Black", "Vyas", "Treleaven", "Penn", "Jones"];
@@ -100,3 +129,30 @@ fetch("ppl.csv")
     const names = Object.keys(data);
     console.log(names);
 });
+
+// Seeded PRNG
+function mulberry32(seed) {
+  return function () {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Deterministic shuffle
+function seededShuffle(array, seed) {
+  const rng = mulberry32(seed);
+  const arr = array.slice();
+
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+}
+
+const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
+const names = seededShuffle(Object.keys(data), "soham");
+const guesee = names[daysSinceEpoch % names.length];
