@@ -51,14 +51,14 @@ fetch('ppl.csv')
 });
   
     function showSuggestions(matches) {
-  selectedSuggestionIndex = -1;
+   selectedSuggestionIndex = -1;
   suggestionsDiv.innerHTML = "";
-  matches.slice(0, 3).forEach((match, idx, arr) => {
+  matches.slice(0, 3).forEach((match, idx) => {
     const div = document.createElement("div");
     div.className = "suggestion";
     div.textContent = match;
-    if (idx === arr.length - 1) {
-      div.classList.add("top-option");
+    if (idx === 0) {
+      div.classList.add("highlighted");
     }
     suggestionsDiv.appendChild(div);
   });
