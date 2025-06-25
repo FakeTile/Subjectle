@@ -11,6 +11,7 @@ Settings Menu
 
 Game Functionality
 - Don't allow guessing after win
+- Some kind of introduction / key for colours, to help users get accustomed to rules
 
 Cookies
  - Save settings
