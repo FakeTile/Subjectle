@@ -49,6 +49,7 @@ cards.forEach(card => {
     if (e.target.classList.contains("suggestion")) {
       input.value = e.target.textContent;
       suggestionsDiv.innerHTML = "";
+      enterGuess(input.value);
     }
   });
 
