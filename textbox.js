@@ -92,15 +92,17 @@ cards.forEach(card => {
     if (visibleSuggestions.length === 0) return;
 
     if (e.key === "ArrowDown") {
-      e.preventDefault();
-      selectedSuggestionIndex =
-        (selectedSuggestionIndex + 1) % visibleSuggestions.length;
-      updateSuggestionHighlight(selectedSuggestionIndex);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      selectedSuggestionIndex =
-        (selectedSuggestionIndex - 1 + visibleSuggestions.length) % visibleSuggestions.length;
-      updateSuggestionHighlight(selectedSuggestionIndex);
+  e.preventDefault();
+  if (selectedSuggestionIndex > 0) {
+    selectedSuggestionIndex--;
+    updateSuggestionHighlight(selectedSuggestionIndex);
+  }
+} else if (e.key === "ArrowUp") {
+  e.preventDefault();
+  if (selectedSuggestionIndex < visibleSuggestions.length - 1) {
+    selectedSuggestionIndex++;
+    updateSuggestionHighlight(selectedSuggestionIndex);
+  }
     } else if (e.key === "Tab" || e.key === "Enter") {
       if (selectedSuggestionIndex === -1) return; // only apply if user selected
       e.preventDefault();
