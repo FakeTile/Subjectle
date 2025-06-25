@@ -94,11 +94,10 @@ fetch('ppl.csv')
       }
   
       if (e.key === "Enter") {
-        const value = input.value.trim().toLowerCase();
-        if (studentNames.some(name => name.toLowerCase() === value)) {
-          enterGuess(); // adapt if needed
+        const value = input.value.trim();
+        if (studentNames.some(name => name === value)) {
+          enterGuess(value); // adapt if needed
         }
       }
     });
   });
-  
