@@ -16,7 +16,8 @@ function enterGuess(name) {
     const hint = wrapper.querySelector('.hint');
     hint.textContent = index;
     hint.style.backgroundColor = '#FF0000';
-  }
+    });
+}
   
 
 const PATH = "ppl.csv";
