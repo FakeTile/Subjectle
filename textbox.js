@@ -49,7 +49,6 @@ cards.forEach(card => {
     if (e.target.classList.contains("suggestion")) {
       input.value = e.target.textContent;
       suggestionsDiv.innerHTML = "";
-      enterGuess(input.value);
     }
   });
 
@@ -106,7 +105,7 @@ cards.forEach(card => {
         selectedSuggestionIndex--;
         updateSuggestionHighlight(selectedSuggestionIndex);
       }
-    } else if (e.key === "Tab" || e.key === "Enter") {
+    } else if (e.key === "Tab") {
       e.preventDefault();
 
       // Select first suggestion by default if none selected
@@ -119,12 +118,14 @@ cards.forEach(card => {
       if (selected) {
         input.value = selected;
         suggestionsDiv.innerHTML = "";
-
-        if (e.key === "Enter") {
-          if (studentNames.includes(selected)) {
-            enterGuess(selected);
-          }
-        }
+      }    
+    
+     } else if (e.key === "Enter") {
+      e.preventDefault();
+      const finalInput = input.value.trim();
+      if (finalInput) {
+        enterGuess(finalInput);
+        suggestionsDiv.innerHTML = "";
       }
     }
   });
