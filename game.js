@@ -1,11 +1,22 @@
 let num_guesses = 0;
 
 document.querySelector('#card1 .input-wrapper input').disabled = false;
-function enterGuess() {
-    num_guesses += 1;
-    document.querySelector('#card' + num_guesses + ' .input-wrapper input').disabled = true;
-    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
-}
+function enterGuess(name) {
+  console.log(name);
+  const id = "card" + (num_guesses + 1);
+  const card = document.getElementById(id);
+  const input_wrapper = card.querySelector('.input-wrapper');
+  const input_element = input_wrapper.querySelector('input');
+  input_element.disabled = true;
+  num_guesses += 1;
+  document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
+  const wrappers = card.querySelectorAll('.hint-wrapper');
+
+  wrappers.forEach((wrapper, index) => {
+    const hint = wrapper.querySelector('.hint');
+    hint.textContent = index;
+    hint.style.backgroundColor = '#FF0000';
+  
 
 const PATH = "ppl.csv";
 const extensionTeachers = ["Robinson", "Black", "Vyas", "Treleaven", "Penn", "Jones"];
