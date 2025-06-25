@@ -87,11 +87,5 @@ fetch("ppl.csv")
 
 // ---- TARGET ----
 const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01")) / 86400000);
-const keys = Object.keys(data);
-const seededKeys = [...keys].sort(); // to make shuffle deterministic
-const guesee = seededKeys[daysSinceEpoch % seededKeys.length];
-console.log(data);
-console.log(keys);
-console.log(daysSinceEpoch);
-console.log(seededKeys);
-console.log(guesee);
+const names = Object.keys(data);
+console.log(names);
