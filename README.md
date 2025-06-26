@@ -6,18 +6,20 @@ there is an error regarding certificates and all the rest, the school proxy bloc
 -----------------------------------------------------------------------
 HOW TO UPDATE THE WORD LIST
 Clone the repo
-gh repo clone https://github.com/FakeTile/Subjectle
-
 run update-ppl.py
-python3 update-ppl.py
-
 check textbox.js and game.js to confirm nothing broke
-
 push the changes to main
-git add textbox.js
-git add game.js
-git commit -m "Message"
+
+Alternatively, if your on bash copy these lines
+
+gh repo clone https://github.com/FakeTile/Subjectle && 
+cd Subjectle/ && 
+python3 update-ppl.py && 
+git add game.js && 
+git add textbox.js && 
+git commit -m "Updated people list" &&
 git push origin
+
 ----------------------------------------------------------------------
 
 // TODO:
