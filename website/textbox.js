@@ -9,7 +9,6 @@ const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 cardIds.forEach(id => {
   const clone = template.content.cloneNode(true);
   const card = clone.querySelector('.card');
-  let visibleSuggestions = [];
   card.id = id;
   container.appendChild(clone);
 });
@@ -30,6 +29,7 @@ function isValidPerson(person) {
 cards.forEach(card => {
   const input = card.querySelector(".name-input");
   const suggestionsDiv = card.querySelector(".suggestions");
+  let visibleSuggestions = [];
 
   suggestionsDiv.addEventListener("click", (e) => {
     if (e.target.classList.contains("suggestion")) {
