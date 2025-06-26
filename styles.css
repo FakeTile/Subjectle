@@ -38,6 +38,12 @@ body {
   width: 100%;  
 }
 
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  grid-template-rows: 1fr;
+}
+
 .card {
   height: 34vh;
   width: 31vh;
@@ -95,7 +101,7 @@ body {
   justify-self: center;
   font-size: 3vh;
   border: none;
-  border-radius: 1vh;
+  border-radius: 1vh 0 0 1vh;
   transition: background-color 0.5s, color 0.5s;
 }
 
@@ -110,15 +116,29 @@ body {
 }
 
 .enter-button {
-  /* Add styles for the button here */
   background-color: #2C2C2C;
   color: white;
   border: none;
-  border-radius: 1vh;
+  border-radius: 1vh 0 0 1vh;
   font-size: 3vh;
   cursor: pointer;
   transition: background-color 0.5s, color 0.5s;
+  transform: scale(-1, 1);
+  cursor: pointer;
 }
+
+.enter-button:disabled {
+  color: #9A9A9A;
+  background-color: #242424;
+  cursor: default;
+}
+
+.enter-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/*make on hover button go bigger - project for later byron*/
 
 .hint-wrapper {
     padding: 0.25vh;
