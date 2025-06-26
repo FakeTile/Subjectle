@@ -3,6 +3,23 @@
 
 there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
 
+-----------------------------------------------------------------------
+HOW TO UPDATE THE WORD LIST
+Clone the repo
+gh repo clone https://github.com/FakeTile/Subjectle
+
+run update-ppl.py
+python3 update-ppl.py
+
+check textbox.js and game.js to confirm nothing broke
+
+push the changes to main
+git add textbox.js
+git add game.js
+git commit -m "Message"
+git push origin
+----------------------------------------------------------------------
+
 // TODO:
 
 Get everybody on
