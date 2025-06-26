@@ -35,6 +35,7 @@ function isValidPerson(person) {
 
 cards.forEach(card => {
   const input = card.querySelector(".name-input");
+  const button = card.querySelector(".enter-button");
   const suggestionsDiv = card.querySelector(".suggestions");
 
   suggestionsDiv.addEventListener("click", (e) => {
@@ -81,6 +82,14 @@ cards.forEach(card => {
     const matches = getMatches(val);
     showSuggestions(matches);
   });
+
+  button.addEventListener("click", () => {
+    const finalInput = input.value.trim();
+    if (isValidPerson(finalInput)) {
+      enterGuess(finalInput);
+      suggestionsDiv.innerHTML = "";
+    };
+  }, { once: true });
 
   input.addEventListener("keydown", (e) => {
     if (visibleSuggestions.length === 0) return;
