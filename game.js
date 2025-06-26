@@ -38,9 +38,6 @@ async function enterGuess(name) {
   const input_element = input_wrapper.querySelector('input');
   input_element.disabled = true;
   num_guesses += 1;
-  if (hasNotWon && num_guesses !== 6) {
-    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
-  };
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
   
