@@ -6,6 +6,8 @@ const template = document.getElementById('card-template');
 // initialise cards
 const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 
+let visibleSuggestions = [];
+
 cardIds.forEach(id => {
   const clone = template.content.cloneNode(true);
   const card = clone.querySelector('.card');
@@ -23,13 +25,12 @@ function getMatches(query) {
 }
 
 function isValidPerson(person) {
-  return person in studentNames;
+  return (studentNames.includes(person));
 }
 
 cards.forEach(card => {
   const input = card.querySelector(".name-input");
   const suggestionsDiv = card.querySelector(".suggestions");
-  let visibleSuggestions = [];
 
   suggestionsDiv.addEventListener("click", (e) => {
     if (e.target.classList.contains("suggestion")) {
@@ -106,7 +107,7 @@ cards.forEach(card => {
         suggestionsDiv.innerHTML = "";
       }    
     
-     } if (e.key === "Enter") {
+    } else if (e.key === "Enter") {
       e.preventDefault();
       const finalInput = input.value.trim();
       if (isValidPerson(finalInput)) {
