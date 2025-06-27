@@ -53,6 +53,8 @@ function reset_game() {
   num_guesses = 0;
   hasNotWon = true;
     
+  infinity.disabled = true;    
+
   if (para.textContent !== "Random Subjectle") {
     fadeToText("Random Subjectle");
   };
@@ -104,6 +106,7 @@ async function enterGuess(name) {
     if (input && button) {
       input.disabled = true;
       button.disabled = true;
+      infinity.disabled = true;
     }
   }
 
@@ -126,6 +129,10 @@ async function enterGuess(name) {
       }, index * 175);
     });
   }));
+
+  if (para.textContent !== "Random Subjectle") {
+    infinity.disabled = false;
+  }
 
   if (name === guesee) {
     hasNotWon = false;
