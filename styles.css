@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background: #121212;
   overflow-y: hidden;
+  overflow-x: hidden;
   padding-bottom: 5vh;
 }
 
@@ -17,6 +18,12 @@ body {
   font-size: 4vh;
   font-weight: bold;
   padding-top: 10px;
+  animation: fadeIn 0.75s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .grid-container {
@@ -45,7 +52,7 @@ body {
 }
 
 .card {
-  height: 34vh;
+  height: 33vh;
   width: 31vh;
   justify-self: center;
   border: 0.35vh solid #2B2B2B;
@@ -53,6 +60,7 @@ body {
   border-radius: 10px;
   background: #20202080;
   padding-bottom: 0;
+  animation: fadeIn 1.25s ease-in-out forwards;
 }
 
 .input-wrapper {
@@ -186,4 +194,43 @@ body {
 .suggestion.highlighted {
   background-color: #007bff;
   color: white;
+}
+
+.infinite-button {
+  position: fixed;
+  top: 1vh;
+  right: 1vh;
+  background-color: #2C2C2C;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  font-size: 3vh;
+  padding: 1vh;
+  cursor: pointer;
+  animation: fadeIn 0.75s ease-in-out forwards;
+  z-index: 9999;
+  margin: 0;
+}
+
+.tooltip-text {
+  position: fixed;
+  top: calc(1vh + 6vh); 
+  right: 1vh;
+  background-color: #333;
+  color: white;
+  padding: 0.5vh 1vh;
+  border-radius: 0.5vh;
+  font-size: 1.5vh;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(0.5vh);
+  z-index: 10000;
+}
+
+.infinite-button:hover + .tooltip-text {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
