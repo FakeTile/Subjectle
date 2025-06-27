@@ -4,13 +4,13 @@
 there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
 
 -----------------------------------------------------------------------
-HOW TO UPDATE THE WORD LIST
-Clone the repo
-run update-ppl.py
-check textbox.js and game.js to confirm nothing broke
-push the changes to main
+HOW TO UPDATE THE WORD LIST  
+Clone the repo  
+run update-ppl.py  
+check textbox.js and game.js to confirm nothing broke  
+push the changes to main  
 
-Alternatively, if your on bash copy these lines
+Alternatively, if your on bash copy these lines  
 
 $ gh repo clone https://github.com/FakeTile/Subjectle && 
 cd Subjectle/ && 
@@ -22,11 +22,11 @@ git push origin
 
 ----------------------------------------------------------------------
 
-HOW TO RUN LOCALLY
-cookies dont work directly from a file, so int the terminal run
-$ python3 -m http.server
-Then the server should be at 
-http://localhost:8000/
+HOW TO RUN LOCALLY  
+cookies dont work directly from a file, so int the terminal run  
+$ python3 -m http.server  
+Then the server should be at   
+http://localhost:8000/  
 
 ----------------------------------------------------------------------
 
