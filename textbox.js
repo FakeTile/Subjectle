@@ -118,7 +118,7 @@ cards.forEach(card => {
       enterGuess(finalInput);
       suggestionsDiv.innerHTML = "";
     };
-  }, { once: true });
+  });
 
   input.addEventListener("keydown", (e) => {
     if (visibleSuggestions.length === 0) return;
