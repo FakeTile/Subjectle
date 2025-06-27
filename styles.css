@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background: #121212;
   overflow-y: hidden;
+  overflow-x: hidden;
   padding-bottom: 5vh;
 }
 
@@ -17,6 +18,12 @@ body {
   font-size: 4vh;
   font-weight: bold;
   padding-top: 10px;
+  animation: fadeIn 0.75s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .grid-container {
@@ -45,7 +52,7 @@ body {
 }
 
 .card {
-  height: 34vh;
+  height: 33vh;
   width: 31vh;
   justify-self: center;
   border: 0.35vh solid #2B2B2B;
@@ -53,6 +60,7 @@ body {
   border-radius: 10px;
   background: #20202080;
   padding-bottom: 0;
+  animation: fadeIn 1.25s ease-in-out forwards;
 }
 
 .input-wrapper {
@@ -188,29 +196,87 @@ body {
   color: white;
 }
 
+.infinite-button {
+  position: fixed;
+  top: 1vh;
+  right: 1vh;
+  background-color: #2C2C2C;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  font-size: 3vh;
+  padding: 0.8vh 1.4vh 1vh 1.4vh;
+  cursor: pointer;
+  animation: fadeIn 0.75s ease-in-out forwards;
+  transition: background-color 0.5s, color 0.5s;
+  z-index: 9999;
+  margin: 0;
+}
+
+.infinite-button:disabled {
+  color: #9A9A9A;
+  background-color: #242424;
+  cursor: default;
+}
+
+.infinite-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.tooltip-text {
+  position: fixed;
+  top: calc(1vh + 6vh); 
+  right: 1vh;
+  background-color: #333;
+  color: white;
+  padding: 0.5vh 1vh;
+  border-radius: 0.5vh;
+  font-size: 1.5vh;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(0.5vh);
+  z-index: 10000;
+}
+
+.infinite-button:enabled:hover + .tooltip-text {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 .streak {
-  color: rgb(190, 0, 0);
+  color: gainsboro;
+  position: absolute;
   top: 94vh;
   left: 50vw;
-  position: absolute;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;  
-  height: 1vh;
   font-size: 3vh;
   font-weight: bold;
   padding-top: 10px;
+  height: auto; 
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
-.streak-unfilled {
-  z-index: 0;
-  color: rgb(82, 82, 82);
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
-
+.streak-unfilled,
 .streak-filled {
-  z-index: 1;
-  color: rgb(219, 106, 0);
-  position: absolute;
-  transform: translate(-50%, -50%);
+  position: relative;
+  color: gainsboro;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+.streak-label {
+  color: gainsboro;
+  font-size: 1.3vh;
+  margin-top: 0.2em; 
+  position: relative; 
+  transform: none;
+  font-weight: normal;
+  animation: fadeIn 3s ease-in-out forwards;
 }

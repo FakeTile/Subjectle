@@ -4,21 +4,29 @@
 there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
 
 -----------------------------------------------------------------------
-HOW TO UPDATE THE WORD LIST
-Clone the repo
-run update-ppl.py
-check textbox.js and game.js to confirm nothing broke
-push the changes to main
+HOW TO UPDATE THE WORD LIST  
+Clone the repo  
+run update-ppl.py  
+check textbox.js and game.js to confirm nothing broke  
+push the changes to main  
 
-Alternatively, if your on bash copy these lines
+Alternatively, if your on bash copy these lines  
 
-gh repo clone https://github.com/FakeTile/Subjectle && 
+$ gh repo clone https://github.com/FakeTile/Subjectle && 
 cd Subjectle/ && 
 python3 update-ppl.py && 
 git add game.js && 
 git add textbox.js && 
 git commit -m "Updated people list" &&
 git push origin
+
+----------------------------------------------------------------------
+
+HOW TO RUN LOCALLY  
+cookies dont work directly from a file, so int the terminal run  
+$ python3 -m http.server  
+Then the server should be at   
+http://localhost:8000/  
 
 ----------------------------------------------------------------------
 
@@ -34,7 +42,7 @@ Get all data correct (remote etc.)
 
 Game Functionality
 - Some kind of introduction / key for colours, to help users get accustomed to rules
-- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M'
+- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M' (DONE)
 
 Cookies
  - Save settings
@@ -44,9 +52,9 @@ Cookies
 Proper popup on win/loss
 
 Improve searching
-  - Button to submit
+  - Button to submit (DONE but needs a little more work)
   - Arrow keys, tab, space, click
-  - Search through alternate names (eg: seraching isacc shows izaak)
+  - Search through alternate names (eg: seraching isacc shows izaak) (DONE)
 
 Improve screen scaling
   - Each card has target aspect ratio

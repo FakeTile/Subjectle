@@ -24,9 +24,38 @@ const cards = document.querySelectorAll(".card");
 
 function getMatches(query) {
   query = query.toLowerCase();
-  return studentNames.filter(name =>
-    name.toLowerCase().startsWith(query)
-  );
+  const minSimilarity = 0.1; 
+
+  function levenshtein(a, b) {
+    const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+    for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+    for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return dp[a.length][b.length];
+  }
+
+  const scored = studentNames
+    .map(name => {
+      const lowerName = name.toLowerCase();
+      const distance = levenshtein(query, lowerName);
+      const maxLen = Math.max(query.length, lowerName.length);
+      const similarity = 1 - (distance / maxLen);
+      return { name, similarity };
+    })
+    .filter(item => item.similarity >= minSimilarity)
+    .sort((a, b) => b.similarity - a.similarity);
+
+  return scored.map(item => item.name);
 }
 
 function isValidPerson(person) {
@@ -38,6 +67,16 @@ cards.forEach(card => {
   const button = card.querySelector(".enter-button");
   const suggestionsDiv = card.querySelector(".suggestions");
 
+  function toProperCase(name) {
+    let n = name
+      .trim()
+      .split(' ')
+      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+    card.querySelector(".name-input").value=n;
+    return n;
+  }
+    
   suggestionsDiv.addEventListener("click", (e) => {
     if (e.target.classList.contains("suggestion")) {
       input.value = e.target.textContent;
@@ -84,12 +123,12 @@ cards.forEach(card => {
   });
 
   button.addEventListener("click", () => {
-    const finalInput = input.value.trim();
+    const finalInput = toProperCase(input.value);
     if (isValidPerson(finalInput)) {
       enterGuess(finalInput);
       suggestionsDiv.innerHTML = "";
     };
-  }, { once: true });
+  });
 
   input.addEventListener("keydown", (e) => {
     if (visibleSuggestions.length === 0) return;
@@ -123,7 +162,7 @@ cards.forEach(card => {
     
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const finalInput = input.value.trim();
+      const finalInput = toProperCase(input.value);
       if (isValidPerson(finalInput)) {
         enterGuess(finalInput);
         suggestionsDiv.innerHTML = "";

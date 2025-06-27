@@ -33,40 +33,107 @@ function seededShuffle(array, seed) {
 // Corrects for timezone, so it flips at 12am
 const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 50400000) / 86400000);
 const names = seededShuffle(Object.keys(data), "soham");
-const guesee = names[daysSinceEpoch % names.length];
+let guesee = names[daysSinceEpoch % names.length];
+
+const infinity = document.getElementById('infinite');
+infinity.addEventListener("click", () => {
+  reset_game()
+});
+
+const para = document.getElementById('num-subjectle');
+
+function fadeToText(newText) {
+  para.style.animation = 'none';
+  void para.offsetWidth;
+  para.textContent = newText;
+  para.style.animation = 'fadeIn 0.75s ease-in-out forwards';
+};
+
+function reset_game() {
+  num_guesses = 0;
+  hasNotWon = true;
+    
+  infinity.disabled = true;    
+
+  if (para.textContent !== "Random Subjectle") {
+    fadeToText("Random Subjectle");
+  };
+    
+  const today = daysSinceEpoch;
+  const newSeed = Math.floor(Math.random() * 100000);
+  const shuffled = seededShuffle(Object.keys(data), newSeed);
+  guesee = shuffled[today % shuffled.length];
+
+  // clear elements
+  for (let i = 1; i <= 6; i++) {
+    const card = document.getElementById('card' + i);
+    const input = card.querySelector('.input-wrapper input');
+    const button = card.querySelector('.input-wrapper button');
+    const hints = card.querySelectorAll('.hint-wrapper .hint');
+
+    input.value = '';
+    input.disabled = i !== 1;  // disbale all but first
+    button.disabled = i !== 1;
+
+    hints.forEach(h => {
+      h.textContent = '';
+      h.style.backgroundColor = '#2C2C2C'; // for test purpose
+      h.classList.remove('flip');
+    });
+  }
+}
 
 let num_guesses = 0;
 let hasNotWon = true;
 document.querySelector('#card1 .input-wrapper input').disabled = false;
 document.querySelector('#card1 .input-wrapper button').disabled = false;
+
 async function enterGuess(name) {
   const id = "card" + (num_guesses + 1);
   const card = document.getElementById(id);
   const input_wrapper = card.querySelector('.input-wrapper');
   const input_element = input_wrapper.querySelector('input');
   const button_element = input_wrapper.querySelector('button');
+
   input_element.disabled = true;
   button_element.disabled = true;
   num_guesses += 1;
-  if (hasNotWon && num_guesses !== 6) {
-    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper input').disabled = false;
-    document.querySelector('#card' + (num_guesses+1) + ' .input-wrapper button').disabled = false;
-  };
+
+  // disable all other inputs during flip
+  for (let i = 1; i <= 6; i++) {
+    const input = document.querySelector(`#card${i} .input-wrapper input`);
+    const button = document.querySelector(`#card${i} .input-wrapper button`);
+    if (input && button) {
+      input.disabled = true;
+      button.disabled = true;
+      infinity.disabled = true;
+    }
+  }
+
   const wrappers = card.querySelectorAll('.hint-wrapper');
   const o = output(name);
-  
-  wrappers.forEach((wrapper, index) => {
+
+  // Animate hints with staggered flip
+  await Promise.all([...wrappers].map((wrapper, index) => {
     const hint = wrapper.querySelector('.hint');
-  
     hint.classList.remove("flip");
-  
-    setTimeout(() => {
-      hint.textContent = o[index][1];
-      hint.style.backgroundColor = o[index][0];
-      hint.classList.add("flip");
-    }, index * 175);
-  });
-  
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        hint.textContent = o[index][1];
+        hint.style.backgroundColor = o[index][0];
+        void hint.offsetWidth;
+
+        hint.classList.add("flip");
+        hint.addEventListener("animationend", resolve, { once: true });
+      }, index * 175);
+    });
+  }));
+
+  if (para.textContent !== "Random Subjectle") {
+    infinity.disabled = false;
+  }
+
   if (name === guesee) {
     hasNotWon = false;
     for (let i = num_guesses + 1; i <= 6; i++) {
@@ -78,17 +145,28 @@ async function enterGuess(name) {
       }
     }
   }
-  
-  await sleep(1600);
+
+  if (hasNotWon && num_guesses !== 6) {
+    const nextInput = document.querySelector('#card' + (num_guesses + 1) + ' .input-wrapper input');
+    const nextButton = document.querySelector('#card' + (num_guesses + 1) + ' .input-wrapper button');
+    if (nextInput && nextButton) {
+      nextInput.disabled = false;
+      nextButton.disabled = false;
+    }
+  }
+
   if (name === guesee) {
     updateWinstreak();
-    alert(`You won in ${num_guesses} attempts!`);
+    alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
+    reset_game();
     return;
   }
+
   if (num_guesses === 6) {
     alert(`You lose. The correct student was: ${guesee}.`);
+    reset_game();
     return;
-  };
+  }
 }
 
 function sleep(ms) {
