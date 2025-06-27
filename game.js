@@ -43,7 +43,7 @@ function reset_game() {
   const newSeed = Math.floor(Math.random() * 100000);
   const shuffled = seededShuffle(Object.keys(data), newSeed);
   guesee = shuffled[today % shuffled.length];
-
+  document.getElementById('num-subjectle').textContent = "Random Subjectle";
   // clear elements
   for (let i = 1; i <= 6; i++) {
     const card = document.getElementById('card' + i);
@@ -115,6 +115,7 @@ async function enterGuess(name) {
   }
   if (num_guesses === 6) {
     alert(`You lose. The correct student was: ${guesee}.`);
+    reset_game()
     return;
   };
 }
