@@ -34,7 +34,7 @@ Get all data correct (remote etc.)
 
 Game Functionality
 - Some kind of introduction / key for colours, to help users get accustomed to rules
-- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M' (partially done, no capitalisation checking yet)
+- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M' (DONE)
 
 Cookies
  - Save settings
