@@ -35,6 +35,34 @@ const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 5040000
 const names = seededShuffle(Object.keys(data), "soham");
 const guesee = names[daysSinceEpoch % names.length];
 
+function reset_game() {
+  num_guesses = 0;
+  hasNotWon = true;
+
+  const today = daysSinceEpoch;
+  const newSeed = Math.floor(Math.random() * 100000);
+  const shuffled = seededShuffle(Object.keys(data), newSeed);
+  guesee = shuffled[today % shuffled.length];
+
+  // clear elements
+  for (let i = 1; i <= 6; i++) {
+    const card = document.getElementById('card' + i);
+    const input = card.querySelector('.input-wrapper input');
+    const button = card.querySelector('.input-wrapper button');
+    const hints = card.querySelectorAll('.hint-wrapper .hint');
+
+    input.value = '';
+    input.disabled = i !== 1;  // disbale all but first
+    button.disabled = i !== 1;
+
+    hints.forEach(h => {
+      h.textContent = '';
+      h.style.backgroundColor = '#121213'; // for test purpose
+      h.classList.remove('flip');
+    });
+  }
+}
+
 let num_guesses = 0;
 let hasNotWon = true;
 document.querySelector('#card1 .input-wrapper input').disabled = false;
@@ -82,6 +110,7 @@ async function enterGuess(name) {
   await sleep(1600);
   if (name === guesee) {
     alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
+    reset_game()
     return;
   }
   if (num_guesses === 6) {
