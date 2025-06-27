@@ -212,6 +212,12 @@ body {
   margin: 0;
 }
 
+.infinite-button:disabled {
+  color: #9A9A9A;
+  background-color: #242424;
+  cursor: default;
+}
+
 .infinite-button:focus {
     outline: none;
     box-shadow: none;
