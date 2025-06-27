@@ -34,7 +34,7 @@ Get all data correct (remote etc.)
 
 Game Functionality
 - Some kind of introduction / key for colours, to help users get accustomed to rules
-- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M'
+- Allow entering names in slightly wrong format (e.g. allow 'soham m' for 'Soham M' (partially done, no capitalisation checking yet)
 
 Cookies
  - Save settings
@@ -44,9 +44,9 @@ Cookies
 Proper popup on win/loss
 
 Improve searching
-  - Button to submit
+  - Button to submit (DONE but needs a little more work)
   - Arrow keys, tab, space, click
-  - Search through alternate names (eg: seraching isacc shows izaak)
+  - Search through alternate names (eg: seraching isacc shows izaak) (DONE)
 
 Improve screen scaling
   - Each card has target aspect ratio
