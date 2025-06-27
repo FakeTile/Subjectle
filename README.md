@@ -12,13 +12,21 @@ push the changes to main
 
 Alternatively, if your on bash copy these lines
 
-gh repo clone https://github.com/FakeTile/Subjectle && 
+$ gh repo clone https://github.com/FakeTile/Subjectle && 
 cd Subjectle/ && 
 python3 update-ppl.py && 
 git add game.js && 
 git add textbox.js && 
 git commit -m "Updated people list" &&
 git push origin
+
+----------------------------------------------------------------------
+
+HOW TO RUN LOCALLY
+cookies dont work directly from a file, so int the terminal run
+$ python3 -m http.server
+Then the server should be at 
+http://localhost:8000/
 
 ----------------------------------------------------------------------
 
