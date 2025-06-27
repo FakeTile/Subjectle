@@ -43,6 +43,13 @@ function getMatches(query) {
     }
     return dp[a.length][b.length];
   }
+  function toProperCase(name) {
+    return name
+      .trim()
+      .split(' ')
+      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  }
 
   const scored = studentNames
     .map(name => {
@@ -113,7 +120,7 @@ cards.forEach(card => {
   });
 
   button.addEventListener("click", () => {
-    const finalInput = input.value.trim();
+    const finalInput = toProperCase(input.value);
     if (isValidPerson(finalInput)) {
       enterGuess(finalInput);
       suggestionsDiv.innerHTML = "";
@@ -152,7 +159,7 @@ cards.forEach(card => {
     
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const finalInput = input.value.trim();
+      const finalInput = toProperCase(input.value);
       if (isValidPerson(finalInput)) {
         enterGuess(finalInput);
         suggestionsDiv.innerHTML = "";
