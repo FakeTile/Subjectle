@@ -81,6 +81,7 @@ async function enterGuess(name) {
   
   await sleep(1600);
   if (name === guesee) {
+    updateWinstreak();
     alert(`You won in ${num_guesses} attempts!`);
     return;
   }

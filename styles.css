@@ -187,3 +187,30 @@ body {
   background-color: #007bff;
   color: white;
 }
+
+.streak {
+  color: rgb(190, 0, 0);
+  top: 94vh;
+  left: 50vw;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;  
+  height: 1vh;
+  font-size: 3vh;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.streak-unfilled {
+  z-index: 0;
+  color: rgb(82, 82, 82);
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.streak-filled {
+  z-index: 1;
+  color: rgb(219, 106, 0);
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
