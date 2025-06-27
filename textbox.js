@@ -11,14 +11,6 @@ const template = document.getElementById('card-template');
 // initialise cards
 const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 
-function toProperCase(name) {
-    return name
-      .trim()
-      .split(' ')
-      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
-      .join(' ');
-  }
-
 let visibleSuggestions = [];
 
 cardIds.forEach(id => {
@@ -75,6 +67,16 @@ cards.forEach(card => {
   const button = card.querySelector(".enter-button");
   const suggestionsDiv = card.querySelector(".suggestions");
 
+  function toProperCase(name) {
+    let n = name
+      .trim()
+      .split(' ')
+      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+    card.querySelector(".name-input").value=n;
+    return n;
+  }
+    
   suggestionsDiv.addEventListener("click", (e) => {
     if (e.target.classList.contains("suggestion")) {
       input.value = e.target.textContent;
