@@ -212,6 +212,11 @@ body {
   margin: 0;
 }
 
+.infinite-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .tooltip-text {
   position: fixed;
   top: calc(1vh + 6vh); 
@@ -228,6 +233,7 @@ body {
   transform: translateY(0.5vh);
   z-index: 10000;
 }
+
 
 .infinite-button:hover + .tooltip-text {
   opacity: 1;
