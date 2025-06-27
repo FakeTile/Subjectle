@@ -24,9 +24,30 @@ const cards = document.querySelectorAll(".card");
 
 function getMatches(query) {
   query = query.toLowerCase();
-  return studentNames.filter(name =>
-    name.toLowerCase().startsWith(query)
-  );
+
+  const threshold = 1;
+
+  function similarityScore(a, b) {
+    let i = 0, j = 0, score = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) {
+        score++;
+        i++;
+      }
+      j++;
+    }
+    return score;
+  }
+
+  const scored = studentNames
+    .map(name => ({
+      name,
+      score: similarityScore(query, name.toLowerCase())
+    }))
+    .filter(item => item.score >= threshold)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.map(item => item.name);
 }
 
 function isValidPerson(person) {
