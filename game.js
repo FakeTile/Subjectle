@@ -156,6 +156,7 @@ async function enterGuess(name) {
   }
 
   if (name === guesee) {
+    updateWinstreak();
     alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
     reset_game();
     return;
