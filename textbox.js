@@ -24,28 +24,36 @@ const cards = document.querySelectorAll(".card");
 
 function getMatches(query) {
   query = query.toLowerCase();
+  const minSimilarity = 0.1; 
 
-  const threshold = 1;
+  function levenshtein(a, b) {
+    const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+    for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+    for (let j = 0; j <= b.length; j++) dp[0][j] = j;
 
-  function similarityScore(a, b) {
-    let i = 0, j = 0, score = 0;
-    while (i < a.length && j < b.length) {
-      if (a[i] === b[j]) {
-        score++;
-        i++;
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + cost
+        );
       }
-      j++;
     }
-    return score;
+    return dp[a.length][b.length];
   }
 
   const scored = studentNames
-    .map(name => ({
-      name,
-      score: similarityScore(query, name.toLowerCase())
-    }))
-    .filter(item => item.score >= threshold)
-    .sort((a, b) => b.score - a.score);
+    .map(name => {
+      const lowerName = name.toLowerCase();
+      const distance = levenshtein(query, lowerName);
+      const maxLen = Math.max(query.length, lowerName.length);
+      const similarity = 1 - (distance / maxLen);
+      return { name, similarity };
+    })
+    .filter(item => item.similarity >= minSimilarity)
+    .sort((a, b) => b.similarity - a.similarity);
 
   return scored.map(item => item.name);
 }
