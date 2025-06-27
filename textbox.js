@@ -11,6 +11,14 @@ const template = document.getElementById('card-template');
 // initialise cards
 const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 
+function toProperCase(name) {
+    return name
+      .trim()
+      .split(' ')
+      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  }
+
 let visibleSuggestions = [];
 
 cardIds.forEach(id => {
@@ -42,13 +50,6 @@ function getMatches(query) {
       }
     }
     return dp[a.length][b.length];
-  }
-  function toProperCase(name) {
-    return name
-      .trim()
-      .split(' ')
-      .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
-      .join(' ');
   }
 
   const scored = studentNames
