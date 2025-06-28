@@ -24,7 +24,11 @@ const cards = document.querySelectorAll(".card");
 
 function getMatches(query) {
   query = query.toLowerCase();
-  const minSimilarity = 0.1; 
+  return studentNames.filter(name =>
+    name.toLowerCase().startsWith(query)
+  );
+}
+  /*const minSimilarity = 0.1; 
 
   function levenshtein(a, b) {
     const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
@@ -56,7 +60,7 @@ function getMatches(query) {
     .sort((a, b) => b.similarity - a.similarity);
 
   return scored.map(item => item.name);
-}
+}*/
 
 function isValidPerson(person) {
   return (studentNames.includes(person));
