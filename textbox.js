@@ -24,11 +24,13 @@ const cards = document.querySelectorAll(".card");
 
 function getMatches(query) {
   query = query.toLowerCase();
-  return studentNames.filter(name =>
+  const startsWithMatches = studentNames.filter(name =>
     name.toLowerCase().startsWith(query)
   );
-}
-  /*const minSimilarity = 0.1; 
+  if (startsWithMatches.length >= 3) {
+    return startsWithMatches.slice(0, 3);
+  }
+  const minSimilarity = 0.1;
 
   function levenshtein(a, b) {
     const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
@@ -56,11 +58,12 @@ function getMatches(query) {
       const similarity = 1 - (distance / maxLen);
       return { name, similarity };
     })
-    .filter(item => item.similarity >= minSimilarity)
+    .filter(item => item.similarity >= minSimilarity && !startsWithMatches.includes(item.name))
     .sort((a, b) => b.similarity - a.similarity);
 
-  return scored.map(item => item.name);
-}*/
+  const combinedMatches = [...startsWithMatches, ...scored.map(item => item.name)].slice(0, 3);
+  return combinedMatches;
+}
 
 function isValidPerson(person) {
   return (studentNames.includes(person));
