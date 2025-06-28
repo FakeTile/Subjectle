@@ -5,6 +5,20 @@ const studentNames = ['Sebin P', 'Jackson B', 'William Y', 'Alan D', 'Evan M', '
  * CHANGE update-ppl.py
  *
  */
+
+studentNames.sort((a, b) => {
+    const lastNameA = a.split(' ')[1]; 
+    const lastNameB = b.split(' ')[1]; 
+
+    if (lastNameA === lastNameB) {
+        const firstNameA = a.split(' ')[0]; 
+        const firstNameB = b.split(' ')[0]; 
+        return firstNameA.localeCompare(firstNameB); 
+    }
+
+    return lastNameA.localeCompare(lastNameB); 
+});
+
 const container = document.getElementById('card-container');
 const template = document.getElementById('card-template');
 
