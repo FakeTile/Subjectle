@@ -98,6 +98,12 @@ async function enterGuess(name) {
   input_element.disabled = true;
   button_element.disabled = true;
   num_guesses += 1;
+  gtag('event', 'guess_made', {
+  'event_category': 'gameplay',
+  'event_label': 'subjectle',
+  'value': num_guesses,
+  'guessed_name': name
+});
 
   // disable all other inputs during flip
   for (let i = 1; i <= 6; i++) {
@@ -133,7 +139,12 @@ async function enterGuess(name) {
   if (para.textContent !== "Random Subjectle") {
     infinity.disabled = false;
   }
-
+  if (num_guesses === 0) {
+  gtag('event', 'game_started', {
+    'event_category': 'engagement',
+    'event_label': 'subjectle'
+  });
+}
   if (name === guesee) {
     hasNotWon = false;
     for (let i = num_guesses + 1; i <= 6; i++) {
@@ -157,12 +168,26 @@ async function enterGuess(name) {
 
   if (name === guesee) {
     updateWinstreak();
+    gtag('event', 'game_end', {
+    'event_category': 'gameplay',
+    'event_label': 'subjectle',
+    'value': num_guesses,
+    'win': true,
+    'correct_name': guesee
+  });
     alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
     reset_game();
     return;
   }
 
   if (num_guesses === 6) {
+    gtag('event', 'game_end', {
+    'event_category': 'gameplay',
+    'event_label': 'subjectle',
+    'value': num_guesses,
+    'win': false,
+    'correct_name': guesee
+  });
     alert(`You lose. The correct student was: ${guesee}.`);
     reset_game();
     return;
