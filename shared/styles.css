@@ -27,13 +27,15 @@ body {
 }
 
 .grid-container {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;      
     width: 110vh;
-    max-width: 10000px;
-    margin: 0 auto;     
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);   
 }
 
 .grid {
@@ -196,87 +198,21 @@ body {
   color: white;
 }
 
-.infinite-button {
-  position: fixed;
-  top: 1vh;
-  right: 1vh;
-  background-color: #2C2C2C;
-  color: white;
-  border: none;
-  border-radius: 1vh;
-  font-size: 3vh;
-  padding: 0.8vh 1.4vh 1vh 1.4vh;
-  cursor: pointer;
-  animation: fadeIn 0.75s ease-in-out forwards;
-  transition: background-color 0.5s, color 0.5s;
-  z-index: 9999;
-  margin: 0;
-}
-
-.infinite-button:disabled {
-  color: #9A9A9A;
-  background-color: #242424;
-  cursor: default;
-}
-
-.infinite-button:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.tooltip-text {
-  position: fixed;
-  top: calc(1vh + 6vh); 
-  right: 1vh;
-  background-color: #333;
-  color: white;
-  padding: 0.5vh 1vh;
-  border-radius: 0.5vh;
-  font-size: 1.5vh;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  transform: translateY(0.5vh);
-  z-index: 10000;
-}
-
-.infinite-button:enabled:hover + .tooltip-text {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-.streak {
-  color: gainsboro;
+.page-button {
   position: absolute;
-  top: 94vh;
-  left: 50vw;
+  top: 5vh;
+  right: -1vh;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;  
+  padding: 0.65vh 1.45vh 1.35vh 1.45vh;
+  background-color: #2F2F2F;
+  box-shadow: none;
+  border-radius: 1vh;
+  color: rgb(215, 215, 215);
   font-size: 3vh;
-  font-weight: bold;
-  padding-top: 10px;
-  height: auto; 
-  animation: fadeIn 2s ease-in-out forwards;
+  border: none;
+  transition: all 200ms ease-out;
 }
 
-.streak-unfilled,
-.streak-filled {
-  position: relative;
-  color: gainsboro;
-  animation: fadeIn 2s ease-in-out forwards;
-}
-
-.streak-label {
-  color: gainsboro;
-  font-size: 1.3vh;
-  margin-top: 0.2em; 
-  position: relative; 
-  transform: none;
-  font-weight: normal;
-  animation: fadeIn 3s ease-in-out forwards;
+.page-button:hover {
+  background-color: #484848; 
 }

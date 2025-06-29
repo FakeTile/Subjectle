@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subjectle</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+    <p class="para">Random Subjectle</p>
+    
+    <a href="/daily/">
+        <button class="page-button">&#x1f4c5;&#xFE0E;</button>
+    </a>
+
+    <div id="common"></div>
+
+    <script>
+        fetch("/shared/common.html")
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById("common").innerHTML = html;
+            const loadScript = src => new Promise(resolve => {
+                const s = document.createElement("script");
+                s.src = src;
+                s.onload = resolve;
+                document.body.appendChild(s);
+            });
+            
+            // loads scripts in order
+            // dependencies:
+            // textbox -> game as textbox inits the templates
+            loadScript("/shared/textbox.js")
+                .then(() => loadScript("/shared/game.js"))
+                .then(() => loadScript("/shared/cookies.js"))
+          });
+      </script>
+</body>
+</html>

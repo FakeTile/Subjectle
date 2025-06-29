@@ -35,6 +35,7 @@ const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 5040000
 const names = seededShuffle(Object.keys(data), "soham");
 let guesee = names[daysSinceEpoch % names.length];
 
+/*
 const infinity = document.getElementById('infinite');
 infinity.addEventListener("click", () => {
   reset_game()
@@ -48,6 +49,7 @@ function fadeToText(newText) {
   para.textContent = newText;
   para.style.animation = 'fadeIn 0.75s ease-in-out forwards';
 };
+*/
 
 function reset_game() {
   num_guesses = 0;
@@ -85,6 +87,7 @@ function reset_game() {
 
 let num_guesses = 0;
 let hasNotWon = true;
+
 document.querySelector('#card1 .input-wrapper input').disabled = false;
 document.querySelector('#card1 .input-wrapper button').disabled = false;
 
@@ -98,12 +101,14 @@ async function enterGuess(name) {
   input_element.disabled = true;
   button_element.disabled = true;
   num_guesses += 1;
+  /*
   gtag('event', 'guess_made', {
   'event_category': 'gameplay',
   'event_label': 'subjectle',
   'value': num_guesses,
   'guessed_name': name
-});
+})
+  */
 
   // disable all other inputs during flip
   for (let i = 1; i <= 6; i++) {
@@ -112,7 +117,6 @@ async function enterGuess(name) {
     if (input && button) {
       input.disabled = true;
       button.disabled = true;
-      infinity.disabled = true;
     }
   }
 
