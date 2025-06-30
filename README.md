@@ -48,8 +48,6 @@ Cookies
  - Histogram
  - Keep stats from previous guesses
 
-Proper popup on win/loss
-
 Improve searching
 - Support alternate names
 
