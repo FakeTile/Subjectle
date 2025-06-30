@@ -308,5 +308,6 @@ a:hover {
 }
 
 #gameOverPopup > .popupContent {
-  height: 22vh;
+  height: 17vh;
+  width: 40%;
 }

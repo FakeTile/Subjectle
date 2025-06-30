@@ -11,6 +11,7 @@
 
   <div id="winPopup" class="popupOverlay" style="display: none;">
   <div class="popupContent">
+  <button type="button" class="xButton" id="xButtonID" onclick="shutWinPopup()">⨯</button>
   <h2>Congratulations!</h2>
   <p id="winMessage">You won in [] attempts!</p>
   <button type="button" class="popupCloseBtn" id="winClose" onclick="closeWinPopup()">Play Again</button>
@@ -19,9 +20,9 @@
 
   <div id="gameOverPopup" class="popupOverlay" style="display: none;">
   <div class="popupContent">
+  <button type="button" class="xButton" id="xButton" onclick="shutGameOverPopup()">⨯</button>
   <h2>Game Over</h2>
   <p id="gameOverMessage">You lose. The correct student was: []</p>
-
   <button type="button" class="popupCloseBtn" id="gameOverClose" onclick="closeGameOverPopup()">Play Again</button>
   </div>
   </div>

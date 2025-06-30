@@ -45,6 +45,10 @@ function closeGameOverPopup() {
   document.getElementById('gameOverPopup').style.display = 'none';
 }
 
+function shutGameOverPopup() {
+  document.getElementById('gameOverPopup').style.display = 'none';
+}
+
 function showWinPopup(num_guesses) {
   return new Promise(resolve => {
     const text = `You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`;
@@ -62,6 +66,10 @@ function showWinPopup(num_guesses) {
 }
 
 function closeWinPopup() {
+  document.getElementById('winPopup').style.display = 'none';
+}
+
+function shutWinPopup() {
   document.getElementById('winPopup').style.display = 'none';
 }
 window.enterGuess = async function (name) {
