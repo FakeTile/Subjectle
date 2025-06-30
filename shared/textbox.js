@@ -25,7 +25,6 @@ const template = document.getElementById('card-template');
 // initialise cards
 const cardIds = ['card1', 'card2', 'card3', 'card4', 'card5', 'card6'];
 
-let visibleSuggestions = [];
 
 cardIds.forEach(id => {
   const clone = template.content.cloneNode(true);
@@ -35,6 +34,8 @@ cardIds.forEach(id => {
 });
 
 const cards = document.querySelectorAll(".card");
+
+let visibleSuggestions = [];
 
 function getMatches(query) {
   query = query.toLowerCase();
@@ -146,7 +147,7 @@ cards.forEach(card => {
   button.addEventListener("click", () => {
     const finalInput = toProperCase(input.value);
     if (isValidPerson(finalInput)) {
-      enterGuess(finalInput);
+      window.enterGuess(finalInput);
       suggestionsDiv.innerHTML = "";
     };
   });
@@ -185,7 +186,7 @@ cards.forEach(card => {
       e.preventDefault();
       const finalInput = toProperCase(input.value);
       if (isValidPerson(finalInput)) {
-        enterGuess(finalInput);
+        window.enterGuess(finalInput, selectedSuggestionIndex);
         suggestionsDiv.innerHTML = "";
       }
     }

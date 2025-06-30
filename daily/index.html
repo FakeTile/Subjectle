@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subjectle</title>
+  <link rel="stylesheet" href="/shared/styles.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+    <p id="num-subjectle" class="para"></p>
+    
+    <a href="/infinite/">
+        <button class="page-button">ꝏ</button>
+    </a>
+
+    <div id="common"></div>
+
+    <div class="streak">
+        <div class="streak-unfilled"></div>
+        <div class="streak-filled"></div>
+        <p class="streak-label">day streak</p>
+    </div>
+
+    <script>
+        fetch("/shared/common.html")
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById("common").innerHTML = html;
+            const loadScript = src => new Promise(resolve => {
+                const s = document.createElement("script");
+                s.src = src;
+                s.onload = resolve;
+                document.body.appendChild(s);
+            });
+            
+            // loads scripts in order
+            // dependencies:
+            // textbox -> game as textbox inits the templates
+            // game -> title as title needs daysSinceEpoch
+            loadScript("/shared/textbox.js")
+                .then(() => loadScript("/shared/utils.js"))
+                .then(() => loadScript("/shared/game.js"))
+                .then(() => loadScript("/shared/cookies.js"))
+                .then(() => loadScript("gameLocal.js"))
+                .then(() => loadScript("cookies.js"))
+                .then(() => loadScript("title.js"));
+          });
+      </script>
+</body>
+</html>
