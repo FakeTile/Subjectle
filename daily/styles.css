@@ -34,4 +34,7 @@
   
 .infinite-icon {
   transform: scale(75%);
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
 }
