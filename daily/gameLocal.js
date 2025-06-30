@@ -13,7 +13,6 @@ window.enterGuess = async function (name) {
   
     await flipCards(name, num_guesses);
   
-    console.log(name);
     if (name === guesee) {
       updateWinstreak();
       alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
