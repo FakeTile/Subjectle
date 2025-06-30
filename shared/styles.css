@@ -255,21 +255,21 @@ a:hover {
   font-size: 2vh;
   line-height: 1.6;
   margin-bottom: 1.5vh;
+  text-align: center;
   color: #ccc;
 }
 
 .popupOverlay {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0%;
   left: 0%;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1001;
-  -moz-opacity: 0.8;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  backdrop-filter: blur(1vh);
+  -webkit-backdrop-filter: blur(1vh); 
 }
 
 .highlight-yellow {
@@ -301,4 +301,12 @@ a:hover {
   transition: background-color 0.5s, color 0.5s;
   z-index: 1000;
   margin: 2vh auto 0;
+}
+
+#winPopup > .popupContent {
+  height: 17vh;
+}
+
+#gameOverPopup > .popupContent {
+  height: 22vh;
 }

@@ -8,6 +8,25 @@
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body>
+
+  <div id="winPopup" class="popupOverlay" style="display: none;">
+  <div class="popupContent">
+  <h2>Congratulations!</h2>
+  <p id="winMessage">You won in X attempts!</p>
+  <button type="button" class="popupCloseBtn" onclick="closeWinPopup()">Play Again</button>
+  </div>
+  </div>
+
+  <div id="gameOverPopup" class="popupOverlay" style="display: none;">
+  <div class="popupContent">
+  <h2>Game Over</h2>
+  <p id="gameOverMessage">You lose. The correct student was: [placeholder]</p>
+  <button type="button" class="popupCloseBtn" onclick="closeGameOverPopup()">Try Again</button>
+  </div>
+  </div>
+
+  <div id="popupOverlay" class="popupOverlay" style="display:none;"></div>
+
     <p class="para">Random Subjectle</p>
     
     <a href="../daily/">

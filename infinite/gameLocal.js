@@ -25,6 +25,25 @@ function reset_game() {
     }
   }
 
+function showGameOverPopup(guesee) {
+  document.getElementById('gameOverMessage').innerText = `You lose. The correct student was: ${guesee}.`;
+  document.getElementById('gameOverPopup').style.display = 'block';
+}
+
+function closeGameOverPopup() {
+  document.getElementById('gameOverPopup').style.display = 'none';
+}
+
+function showWinPopup(num_guesses) {
+  const text = `You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`;
+  document.getElementById('winMessage').innerText = text;
+  document.getElementById('winPopup').style.display = 'block';
+}
+
+function closeWinPopup() {
+  document.getElementById('winPopup').style.display = 'none';
+}
+
 window.enterGuess = async function (name) {
     const id = "card" + (num_guesses + 1);
     const card = document.getElementById(id);
@@ -39,13 +58,13 @@ window.enterGuess = async function (name) {
     await flipCards(name, num_guesses);
   
     if (name === guesee) {
-      alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
+      showWinPopup(num_guesses);
       reset_game();
       return;
     }
   
     if (num_guesses === 6) {
-      alert(`You lose. The correct student was: ${guesee}.`);
+      showGameOverPopup(guesee);
       reset_game();
       return;
     }

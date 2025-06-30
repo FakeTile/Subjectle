@@ -10,7 +10,7 @@
 <body>
 
   <div id="popupContent" class="popupContent" style="display:none;">
-  <center><h2>Welcome to Subjectle!</h2>
+  <h2>Welcome to Subjectle!</h2>
 
   <p>It’s a Wordle clone with a twist.</p>
   <p>Your goal is to guess the correct student based on their class combinations.</p>
@@ -18,8 +18,24 @@
   <p><span class="highlight-yellow">Yellow</span> means the class is correct but with a different teacher or line.</p>
   <p><span class="highlight-green">Green</span> means your guess is exactly right.</p>
   <p>You have <strong>6 tries</strong> to find the right student.</p>
-  <p>Each guess helps you narrow down the possibilities.</p></center>
+  <p>Each guess helps you narrow down the possibilities.</p>
   <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Got it!</button>
+  </div>
+
+  <div id="winPopup" class="popupOverlay" style="display: none;">
+  <div class="popupContent">
+  <h2>Congratulations!</h2>
+  <p id="winMessage">You won in X attempts!</p>
+  <button type="button" class="popupCloseBtn" onclick="closeWinPopup()">Close</button>
+  </div>
+  </div>
+
+  <div id="gameOverPopup" class="popupOverlay" style="display: none;">
+  <div class="popupContent">
+  <h2>Game Over</h2>
+  <p id="gameOverMessage">You lose. The correct student was: [placeholder]</p>
+  <button type="button" class="popupCloseBtn" onclick="closeGameOverPopup()">Try Again</button>
+  </div>
   </div>
 
   <div id="popupOverlay" class="popupOverlay" style="display:none;"></div>
