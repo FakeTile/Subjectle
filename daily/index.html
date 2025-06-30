@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEN08SD8KD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZEN08SD8KD');
+</script>
   <meta charset="UTF-8">
   <title>Subjectle</title>
   <link rel="stylesheet" href="../shared/styles.css">
@@ -13,13 +22,12 @@
   <h2>Welcome to Subjectle!</h2>
 
   <p>It’s a Wordle clone with a twist.</p>
-  <p>Your goal is to guess the correct student based on their class combinations.</p>
-  <p>After each guess, the game gives you feedback by way of colours.</p>
-  <p><span class="highlight-yellow">Yellow</span> means the class is correct but with a different teacher or line.</p>
-  <p><span class="highlight-green">Green</span> means your guess is exactly right.</p>
-  <p>You have <strong>6 tries</strong> to find the right student.</p>
-  <p>Each guess helps you narrow down the possibilities.</p>
-  <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Got it!</button>
+  <p>Your goal is to guess a hidden student based on the classes they take.</p>
+  <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
+  <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
+  <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
+  <p>You won't lose your daily streak on weekends.</p>
+  <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
   </div>
 
   <div id="winPopup" class="popupOverlay" style="display: none;">
