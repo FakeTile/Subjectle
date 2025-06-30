@@ -3,36 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Subjectle</title>
-  <link rel="stylesheet" href="../shared/styles.css">
+  <link rel="stylesheet" href="/shared/styles.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body>
-  <p class="para">Random Subjectle</p>
+    <p class="para">Random Subjectle</p>
+    
+    <a href="../daily/">
+      <svg class="calendar-icon" fill="currentColor" viewBox="0 0 32 32">
+        <path d="M 9 4 L 9 5 L 5 5 L 5 27 L 27 27 L 27 5 L 23 5 L 23 4 L 21 4 L 21 5 L 11 5 L 11 4 Z M 7 7 L 9 7 L 9 8 L 11 8 L 11 7 L 21 7 L 21 8 L 23 8 L 23 7 L 25 7 L 25 9 L 7 9 Z M 7 11 L 25 11 L 25 25 L 7 25 Z M 13 13 L 13 15 L 15 15 L 15 13 Z M 17 13 L 17 15 L 19 15 L 19 13 Z M 21 13 L 21 15 L 23 15 L 23 13 Z M 9 17 L 9 19 L 11 19 L 11 17 Z M 13 17 L 13 19 L 15 19 L 15 17 Z M 17 17 L 17 19 L 19 19 L 19 17 Z M 21 17 L 21 19 L 23 19 L 23 17 Z M 9 21 L 9 23 L 11 23 L 11 21 Z M 13 21 L 13 23 L 15 23 L 15 21 Z M 17 21 L 17 23 L 19 23 L 19 21 Z"/>
+      </svg>
+    </a>
 
-  <a href="../daily/">
-    <button class="page-button">&#x1f4c5;&#xFE0E;</button>
-  </a>
-
-  <div id="common"></div>
-  <script>
-    fetch("../shared/common.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("common").innerHTML = html;
-        const loadScript = src => new Promise(resolve => {
-          const s = document.createElement("script");
-          s.src = src;
-          s.onload = resolve;
-          document.body.appendChild(s);
-        });
-
-        loadScript("../shared/textbox.js")
-          .then(() => loadScript("../shared/utils.js"))
-          .then(() => loadScript("../shared/game.js"))
-          .then(() => loadScript("../shared/cookies.js"))
-          .then(() => loadScript("gameLocal.js"));
-      });
-  </script>
+    <div id="common"></div>
+    <script>
+        fetch("../shared/common.html")
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById("common").innerHTML = html;
+            const loadScript = src => new Promise(resolve => {
+                const s = document.createElement("script");
+                s.src = src;
+                s.onload = resolve;
+                document.body.appendChild(s);
+            });
+            
+            // loads scripts in order
+            // dependencies:
+            // textbox -> game as textbox inits the templates
+            loadScript("../shared/textbox.js")
+                .then(() => loadScript("../shared/utils.js"))
+                .then(() => loadScript("../shared/game.js"))
+                .then(() => loadScript("../shared/cookies.js"))
+                .then(() => loadScript("gameLocal.js"));
+          });
+      </script>
 </body>
 </html>

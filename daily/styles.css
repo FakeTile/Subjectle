@@ -32,3 +32,6 @@
     animation: fadeIn 3s ease-in-out forwards;
 }
   
+.infinite-icon {
+  transform: scale(75%);
+}

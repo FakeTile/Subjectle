@@ -198,20 +198,22 @@ body {
   color: white;
 }
 
-.page-button {
-  position: absolute;
-  top: 5vh;
-  right: -1vh;
-  transform: translate(-50%, -50%);
-  padding: 0.65vh 1.45vh 1.35vh 1.45vh;
-  background-color: #2F2F2F;
-  box-shadow: none;
+a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6vh;
+  height: 6vh;
+  background-color: rgb(37, 37, 37);
   border-radius: 1vh;
-  color: rgb(215, 215, 215);
-  font-size: 3vh;
-  border: none;
-  transition: all 200ms ease-out;
+  text-decoration: none;
+  transition: 200ms ease-out;
+
+  color: rgb(196, 196, 196);
 }
+
+a:hover {
+  background-color: #333333;
 
 .page-button:hover {
   background-color: #484848; 

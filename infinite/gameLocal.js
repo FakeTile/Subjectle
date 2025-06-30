@@ -1,5 +1,4 @@
 function reset_game() {
-    console.log("game has been reset");
     num_guesses = 0;
       
     const today = getDaysSinceEpoch(new Date());
