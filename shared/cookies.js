@@ -14,6 +14,19 @@ function getCookie(name) {
     }, null);
 }
 
+function closePopup() {
+  document.getElementById('popupContent').style.display = 'none';
+  document.getElementById('popupOverlay').style.display = 'none';
+  setCookie('popupDismissed', 'true', 30);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!getCookie('popupDismissed')) {
+    document.getElementById('popupContent').style.display = 'block';
+    document.getElementById('popupOverlay').style.display = 'block';
+  }
+});
+
 function isStreak(today, prev) {
     /* 
     Returns true if the 2 days meet streak requirements

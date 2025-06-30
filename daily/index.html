@@ -8,6 +8,22 @@
   <link rel="icon" type="image/png" href="../favicon.png">
 </head>
 <body>
+
+  <div id="popupContent" class="popupContent" style="display:none;">
+  <center><h2>Welcome to Subjectle!</h2>
+
+  <p>It’s a Wordle clone with a twist.</p>
+  <p>Your goal is to guess the correct student based on their class combinations.</p>
+  <p>After each guess, the game gives you feedback by way of colours.</p>
+  <p><span class="highlight-yellow">Yellow</span> means the class is correct but with a different teacher or line.</p>
+  <p><span class="highlight-green">Green</span> means your guess is exactly right.</p>
+  <p>You have <strong>6 tries</strong> to find the right student.</p>
+  <p>Each guess helps you narrow down the possibilities.</p></center>
+  <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Got it!</button>
+  </div>
+
+  <div id="popupOverlay" class="popupOverlay" style="display:none;"></div>
+
   <p id="num-subjectle" class="para"></p>
 
   <a href="../infinite/">
