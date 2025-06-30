@@ -6,4 +6,4 @@ function loadComponent(id, path) {
     });
 }
 
-loadComponent("common", "/shared/common.html");
+loadComponent("common", "../shared/common.html");
