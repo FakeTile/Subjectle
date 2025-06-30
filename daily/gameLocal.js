@@ -60,7 +60,7 @@ window.enterGuess = async function (name) {
       gtag('event', 'game_end', {
     'event_category': 'gameplay',
     'event_label': 'subjectle',
-    'value': num_guesses,Add commentMore actions
+    'value': num_guesses,
     'win': false,
     'correct_name': guesee
   });
