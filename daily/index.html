@@ -39,8 +39,11 @@
             // textbox -> game as textbox inits the templates
             // game -> title as title needs daysSinceEpoch
             loadScript("/shared/textbox.js")
+                .then(() => loadScript("/shared/utils.js"))
                 .then(() => loadScript("/shared/game.js"))
                 .then(() => loadScript("/shared/cookies.js"))
+                .then(() => loadScript("gameLocal.js"))
+                .then(() => loadScript("cookies.js"))
                 .then(() => loadScript("title.js"));
           });
       </script>

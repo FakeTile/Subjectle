@@ -7,31 +7,8 @@ const data = {'Sebin P': ['Unity', 'White', 'Silibek', 'Tweddle', 'Free', 'Naito
  *
  */
 
-// Seeded PRNG
-function mulberry32(seed) {
-  return function () {
-    let t = seed += 0x6D2B79F5;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// Deterministic shuffle
-function seededShuffle(array, seed) {
-  const rng = mulberry32(seed);
-  const arr = array.slice();
-
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-
-  return arr;
-}
-
 // Corrects for timezone, so it flips at 12am
-const daysSinceEpoch = Math.floor((new Date() - new Date("1970-01-01") - 50400000) / 86400000);
+const daysSinceEpoch = getDaysSinceEpoch(new Date());
 const names = seededShuffle(Object.keys(data), "soham");
 let guesee = names[daysSinceEpoch % names.length];
 
@@ -51,64 +28,12 @@ function fadeToText(newText) {
 };
 */
 
-function reset_game() {
-  num_guesses = 0;
-  hasNotWon = true;
-    
-  infinity.disabled = true;    
-
-  if (para.textContent !== "Random Subjectle") {
-    fadeToText("Random Subjectle");
-  };
-    
-  const today = daysSinceEpoch;
-  const newSeed = Math.floor(Math.random() * 100000);
-  const shuffled = seededShuffle(Object.keys(data), newSeed);
-  guesee = shuffled[today % shuffled.length];
-
-  // clear elements
-  for (let i = 1; i <= 6; i++) {
-    const card = document.getElementById('card' + i);
-    const input = card.querySelector('.input-wrapper input');
-    const button = card.querySelector('.input-wrapper button');
-    const hints = card.querySelectorAll('.hint-wrapper .hint');
-
-    input.value = '';
-    input.disabled = i !== 1;  // disbale all but first
-    button.disabled = i !== 1;
-
-    hints.forEach(h => {
-      h.textContent = '';
-      h.style.backgroundColor = '#2C2C2C'; // for test purpose
-      h.classList.remove('flip');
-    });
-  }
-}
-
-let num_guesses = 0;
-let hasNotWon = true;
-
 document.querySelector('#card1 .input-wrapper input').disabled = false;
 document.querySelector('#card1 .input-wrapper button').disabled = false;
 
-async function enterGuess(name) {
-  const id = "card" + (num_guesses + 1);
+async function flipCards(name, card_num) {
+  const id = "card" + (card_num);
   const card = document.getElementById(id);
-  const input_wrapper = card.querySelector('.input-wrapper');
-  const input_element = input_wrapper.querySelector('input');
-  const button_element = input_wrapper.querySelector('button');
-
-  input_element.disabled = true;
-  button_element.disabled = true;
-  num_guesses += 1;
-  /*
-  gtag('event', 'guess_made', {
-  'event_category': 'gameplay',
-  'event_label': 'subjectle',
-  'value': num_guesses,
-  'guessed_name': name
-})
-  */
 
   // disable all other inputs during flip
   for (let i = 1; i <= 6; i++) {
@@ -139,19 +64,10 @@ async function enterGuess(name) {
       }, index * 175);
     });
   }));
-
-  if (para.textContent !== "Random Subjectle") {
-    infinity.disabled = false;
-  }
-  if (num_guesses === 0) {
-  gtag('event', 'game_started', {
-    'event_category': 'engagement',
-    'event_label': 'subjectle'
-  });
-}
+  let hasNotWon = true;
   if (name === guesee) {
     hasNotWon = false;
-    for (let i = num_guesses + 1; i <= 6; i++) {
+    for (let i = card_num + 1; i <= 6; i++) {
       const nextInput = document.querySelector('#card' + i + ' .input-wrapper input');
       const nextButton = document.querySelector('#card' + i + ' .input-wrapper button');
       if (nextInput && nextButton) {
@@ -161,45 +77,14 @@ async function enterGuess(name) {
     }
   }
 
-  if (hasNotWon && num_guesses !== 6) {
-    const nextInput = document.querySelector('#card' + (num_guesses + 1) + ' .input-wrapper input');
-    const nextButton = document.querySelector('#card' + (num_guesses + 1) + ' .input-wrapper button');
+  if (hasNotWon && card_num !== 6) {
+    const nextInput = document.querySelector('#card' + (card_num + 1) + ' .input-wrapper input');
+    const nextButton = document.querySelector('#card' + (card_num + 1) + ' .input-wrapper button');
     if (nextInput && nextButton) {
       nextInput.disabled = false;
       nextButton.disabled = false;
     }
   }
-
-  if (name === guesee) {
-    updateWinstreak();
-    gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': true,
-    'correct_name': guesee
-  });
-    alert(`You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`);
-    reset_game();
-    return;
-  }
-
-  if (num_guesses === 6) {
-    gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': false,
-    'correct_name': guesee
-  });
-    alert(`You lose. The correct student was: ${guesee}.`);
-    reset_game();
-    return;
-  }
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function output(name) {

@@ -14,35 +14,24 @@ function getCookie(name) {
     }, null);
 }
 
-function daysBetween(d1, d2) {
-    if (d1 == null || d2 == null) {
-        return false;
-    }
-    const start = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
-    const end = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
-
-    return Math.floor(Math.abs(end - start) / (1000 * 60 * 60 * 24));
-}
-
 function isStreak(today, prev) {
     /* 
     Returns true if the 2 days meet streak requirements
     */
-    const between = daysBetween(today, prev);
+    const between = today - prev;
         
     // if there has been 1 day between today and last win, 
     // or three days but its a monday 
-    return (between === 1 || (between < 4 && today.getDay() === 1));
+    return (between === 1 || (between < 4 && (today % 7 == 1)));
 }
 
 function initCookies() {
-    const lastWinDate = new Date(getCookie("lastWin"));
-    const today = new Date();
+    const lastWinDate = getCookie("lastWin");
+    const today = getDaysSinceEpoch(new Date());;
     if (isStreak(today, lastWinDate)) {
         unfilledStreak.textContent = getCookie("winStreak");
-    } else if (daysBetween(today, lastWinDate) === 0) {
+    } else if (today - lastWinDate === 0) {
         filledStreak.textContent = getCookie("winStreak");
-        hasDoneDaily = true;
     } else {
         unfilledStreak.textContent = 0;
     }
@@ -50,27 +39,19 @@ function initCookies() {
 
 const filledStreak = document.querySelector('.streak-filled');
 const unfilledStreak = document.querySelector('.streak-unfilled');
-let hasDoneDaily = false;
 
 initCookies();
 
 function updateWinstreak() {
-    if (hasDoneDaily) {
-        return;
-    }
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = getDaysSinceEpoch(new Date());
 
-    const lastWinStr = getCookie("lastWin");
+    const lastWin = getCookie("lastWin");
     const winStreakStr = getCookie("winStreak");
 
     let streak = parseInt(winStreakStr || '0', 10);
 
-    if (lastWinStr) {
-        const lastWinDate = new Date(lastWinStr);
-        lastWinDate.setHours(0, 0, 0, 0);
-
-        if (isStreak(today, lastWinDate)) {
+    if (lastWin) {
+        if (isStreak(today, lastWin)) {
             streak += 1;
         } else {
             streak = 1;
@@ -80,7 +61,7 @@ function updateWinstreak() {
         streak = 1;
     }
 
-    setCookie('lastWin', today.toISOString(), 30);
+    setCookie('lastWin', today, 30);
     setCookie('winStreak', streak, 30);
 
     unfilledStreak.textContent = '';

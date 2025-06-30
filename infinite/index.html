@@ -15,7 +15,6 @@
     </a>
 
     <div id="common"></div>
-
     <script>
         fetch("/shared/common.html")
           .then(res => res.text())
@@ -32,8 +31,10 @@
             // dependencies:
             // textbox -> game as textbox inits the templates
             loadScript("/shared/textbox.js")
+                .then(() => loadScript("/shared/utils.js"))
                 .then(() => loadScript("/shared/game.js"))
                 .then(() => loadScript("/shared/cookies.js"))
+                .then(() => loadScript("gameLocal.js"));
           });
       </script>
 </body>

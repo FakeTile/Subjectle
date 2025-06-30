@@ -147,7 +147,7 @@ cards.forEach(card => {
   button.addEventListener("click", () => {
     const finalInput = toProperCase(input.value);
     if (isValidPerson(finalInput)) {
-      enterGuess(finalInput);
+      window.enterGuess(finalInput);
       suggestionsDiv.innerHTML = "";
     };
   });
@@ -186,7 +186,7 @@ cards.forEach(card => {
       e.preventDefault();
       const finalInput = toProperCase(input.value);
       if (isValidPerson(finalInput)) {
-        enterGuess(finalInput);
+        window.enterGuess(finalInput, selectedSuggestionIndex);
         suggestionsDiv.innerHTML = "";
       }
     }
