@@ -214,4 +214,86 @@ a {
 
 a:hover {
   background-color: #333333;
+
+.page-button:hover {
+  background-color: #484848; 
+}
+.popupContent {
+  color: gainsboro;
+  display: absolute;
+  top: 3.5vh;
+  left: 50vw;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  margin-top: 47vh;
+  width: 25%;
+  height: 60%;
+  padding: 3%;
+  padding-top: 0%;
+  z-index: 1002;
+  overflow: auto;
+  border-radius: 10px;
+  border: 0.35vh solid #2B2B2B;
+  background-color: #181818;
+  animation: fadeIn 0.75s ease-in-out forwards;
+  overflow: hidden;
+}
+
+.popupContent h2 {
+  font-size: 3vh;
+  margin-bottom: 2vh;
+  text-align: center;
+  color: #f8f8f8;
+}
+
+.popupContent p {
+  font-size: 2vh;
+  line-height: 1.6;
+  margin-bottom: 1.5vh;
+  color: #ccc;
+}
+
+.popupOverlay {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.highlight-yellow {
+  color: black;
+  background-color: #C8B653;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+}
+
+.highlight-green {
+  color: black;
+  background-color: #6CA965;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+}
+
+.popupCloseBtn {
+  display: block; 
+  position: relative; 
+  background-color: #2C2C2C;
+  color: white;
+  border: none;
+  width: 50%;
+  border-radius: 1vh;
+  font-size: 3vh;
+  padding: 0.8vh 1.4vh 1vh 1.4vh;
+  cursor: pointer;
+  animation: fadeIn 0.75s ease-in-out forwards;
+  transition: background-color 0.5s, color 0.5s;
+  z-index: 1000;
+  margin: 2vh auto 0;
 }
