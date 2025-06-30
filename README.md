@@ -1,8 +1,6 @@
 # Subjectle
 [Subjectle access link](https://faketile.github.io/Subjectle/)
 
-there is an error regarding certificates and all the rest, the school proxy blocks the site because its a new domain, should either resolve itself in a few days or til needs to do silly website tomfoolery
-
 -----------------------------------------------------------------------
 HOW TO UPDATE THE WORD LIST  
 Clone the repo  
@@ -46,9 +44,6 @@ Get all data correct (remote etc.)
 Isabella jara vidal remote???
 narelle remote
 
-Game Functionality
-- Some kind of introduction / key for colours, to help users get accustomed to rules
-
 Cookies
  - Histogram
  - Keep stats from previous guesses
@@ -56,7 +51,7 @@ Cookies
 Proper popup on win/loss
 
 Improve searching
-- Suppor alternate names
+- Support alternate names
 
   - source from this folder, not main
   - Add python script to get the google sheet, reformat, do any name substitutions or alternates, add this to js files automatically
