@@ -44,11 +44,9 @@ function closePopup() {
   setCookie('popupDismissed', 'true', 30);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (!getCookie('popupDismissed')) {
-    document.getElementById('popupContent').style.display = 'block';
-    document.getElementById('popupOverlay').style.display = 'block';
-  }
-});
+if (!getCookie('popupDismissed')) {
+  document.getElementById('popupContent').style.display = 'block';
+  document.getElementById('popupOverlay').style.display = 'block';
+};
 
 loadSavedGuesses();
