@@ -117,6 +117,11 @@ function output(name) {
   return out;
 }
 
+function showWelcome() {
+  document.getElementById("popupContent").style.display = "block";
+  document.getElementById("popupOverlay").style.display = "block";
+}
+
 const PATH = "ppl.csv";
 const extensionTeachers = ["Robinson", "Black", "Vyas", "Treleaven", "Penn", "Jones"];
 const subjects = {

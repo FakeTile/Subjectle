@@ -43,8 +43,10 @@ window.enterGuess = async function (name) {
     const button_element = input_wrapper.querySelector('button');
 
     const infiniteModeButton = document.getElementById("infiniteA");
+    const welcomeButton = document.getElementById("welcomeA")
 
     disableLink(infiniteModeButton);
+    disableLink(welcomeButton);
   
     input_element.disabled = true;
     button_element.disabled = true;
@@ -58,6 +60,7 @@ window.enterGuess = async function (name) {
     await flipCards(name, num_guesses);
 
     enableLink(infiniteModeButton, "../infinite/");
+    enableLink(welcomeButton, "javascript:void(0);", showWelcome);
 
     if (num_guesses === 1) {
     gtag('event', 'game_started', {

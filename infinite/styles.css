@@ -1,4 +1,4 @@
-.calendar-icon, .reset-icon {
+.calendar-icon, .reset-icon, .welcome-icon {
     width: 5vh;
     height: 5vh;
     z-index: 10;
@@ -30,5 +30,5 @@
 }
 
 .xButton:hover {
-    background-color: #ff4444;
+    background-color: #ff5050;
 }

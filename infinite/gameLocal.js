@@ -98,9 +98,11 @@ window.enterGuess = async function (name) {
 
     const dailyModeButton = document.getElementById("dailyA");
     const resetButton = document.getElementById("resetA");
+    const welcomeButton = document.getElementById("welcomeA")
 
     disableLink(dailyModeButton);
     disableLink(resetButton);
+    disableLink(welcomeButton);
   
     input_element.disabled = true;
     button_element.disabled = true;
@@ -115,6 +117,7 @@ window.enterGuess = async function (name) {
 
     enableLink(dailyModeButton, "../daily/");
     enableLink(resetButton, "javascript:void(0);", reset_game);
+    enableLink(welcomeButton, "javascript:void(0);", showWelcome);
 
     if (num_guesses === 1) {
       gtag('event', 'game_started', {

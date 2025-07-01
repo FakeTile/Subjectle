@@ -219,9 +219,15 @@ a {
   right: 1rem;
 }
 
-#resetA {
+#welcomeA {
   top: 1rem;
   right: 5rem;
+  /* or swapped for vertical layout */
+}
+
+#resetA {
+  top: 1rem;
+  right: 9rem;
   /* or swapped for vertical layout */
 }
 
@@ -331,9 +337,11 @@ a:hover {
 
 #winPopup > .popupContent {
   height: 17vh;
+  overflow: hidden;
 }
 
 #gameOverPopup > .popupContent {
   height: 17vh;
   width: 40%;
+  overflow: hidden;
 }

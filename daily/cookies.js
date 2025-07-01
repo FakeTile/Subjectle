@@ -95,16 +95,5 @@ function updateWinstreak() {
 
 initWinstreak();
 
-function closePopup() {
-  document.getElementById('popupContent').style.display = 'none';
-  document.getElementById('popupOverlay').style.display = 'none';
-  setCookie('popupDismissed', 'true', 30);
-}
-
-if (!getCookie('popupDismissed')) {
-  document.getElementById('popupContent').style.display = 'block';
-  document.getElementById('popupOverlay').style.display = 'block';
-};
-
 loadSavedGuesses();
 

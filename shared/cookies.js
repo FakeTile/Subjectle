@@ -13,3 +13,14 @@ function getCookie(name) {
         return parts[0] === name ? decodeURIComponent(parts[1]) : r;
     }, null);
 }
+
+function closePopup() {
+  document.getElementById('popupContent').style.display = 'none';
+  document.getElementById('popupOverlay').style.display = 'none';
+  setCookie('popupDismissed', 'true', 30);
+}
+
+if (!getCookie('popupDismissed')) {
+  document.getElementById('popupContent').style.display = 'block';
+  document.getElementById('popupOverlay').style.display = 'block';
+};
