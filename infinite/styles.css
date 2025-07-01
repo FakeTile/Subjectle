@@ -1,7 +1,13 @@
-.calendar-icon {
+.calendar-icon, .reset-icon {
     width: 5vh;
     height: 5vh;
     z-index: 10;
+}
+
+.reset-icon {
+    padding-top: 0.7vh;
+    transform: scaleX(-1);
+    transform-origin: center;
 }
 
 .xButton {

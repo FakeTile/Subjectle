@@ -40,6 +40,8 @@ Changelog
 
 Settings Menu
 
+Help menu (shows welcome popup again)
+
 Get all data correct (remote etc.)
 Isabella jara vidal remote???
 narelle remote

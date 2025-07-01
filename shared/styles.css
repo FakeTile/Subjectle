@@ -211,13 +211,28 @@ a {
 
   color: rgb(196, 196, 196);
   position: fixed;
+  z-index: 10;
+}
+
+#dailyA, #infiniteA {
   top: 1rem;
   right: 1rem;
-  z-index: 10;
+}
+
+#resetA {
+  top: 1rem;
+  right: 5rem;
+  /* or swapped for vertical layout */
 }
 
 a:hover {
   background-color: #333333;
+}
+
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
 }
 
 .page-button:hover {
@@ -231,8 +246,8 @@ a:hover {
   position: fixed;
   transform: translate(-50%, -50%);
   margin-top: 47vh;
-  width: 45vh;
-  height: 67vh;
+  width: 50vh;
+  height: 60vh;
   padding: 3vh;
   padding-top: 0;
   z-index: 1002;
