@@ -241,7 +241,12 @@ a:hover {
   border: 0.35vh solid #2B2B2B;
   background-color: #181818;
   animation: fadeIn 0.75s ease-in-out forwards;
-  overflow: hidden;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.popupContent::-webkit-scrollbar {
+  display: none;
 }
 
 .popupContent h2 {
