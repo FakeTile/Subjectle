@@ -39,7 +39,10 @@ Fix google analytics
 Changelog
 
 Settings Menu (popup, move all preexisting settings into it, plus add new ones [themes {?}, statistic view {when done}, changelog, etc])
+
 Make all popups exit-able through clicking on empty space outside the popup itself
+
+Add tooltips to all settings buttons
 
 Get all data correct (remote etc.)
 Isabella jara vidal remote???
