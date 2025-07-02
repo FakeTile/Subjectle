@@ -40,3 +40,9 @@ function updateHistogram(numGuesses) {
   h[numGuesses] += 1;
   setCookie("histogram", h.join(' '), 30);
 }
+
+function removeFailedHistogram() {
+  h = getHistogram();
+  h[0] -= 1;
+  setCookie("histogram", h.join(' '), 30);
+}

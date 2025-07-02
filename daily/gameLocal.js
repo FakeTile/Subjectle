@@ -1,6 +1,8 @@
 function showGameOverPopup(guesee) {
   document.getElementById('gameOverMessage').innerText = `You lose. The correct student was: ${guesee}.`;
   document.getElementById('gameOverPopup').style.display = 'block';
+
+  renderHistogram("gameOverHistogram");
 }
 
 function closeGameOverPopup() {
@@ -11,6 +13,8 @@ function showWinPopup(num_guesses) {
   const text = `You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`;
   document.getElementById('winMessage').innerText = text;
   document.getElementById('winPopup').style.display = 'block';
+
+  renderHistogram("winHistogram");
 }
 
 function disableLink(link) {
@@ -73,9 +77,8 @@ window.enterGuess = async function (name) {
         'win': true,
         'correct_name': guesee
       });
-      showWinPopup(num_guesses);
       updateHistogram(num_guesses);
-      reset_game();
+      showWinPopup(num_guesses);
       return;
     }
   
@@ -87,9 +90,8 @@ window.enterGuess = async function (name) {
         'win': false,
         'correct_name': guesee
       });
-      showGameOverPopup(guesee);
       updateHistogram(0);
-      reset_game();
+      showGameOverPopup(guesee);
       return;
     }
 };

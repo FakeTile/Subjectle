@@ -215,19 +215,19 @@ a {
 }
 
 #dailyA, #infiniteA {
-  top: 1rem;
-  right: 1rem;
+  top: 1vh;
+  right: 1vw;
 }
 
 #welcomeA {
-  top: 1rem;
-  right: 5rem;
+  top: 1vh;
+  right: 5vw;
   /* or swapped for vertical layout */
 }
 
 #resetA {
-  top: 1rem;
-  right: 9rem;
+  top: 1vh;
+  right: 9vw;
   /* or swapped for vertical layout */
 }
 
@@ -273,6 +273,14 @@ a:hover {
 .popupContent h2 {
   font-size: 3vh;
   margin-bottom: 2vh;
+  text-align: center;
+  color: #f8f8f8;
+}
+
+.popupContent h3 {
+  font-size: 2.5vh;
+  margin-top: 3.5vh;
+  margin-bottom: 3vh;
   text-align: center;
   color: #f8f8f8;
 }
@@ -336,12 +344,69 @@ a:hover {
 }
 
 #winPopup > .popupContent {
-  height: 17vh;
-  overflow: hidden;
+  height: 55vh;
+  width: 40%;
 }
 
 #gameOverPopup > .popupContent {
-  height: 17vh;
+  height: 55vh;
   width: 40%;
+}
+
+#histogramChart {
+  margin-top: 1vh;
+  width: 95%;
+}
+
+.histogram-row {
+  display: flex;
+  align-items: center;
+  margin: 0.25vw 0;
+}
+
+.histogram-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.75vh;
+  height: 3vh;
+  width: 5vh;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #6CA965;
+  font-size: 2vh;
+  color: #FAFAFA;
+}
+
+.histogram-label.failed {
+  font-size: 2vh;
+  background-color: #ff7575;
+  color: white;
+}
+
+.bar-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.bar {
+  height: 3vh;
+  min-width: 2vh;
+  background-color: #2F2F2F;
+  color: #FAFAFA;
+  padding-right: 0.75vh;
+  text-align: right;
+  line-height: 3vh;
+  font-weight: bold;
   overflow: hidden;
+  white-space: nowrap;
+  border-radius: 5px;
+}
+
+.count {
+  margin-left: 0.75vh;
+  font-weight: bold;
+  white-space: nowrap;
 }

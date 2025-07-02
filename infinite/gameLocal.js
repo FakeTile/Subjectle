@@ -1,6 +1,9 @@
 function reset_game() {
     num_guesses = 0;
-      
+
+    // at game start add one to failed, will subtract/not later depending on win/lose
+    updateHistogram(0);
+
     const today = getDaysSinceEpoch(new Date());
     const newSeed = Math.floor(Math.random() * 100000);
     const shuffled = seededShuffle(Object.keys(data), newSeed);
@@ -22,14 +25,18 @@ function reset_game() {
         h.style.backgroundColor = '#2C2C2C'; // for test purpose
         h.classList.remove('flip');
       });
+      document.querySelectorAll('.suggestions').forEach(s => {
+        s.innerHTML = '';
+      });
     }
   }
-
 
 function showGameOverPopup(guesee) {
   return new Promise(resolve => {
     document.getElementById('gameOverMessage').innerText = `You lose. The correct student was: ${guesee}.`;
     document.getElementById('gameOverPopup').style.display = 'block';
+
+    renderHistogram("gameOverHistogram");
 
     const btn = document.getElementById('gameOverClose');
     const handler = () => {
@@ -54,6 +61,8 @@ function showWinPopup(num_guesses) {
     const text = `You won in ${num_guesses} ${num_guesses === 1 ? 'attempt' : 'attempts'}!`;
     document.getElementById('winMessage').innerText = text;
     document.getElementById('winPopup').style.display = 'block';
+
+    renderHistogram("winHistogram");
 
     const btn = document.getElementById('winClose');
     const handler = () => {
@@ -134,6 +143,7 @@ window.enterGuess = async function (name) {
         'win': true,
         'correct_name': guesee
       });
+      removeFailedHistogram();
       updateHistogram(num_guesses);
       await showWinPopup(num_guesses);
       reset_game();
@@ -148,7 +158,6 @@ window.enterGuess = async function (name) {
         'win': false,
         'correct_name': guesee
       });
-      updateHistogram(0);
       await showGameOverPopup(guesee);
       reset_game();
       return;

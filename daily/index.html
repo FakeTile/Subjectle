@@ -37,6 +37,8 @@
   <div class="popupContent">
   <h2>Congratulations!</h2>
   <p id="winMessage">You won in X attempts!</p>
+  <h3>Performance Summary</h3>
+  <div id="winHistogram"></div>
   <button type="button" class="popupCloseBtn" onclick="closeWinPopup()">Close</button>
   </div>
   </div>
@@ -45,6 +47,8 @@
   <div class="popupContent">
   <h2>Game Over</h2>
   <p id="gameOverMessage">You lose. The correct student was: [placeholder]</p>
+  <h3>Performance Summary</h3>
+  <div id="gameOverHistogram"></div>
   <button type="button" class="popupCloseBtn" onclick="closeGameOverPopup()">Close</button>
   </div>
   </div>
@@ -89,6 +93,7 @@
           .then(() => loadScript("../shared/utils.js"))
           .then(() => loadScript("../shared/game.js"))
           .then(() => loadScript("../shared/cookies.js"))
+          .then(() => loadScript("../shared/histogram.js"))
           .then(() => loadScript("gameLocal.js"))
           .then(() => loadScript("cookies.js"))
           .then(() => loadScript("title.js"));
