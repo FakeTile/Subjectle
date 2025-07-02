@@ -13,8 +13,7 @@ Alternatively, if your on bash copy these lines
 $ gh repo clone https://github.com/FakeTile/Subjectle && 
 cd Subjectle/ && 
 python3 update-ppl.py && 
-git add game.js && 
-git add textbox.js && 
+git add . &&
 git commit -m "Updated people list" &&
 git push origin &&
 cd .. &&
