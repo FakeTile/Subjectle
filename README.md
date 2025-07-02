@@ -49,7 +49,6 @@ Isabella jara vidal remote???
 narelle remote
 
 Cookies
- - Histogram
  - Keep stats from previous guesses
 
 Improve searching
