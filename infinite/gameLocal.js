@@ -108,11 +108,11 @@ window.enterGuess = async function (name) {
     button_element.disabled = true;
     num_guesses += 1;
     gtag('event', 'guess_made', {
-  'event_category': 'gameplay',
-  'event_label': 'subjectle',
-  'value': num_guesses,
-  'guessed_name': name
-});
+      'event_category': 'gameplay',
+      'event_label': 'subjectle',
+      'value': num_guesses,
+      'guessed_name': name
+    });
     await flipCards(name, num_guesses);
 
     enableLink(dailyModeButton, "../daily/");
@@ -121,19 +121,20 @@ window.enterGuess = async function (name) {
 
     if (num_guesses === 1) {
       gtag('event', 'game_started', {
-    'event_category': 'engagement',
-    'event_label': 'subjectle'
-  });
+        'event_category': 'engagement',
+        'event_label': 'subjectle'
+      });
 }
   
     if (name === guesee) {
       gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': true,
-    'correct_name': guesee
-  });
+        'event_category': 'gameplay',
+        'event_label': 'subjectle',
+        'value': num_guesses,
+        'win': true,
+        'correct_name': guesee
+      });
+      updateHistogram(num_guesses);
       await showWinPopup(num_guesses);
       reset_game();
       return;
@@ -141,12 +142,13 @@ window.enterGuess = async function (name) {
   
     if (num_guesses === 6) {
       gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': false,
-    'correct_name': guesee
-  });
+        'event_category': 'gameplay',
+        'event_label': 'subjectle',
+        'value': num_guesses,
+        'win': false,
+        'correct_name': guesee
+      });
+      updateHistogram(0);
       await showGameOverPopup(guesee);
       reset_game();
       return;

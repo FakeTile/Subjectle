@@ -24,3 +24,19 @@ if (!getCookie('popupDismissed')) {
   document.getElementById('popupContent').style.display = 'block';
   document.getElementById('popupOverlay').style.display = 'block';
 };
+
+function getHistogram() {
+  h = getCookie("histogram");
+
+  if (h) {
+    return h.split(' ').map(Number);
+  } else {
+    return [0,0,0,0,0,0,0];
+  }
+}
+
+function updateHistogram(numGuesses) {
+  h = getHistogram();
+  h[numGuesses] += 1;
+  setCookie("histogram", h.join(' '), 30);
+}

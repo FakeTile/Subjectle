@@ -27,3 +27,7 @@ function seededShuffle(array, seed) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function closeWinPopup() {
+  document.getElementById('winPopup').style.display = 'none';
+}

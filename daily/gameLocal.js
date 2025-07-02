@@ -13,10 +13,6 @@ function showWinPopup(num_guesses) {
   document.getElementById('winPopup').style.display = 'block';
 }
 
-function closeWinPopup() {
-  document.getElementById('winPopup').style.display = 'none';
-}
-
 function disableLink(link) {
   link.style.pointerEvents = "none";
   link.style.opacity = "0.5";
@@ -71,26 +67,28 @@ window.enterGuess = async function (name) {
     if (name === guesee) {
       updateWinstreak();
       gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': true,
-    'correct_name': guesee
-  });
+        'event_category': 'gameplay',
+        'event_label': 'subjectle',
+        'value': num_guesses,
+        'win': true,
+        'correct_name': guesee
+      });
       showWinPopup(num_guesses);
+      updateHistogram(num_guesses);
       reset_game();
       return;
     }
   
     if (num_guesses === 6) {
       gtag('event', 'game_end', {
-    'event_category': 'gameplay',
-    'event_label': 'subjectle',
-    'value': num_guesses,
-    'win': false,
-    'correct_name': guesee
-  });
+        'event_category': 'gameplay',
+        'event_label': 'subjectle',
+        'value': num_guesses,
+        'win': false,
+        'correct_name': guesee
+      });
       showGameOverPopup(guesee);
+      updateHistogram(0);
       reset_game();
       return;
     }
