@@ -18,7 +18,7 @@ git add textbox.js &&
 git commit -m "Updated people list" &&
 git push origin &&
 cd .. &&
-&& rm -rf Subbjectle/
+rm -rf Subbjectle/
 
 ----------------------------------------------------------------------
 
