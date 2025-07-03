@@ -256,7 +256,7 @@ a:hover {
   height: 60vh;
   padding: 3vh;
   padding-top: 0;
-  z-index: 1002;
+  z-index: 9999 !important;
   overflow: auto;
   border-radius: 2vh;
   border: 0.35vh solid #2B2B2B;
@@ -301,7 +301,7 @@ a:hover {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1001;
+  z-index: 1000;
   backdrop-filter: blur(1vh);
   -webkit-backdrop-filter: blur(1vh); 
 }

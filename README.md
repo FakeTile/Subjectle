@@ -39,9 +39,9 @@ Changelog
 
 Settings Menu (popup, move all preexisting settings into it, plus add new ones [themes {?}, statistic view {when done}, changelog, etc])
 
-Make all popups exit-able through clicking on empty space outside the popup itself
-
 Add tooltips to all settings buttons
+
+better histogram css + enter button css
 
 Get all data correct (remote etc.)
 Isabella jara vidal remote???
@@ -56,3 +56,4 @@ Improve searching
   - source from this folder, not main
   - Add python script to get the google sheet, reformat, do any name substitutions or alternates, add this to js files automatically
   - Potentially encrypt names, so you cant just look them up in inspect element
+  - Move popup stuff to shared

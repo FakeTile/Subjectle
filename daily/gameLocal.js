@@ -7,6 +7,7 @@ function showGameOverPopup(guesee) {
 
 function closeGameOverPopup() {
   document.getElementById('gameOverPopup').style.display = 'none';
+  reset_game();
 }
 
 function showWinPopup(num_guesses) {

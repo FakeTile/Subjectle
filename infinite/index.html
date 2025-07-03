@@ -21,41 +21,41 @@
 </head>
 <body>
 
-  <div id="popupContent" class="popupContent" style="display:none;">
-  <h2>Welcome to Subjectle!</h2>
-
-  <p>It’s a Wordle clone with a twist.</p>
-  <p>Your goal is to guess a hidden student based on the classes they take.</p>
-  <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
-  <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
-  <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
-  <p>You won't lose your daily streak on weekends.</p>
-  <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
+  <div id="welcomePopup" class="popupOverlay" style="display: none;">
+    <div class="popupContent">
+      <h2>Welcome to Subjectle!</h2>
+      <p>It’s a Wordle clone with a twist.</p>
+      <p>Your goal is to guess a hidden student based on the classes they take.</p>
+      <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
+      <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
+      <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
+      <p>You won't lose your daily streak on weekends.</p>
+      <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
+    </div>
   </div>
 
   <div id="winPopup" class="popupOverlay" style="display: none;">
-  <div class="popupContent">
-  <button type="button" class="xButton" id="xButtonID" onclick="shutWinPopup()">⨯</button>
-  <h2>Congratulations!</h2>
-  <p id="winMessage">You won in [] attempts!</p>
-  <h3>Performance Summary</h3>
-  <div id="winHistogram"></div>
-  <button type="button" class="popupCloseBtn" id="winClose" onclick="closeWinPopup()">Play Again</button>
-  </div>
+    <div class="popupContent">
+      <button type="button" class="xButton" id="xButtonID" onclick="shutWinPopup()">⨯</button>
+      <h2>Congratulations!</h2>
+      <p id="winMessage">You won in X attempts!</p>
+      <h3>Performance Summary</h3>
+      <div id="winHistogram"></div>
+      <button type="button" class="popupCloseBtn" id="winClose" onclick="closeWinPopup()">Play Again</button>
+    </div>
   </div>
 
   <div id="gameOverPopup" class="popupOverlay" style="display: none;">
-  <div class="popupContent">
-  <button type="button" class="xButton" id="xButton" onclick="shutGameOverPopup()">⨯</button>
-  <h2>Game Over</h2>
-  <p id="gameOverMessage">You lose. The correct student was: []</p>
-  <h3>Performance Summary</h3>
-  <div id="gameOverHistogram"></div>
-  <button type="button" class="popupCloseBtn" id="gameOverClose" onclick="closeGameOverPopup()">Play Again</button>
-  </div>
+    <div class="popupContent">
+      <button type="button" class="xButton" id="xButton" onclick="shutGameOverPopup()">⨯</button>
+      <h2>Game Over</h2>
+      <p id="gameOverMessage">You lose. The correct student was: [placeholder]</p>
+      <h3>Performance Summary</h3>
+      <div id="gameOverHistogram"></div>
+      <button type="button" class="popupCloseBtn" id="gameOverClose" onclick="closeGameOverPopup()">Play Again</button>
+    </div>
   </div>
 
-  <div id="popupOverlay" class="popupOverlay" style="display:none;"></div>
 
     <p class="para">Random Subjectle</p>
     
@@ -97,8 +97,9 @@
                 .then(() => loadScript("../shared/utils.js"))
                 .then(() => loadScript("../shared/game.js"))
                 .then(() => loadScript("../shared/cookies.js"))
-                .then(() => loadScript("gameLocal.js"))
-                .then(() => loadScript("../shared/histogram.js"));
+                .then(() => loadScript("../shared/histogram.js"))
+                .then(() => loadScript("../shared/popup.js"))
+                .then(() => loadScript("gameLocal.js"));
           });
       </script>
 </body>

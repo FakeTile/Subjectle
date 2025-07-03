@@ -118,8 +118,7 @@ function output(name) {
 }
 
 function showWelcome() {
-  document.getElementById("popupContent").style.display = "block";
-  document.getElementById("popupOverlay").style.display = "block";
+  document.getElementById("welcomePopup").style.display = "block";
 }
 
 const PATH = "ppl.csv";
