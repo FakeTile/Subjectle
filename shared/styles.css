@@ -256,7 +256,7 @@ a:hover {
   height: 60vh;
   padding: 3vh;
   padding-top: 0;
-  z-index: 9999 !important;
+  z-index: 1003;
   overflow: auto;
   border-radius: 2vh;
   border: 0.35vh solid #2B2B2B;
