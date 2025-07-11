@@ -79,6 +79,7 @@ window.enterGuess = async function (name) {
         'correct_name': guesee
       });
       updateHistogram(num_guesses);
+      setCookie("lastWin", daysSinceEpoch, 30);
       showWinPopup(num_guesses);
       return;
     }
