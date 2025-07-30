@@ -12,23 +12,8 @@ const daysSinceEpoch = getDaysSinceEpoch(new Date());
 const names = seededShuffle(Object.keys(data), "soham");
 let guesee = names[daysSinceEpoch % names.length];
 
-/*
-const infinity = document.getElementById('infinite');
-infinity.addEventListener("click", () => {
-  reset_game()
-});
-
-const para = document.getElementById('num-subjectle');
-
-function fadeToText(newText) {
-  para.style.animation = 'none';
-  void para.offsetWidth;
-  para.textContent = newText;
-  para.style.animation = 'fadeIn 0.75s ease-in-out forwards';
-};
-*/
-
 document.querySelector('#card1 .input-wrapper input').disabled = false;
+document.querySelector('#card1 .input-wrapper input').focus();
 document.querySelector('#card1 .input-wrapper button').disabled = false;
 
 async function flipCards(name, card_num) {
@@ -82,6 +67,7 @@ async function flipCards(name, card_num) {
     const nextButton = document.querySelector('#card' + (card_num + 1) + ' .input-wrapper button');
     if (nextInput && nextButton) {
       nextInput.disabled = false;
+      nextInput.focus();
       nextButton.disabled = false;
     }
   }
