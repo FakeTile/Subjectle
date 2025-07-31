@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../shared/styles.css">
+  <link rel="icon" type="image/png" href="../assets/favicon2.png">
   <title>Subjections</title>
 </head>
 <body>
 
   <div id="welcomePopup" class="popupOverlay" style="display: none;">
     <div class="popupContent">
-      <h2>Welcome to Subjectle!</h2>
-      <p>It’s a Wordle clone with a twist.</p>
-      <p>Your goal is to guess a hidden student based on the classes they take.</p>
-      <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
-      <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
-      <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
+      <h2>Welcome to Subjections!</h2>
+      <p>Each game selects four random classes and takes four random students from each.</p>
+      <p>Your goal is to uncover the original groups; four sets of four students; based on their classes.</p>
+      <p>You’ll get a “one away” toast when your guess is close but not quite correct.</p>
+      <p>There are no categories or colours. Just names and pure reasoning.</p>
+      <p>You have <strong>5 attempts</strong> to solve the puzzle.</p>
       <p>You won't lose your daily streak on weekends.</p>
       <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
     </div>

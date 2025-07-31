@@ -419,113 +419,90 @@ function winGame(guessNum) {
 function loseGame() {
     document.getElementById('gameOverSubjectionsPopup').style.display = 'block';
 
-    const studentToClass = {};
-    for (const { name, cls } of selectedStudents) {
-        studentToClass[name] = cls;
-    }
-
     const classGroups = {};
-    for (const s of selectedStudents) {
-        if (!classGroups[s.cls]) classGroups[s.cls] = [];
-        classGroups[s.cls].push(s.name);
+    for (const { name, cls } of selectedStudents) {
+        if (!classGroups[cls]) classGroups[cls] = [];
+        classGroups[cls].push(name);
     }
 
     const correctClassNames = Object.entries(classGroups)
+        .filter(([cls, names]) => names.length === 4)
         .filter(([cls, names]) => {
-            if (names.length !== 4) return false;
-            const correctButtons = Array.from(document.querySelectorAll('.cell-button.correct'));
-            const correctNames = correctButtons.map(btn => btn.textContent);
-            return !names.every(name => correctNames.includes(name));
+            const revealed = Array.from(document.querySelectorAll('.cell-button.correct'))
+                .map(b => b.textContent);
+            return !names.every(n => revealed.includes(n));
         })
         .map(([cls]) => cls);
 
-    const revealedArray = [];
-    const buttons = Array.from(document.querySelectorAll('.cell-button')).filter(btn => !btn.disabled);
-    const nameToButton = new Map(buttons.map(btn => [btn.textContent, btn]));
-
+    const existingButtons = Array.from(document.querySelectorAll('.cell-button'));
+    const nameToButton = new Map(existingButtons.map(b => [b.textContent, b]));
     window.loseClassSequence = [...correctClassNames];
+    const table = window.table;
+
+    if (!document.getElementById('faded-button-style')) {
+        const style = document.createElement('style');
+        style.id = 'faded-button-style';
+        style.textContent = `
+            .faded-button {
+                opacity: 0 !important;
+                pointer-events: none !important;
+                transition: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 
     function nextReveal() {
-        const cls = window.loseClassSequence.splice(0, 1)[0];
+        if (loseClassSequence.length === 0) return;
+        const cls = loseClassSequence.shift();
         const group = classGroups[cls];
 
-        const groupButtons = group.map(name => nameToButton.get(name)).filter(Boolean);
-        groupButtons.forEach(btn => {
-            btn.classList.add('correct');
+        group.forEach(name => {
+            const btn = nameToButton.get(name);
+            btn.classList.add('correct', 'faded-button');
             btn.disabled = true;
         });
 
-        revealedArray.push(cls);
+        const newCorrect = group.map(n => selectedStudents.find(s => s.name === n));
+        const rest = selectedStudents.filter(s => !group.includes(s.name));
+        selectedStudents = [...newCorrect, ...rest];
 
-        const newCorrectStudents = group.map(name => {
-            return selectedStudents.find(s => s.name === name);
+        const oldRects = new Map();
+        existingButtons.forEach(btn => {
+            oldRects.set(btn.textContent, btn.getBoundingClientRect());
         });
 
-        const remaining = selectedStudents.filter(s => !group.includes(s.name));
-        selectedStudents = [...newCorrectStudents, ...remaining];
-
-        const oldButtons = Array.from(document.querySelectorAll('.cell-button'));
-        const oldPositions = new Map();
-        oldButtons.forEach(btn => {
-            oldPositions.set(btn.textContent, btn.getBoundingClientRect());
+        const cells = Array.from(table.querySelectorAll('td'));
+        selectedStudents.forEach((s, idx) => {
+            const btn = nameToButton.get(s.name);
+            cells[idx].appendChild(btn);
         });
 
-        table.innerHTML = '';
-        for (let i = 0; i < 4; i++) {
-            const row = document.createElement('tr');
-            for (let j = 0; j < 4; j++) {
-                const index = i * 4 + j;
-                const { name } = selectedStudents[index];
-                const cell = document.createElement('td');
-
-                const button = document.createElement('button');
-                button.textContent = name;
-                button.className = 'cell-button';
-
-                if (group.includes(name)) {
-                    button.classList.add('correct');
-                    button.disabled = true;
-                    setTimeout(() => {
-                        button.style.opacity = '0';
-                    }, 300);
-                }
-
-                cell.appendChild(button);
-                row.appendChild(cell);
-            }
-            table.appendChild(row);
-        }
+        existingButtons.forEach(btn => {
+            const oldRect = oldRects.get(btn.textContent);
+            const newRect = btn.getBoundingClientRect();
+            const dx = oldRect.left - newRect.left;
+            const dy = oldRect.top - newRect.top;
+            btn.style.transition = 'none';
+            btn.style.transform = `translate(${dx}px, ${dy}px)`;
+        });
 
         requestAnimationFrame(() => {
-            const newButtons = Array.from(document.querySelectorAll('.cell-button'));
-            newButtons.forEach(btn => {
-                const oldRect = oldPositions.get(btn.textContent);
-                if (!oldRect) return;
-                const newRect = btn.getBoundingClientRect();
-                const dx = oldRect.left - newRect.left;
-                const dy = oldRect.top - newRect.top;
-                btn.style.transition = 'none';
-                btn.style.transform = `translate(${dx}px, ${dy}px)`;
+            existingButtons.forEach(btn => {
+                btn.style.transition = 'transform 0.4s ease';
+                btn.style.transform = '';
             });
-
-            requestAnimationFrame(() => {
-                newButtons.forEach(btn => {
-                    btn.style.transition = 'transform 0.4s ease';
-                    btn.style.transform = '';
-                });
-
-                setTimeout(() => {
-                    shiftOverlaysDown();
-                    const newOverlay = document.getElementById('CorrectOverlay' + (++numCorrect));
-                    newOverlay.querySelector('h').textContent = `${subjects[cls]} - ${cls.replace('-ext', '').replace('-drama', '').replace('-anc', '')}`;
-                    newOverlay.querySelector('p').textContent = `${group.join(", ")}`;
-                    newOverlay.classList.remove('hidden');
-                    newOverlay.classList.add('visible');
-                    newOverlay.style.top = '14.8%';
-
-                    setTimeout(nextReveal, 500);
-                }, 400);
-            });
+            setTimeout(() => {
+                shiftOverlaysDown();
+                const overlay = document.getElementById('CorrectOverlay' + (++numCorrect));
+                overlay.querySelector('h').textContent =
+                    subjects[cls] + ' – ' + cls.replace(/-ext|-drama|-anc/g, '');
+                overlay.querySelector('p').textContent = group.join(', ');
+                overlay.classList.remove('hidden');
+                overlay.classList.add('visible');
+                overlay.style.top = '14.8%';
+                setTimeout(nextReveal, 200);
+            }, 200);
         });
     }
 
