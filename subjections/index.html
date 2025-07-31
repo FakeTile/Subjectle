@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../shared/styles.css">
+  <title>Subjections</title>
+</head>
+<body>
+
+  <div id="welcomePopup" class="popupOverlay" style="display: none;">
+    <div class="popupContent">
+      <h2>Welcome to Subjectle!</h2>
+      <p>It’s a Wordle clone with a twist.</p>
+      <p>Your goal is to guess a hidden student based on the classes they take.</p>
+      <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
+      <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
+      <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
+      <p>You won't lose your daily streak on weekends.</p>
+      <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
+    </div>
+  </div>
+
+  <div id="winSubjectionsPopup" class="popupOverlay" style="display: none;">
+    <!-- replace winSubjectionsPopup with winPopup when histogram implemented -->
+    <div class="popupContent">
+      <button type="button" class="xButton" id="xButtonID" onclick="closeWinPopup()">⨯</button>
+      <h2>Congratulations!</h2>
+      <p id="winSubjectionsMessage">You won with X guesses to spare!</p>
+      <!--<h3>Performance Summary</h3>
+      //<div id="winHistogram"></div>-->
+      <button type="button" class="popupCloseBtn" id="winClose" onclick="closeWinPopup()">Close</button>
+    </div>
+  </div>
+
+  <div id="gameOverSubjectionsPopup" class="popupOverlay" style="display: none;">
+    <!-- replace gameOverSubjectionsPopup with gameOverPopup when histogram implemented -->
+    <div class="popupContent">
+      <button type="button" class="xButton" id="xButtonID" onclick="closeGameOverPopup()">⨯</button>
+      <h2>Game Over</h2>
+      <p id="gameOverSubjectionsMessage">You lost. Close this popup to see the correct Subjections.</p>
+      <!--<h3>Performance Summary</h3>
+      <div id="gameOverHistogram"></div>-->
+      <button type="button" class="popupCloseBtn" id="gameOverClose" onclick="closeGameOverPopup()">Close</button>
+    </div>
+  </div>
+
+  <p class="para">Subjections</p>
+
+  <table id="board"></table>
+  
+  <p class="guesses" id="guessP">Guesses remaining: <span class="dots">•••••</span></p>
+
+  <div id="snackbar">One Away!</div> 
+
+  <table id="controls">
+    <tr>
+      <td>
+        <button class="control-button" id="shuffleButton" onclick="shuffleBoard()">Shuffle</button>
+      </td>
+      <td>
+        <button class="control-button" id="deselectButton" onclick="deselectAll()" disabled>Deselect All</button>
+      </td>
+      <td>
+        <button class="submit-button" id="submitButton" onclick="submitGuess()" disabled>Submit</button>
+      </td>
+    </tr>
+  </table>
+
+  <center>
+    <div id="CorrectOverlay1" class="correctOverlay hidden" style="top: 14.8%;">
+      <h>Class</h>
+      <p>People, In, The, Class</p>
+    </div>
+    <div id="CorrectOverlay2" class="correctOverlay hidden" style="top: 14.8%;">
+      <h>Class</h>
+      <p>People, In, The, Class</p>
+    </div>
+    <div id="CorrectOverlay3" class="correctOverlay hidden" style="top: 14.8%;">
+      <h>Class</h>
+      <p>People, In, The, Class</p>
+    </div>
+    <div id="CorrectOverlay4" class="correctOverlay hidden" style="top: 14.8%;">
+      <h>Class</h>
+      <p>People, In, The, Class</p>
+    </div>
+  </center>
+
+  <script src="../shared/utils.js"></script>
+  <script src="../shared/popup.js"></script>
+  <script src="../shared/cookies.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -410,3 +410,215 @@ a:hover {
   font-weight: bold;
   white-space: nowrap;
 }
+
+#board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+}
+
+.cell-button {
+  background: #262626;
+  width: 15vw;
+  height: 10vh;
+  color: gainsboro;
+  border: 0.35vh solid #343434;
+  border-radius: 1.5vh;
+  margin: 0.4vh;
+  font-size: 2.25vh;
+  transition: background 0.3s ease, border 0.3s ease, transform 0.4s ease, opacity 0.3s ease;
+  position: relative;
+  opacity: 1;
+  z-index: 50;
+}
+
+.cell-button.correct {
+    transition: opacity 0.9s ease-out;
+    pointer-events: none;
+}
+
+.cell-button:hover {
+  background: #303030;
+  border: 0.35vh solid #3E3E3E;
+}
+
+.cell-button.toggle {
+  background: #393939;
+  border: 0.35vh solid #494949;
+}
+
+.cell-button.toggle:hover {
+  background: #444444;
+  border: 0.35vh solid #525252;
+}
+
+#guessP {position: absolute;
+  position: absolute;
+  top: 61.5%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  color: gainsboro;
+  font-size: 1.75vh;
+}
+
+.dots {
+  font-size: 5vh;
+  letter-spacing: 0.5vw;
+  vertical-align: middle;
+}
+
+#controls {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+}
+
+.control-button {
+  border-radius: 2.5vh;
+  height: 5vh;
+  width: 7.5vw;
+  background: #262626;
+  border: 0.35vh solid #343434;
+  margin: 1.25vw;
+  color: gainsboro;
+  font-size: 1.5vh;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.submit-button {
+  border-radius: 2.5vh;
+  height: 5vh;
+  width: 7.5vw;
+  background: #343434;
+  border: 0.35vh solid #343434;
+  margin: 1.25vw;
+  color: gainsboro;
+  font-size: 1.5vh;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+}
+
+.correctOverlay {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 62.4vw;
+  height: 10vh;
+  border-radius: 1.5vh;
+  font-weight: bold;
+  z-index: 20;
+  transition: opacity 1s ease, top 0.5s ease;
+  opacity: 1;
+}
+
+.correctOverlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.correctOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+.correctOverlay h {
+  display: block;
+  font-size: 2vh;
+  margin-bottom: 1vh;
+  margin-top: 1.9vh;
+}
+
+.correctOverlay p {
+  margin: 0;
+  font-weight: normal;
+  font-size: 1.5vh;
+}
+
+#CorrectOverlay1 {
+  background-color: #C8B653;
+}
+
+#CorrectOverlay2 {
+  background-color: #6CA965;
+}
+#CorrectOverlay3 {
+  background-color: #7FA9E3;
+}
+
+#CorrectOverlay4 {
+  background-color: #A890C8;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 30vh; 
+  margin-left: -15vh;
+  background-color: #333; 
+  color: gainsboro; 
+  text-align: center;
+  border-radius: 1vh; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 1;
+  left: 50%; 
+  bottom: 2vh; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 2vh; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 2vh; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+} 
+
+.xButton {
+    background-color: #2C2C2C;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px; 
+    height: 20px; 
+    font-size: 20px;
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    padding-bottom: 5px;
+    position: absolute; 
+    top: 10px;
+    right: 10px;
+}
+
+.xButton:hover {
+    background-color: #ff5050;
+}
+
+#winSubjectionsPopup > .popupContent,
+#gameOverSubjectionsPopup > .popupContent {
+  height: 20vh;
+  width: 35%;
+  padding: 2vh;
+  margin-top: 35vh;
+}

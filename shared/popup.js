@@ -9,3 +9,7 @@ document.querySelectorAll('.popupOverlay').forEach(overlay => {
     }
   });
 });
+
+function closeWinPopup() {
+  document.getElementById('winPopup').style.display = 'none';
+}

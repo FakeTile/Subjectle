@@ -63,4 +63,8 @@ write_first_line('shared/game.js',
   f'const data = {data};\n'
 )
 
-print('Wrote to textbox.js and game.js')
+write_first_line('subjections/game.js',
+  f'const data = {data};\n'
+)
+
+print('Wrote to textbox.js, game.js (for subjectle), and game.js (for subjections)')
