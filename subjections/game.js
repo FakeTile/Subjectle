@@ -10,89 +10,179 @@ const data = {'Sebin P': ['Unity', 'White', 'Silibek', 'Tweddle', 'Free', 'Naito
 const daysSinceEpoch = getDaysSinceEpoch(new Date());
 const names = seededShuffle(Object.keys(data), "mudgil");
 
+const subjects = {
+  "Jones": "Mathematics Advanced",
+  "Treleaven": "English Advanced",
+  "Clarke": "Economics",
+  "Bullock": "Biology",
+  "Ireland": "Legal Studies",
+  "McGavock": "Chemistry",
+  "Jones-ext": "Mathematics Extension",
+  "Richmond": "English Standard",
+  "Richmond-drama": "Drama",
+  "Hirsch": "French",
+  "Rayment": "Chemistry",
+  "Free": "Study",
+  "Offner": "Studies Of Religon",
+  "Unity": "Mathematics Advanced",
+  "Marsh": "Software Engineering",
+  "Smith": "Physics",
+  "Naito": "Japanese",
+  "Tsaccounis": "Business Studies",
+  "Penn": "English Advanced",
+  "Penn-ext": "English Extension",
+  "Treleaven-ext": "English Extension",
+  "Treleaven & Penn-ext": "English Extension",
+  "Herrman": "Physics",
+  "Emaneni": "Enterprise Computing",
+  "White": "English Advanced",
+  "Silibek": "Chemistry",
+  "Tweddle": "Health & Movement Science",
+  "Doyle": "Biology",
+  "Phelps": "English Advanced",
+  "Parkinson": "Biology",
+  "Vyas": "Mathematics Advanced",
+  "Taylor": "Engineering",
+  "Groves": "Design & Technology",
+  "Vyas-ext": "Mathematics Extension",
+  "Black-ext": "Mathematics Extension",
+  "Court": "English Advanced",
+  "Black": "Mathematics Advanced",
+  "Heka": "Modern History",
+  "Moller": "German",
+  "Foran": "Business Studies",
+  "Weekes": "Mathematics Standard",
+  "Metson": "Society & Culture",
+  "Phelps-anc": "Ancient History",
+  "Limbrey": "Geography",
+  "Robinson": "Mathematics Advanced",
+  "Robinson-ext": "Mathematics Extension",
+  "Wellings": "Music",
+  "Woodley": "Mathematics Advanced",
+  "Milnes": "Visual Art"
+};
+
 function makeBoard() {
     window.table = document.getElementById('board');
     window.inList = [];
 
     function baseClass(cls) {
-        if (cls.endsWith('-ext')) {
-            if (cls === 'Treleaven-ext' || cls === 'Penn-ext') return cls;
-            return cls.slice(0, -4);
-        }
+        if (cls === 'Treleaven-ext' || cls === 'Penn-ext') return 'Treleaven & Penn-ext';
+        if (cls.endsWith('-ext')) return cls; 
         return cls;
     }
 
-    const classMap = {};
+    function getClassCategory(cls) {
+        if (cls === 'Treleaven & Penn-ext') return 'english';
+
+        const subject = subjects[cls] || '';
+        if (subject.includes('Mathematics')) return 'maths';
+        if (subject.includes('English')) return 'english';
+        return 'elective';
+    }
+
+    const classMapRaw = {};
     for (const [name, classes] of Object.entries(data)) {
-        for (const cls of classes) {
-            if (!classMap[cls]) classMap[cls] = [];
-            classMap[cls].push(name);
+        for (let cls of classes) {
+            if (cls === 'Free') continue;
+            cls = baseClass(cls);
+            if (!classMapRaw[cls]) classMapRaw[cls] = new Set();
+            classMapRaw[cls].add(name);
         }
     }
 
-    const allValidClasses = Object.entries(classMap)
-        .filter(([cls, students]) => {
-            const uniqueStudents = [...new Set(students)];
-            return uniqueStudents.length >= 4;
-        })
-        .map(([cls]) => cls);
+    const classMap = {};
+    for (const [cls, studentsSet] of Object.entries(classMapRaw)) {
+        classMap[cls] = Array.from(studentsSet);
+    }
 
-    const selectedClasses = [];
-    window.selectedStudents = [];
-    const usedPeople = new Set();
-    const usedBaseClasses = new Set();
+    const weightedClasses = [];
+    for (const cls of Object.keys(classMap)) {
+        const cat = getClassCategory(cls);
+        if (cat === 'elective') {
+            weightedClasses.push(cls);
+        } else {
+            if (Math.random() < 0.5) weightedClasses.push(cls);
+        }
+    }
+    weightedClasses.sort(() => Math.random() - 0.5);
 
-    while (selectedClasses.length < 4) {
-        const candidateClass = allValidClasses[Math.floor(Math.random() * allValidClasses.length)];
-        if (selectedClasses.includes(candidateClass)) continue;
-
-        const candidateBase = baseClass(candidateClass);
-        let conflict = false;
-        for (const chosenClass of selectedClasses) {
-            const chosenBase = baseClass(chosenClass);
-            if (candidateBase === chosenBase) {
-                conflict = true;
-                break;
+    function numSharedClasses(students) {
+        const counts = {};
+        for (const student of students) {
+            const classes = data[student];
+            for (let cls of classes) {
+                if (cls === 'Free') continue;
+                cls = baseClass(cls);
+                counts[cls] = (counts[cls] || 0) + 1;
             }
         }
-        if (conflict) continue;
+        let total = 0;
+        for (const val of Object.values(counts)) {
+            if (val === 4) total++;
+        }
+        return total;
+    }
 
-        const uniquePool = [...new Set(classMap[candidateClass])].filter(name => !usedPeople.has(name));
-        if (uniquePool.length < 4) {
+    const usedStudents = new Set();
+    window.selectedStudents = [];
+    const selectedGroups = [];
+
+    let classIndex = 0;
+    while (selectedGroups.length < 4 && classIndex < weightedClasses.length) {
+        const cls = weightedClasses[classIndex];
+        const pool = classMap[cls].filter(name => !usedStudents.has(name));
+        if (pool.length < 4) {
+            classIndex++;
             continue;
         }
 
-        selectedClasses.push(candidateClass);
-        usedBaseClasses.add(candidateBase);
-
-        for (let i = 0; i < 4;) {
-            const pickIndex = Math.floor(Math.random() * uniquePool.length);
-            const pick = uniquePool[pickIndex];
-            if (!usedPeople.has(pick)) {
-                usedPeople.add(pick);
-                selectedStudents.push({ name: pick, cls: candidateClass });
-                i++;
-                uniquePool.splice(pickIndex, 1);
+        let validGroup = null;
+        for (let tries = 0; tries < 25; tries++) {
+            const sample = [];
+            const copy = [...pool];
+            while (sample.length < 4 && copy.length > 0) {
+                const idx = Math.floor(Math.random() * copy.length);
+                sample.push(copy.splice(idx, 1)[0]);
             }
+            if (sample.length === 4 && numSharedClasses(sample) <= 2) {
+                validGroup = sample;
+                break;
+            }
+        }
+
+        if (!validGroup) {
+            classIndex++;
+            continue;
+        }
+
+        selectedGroups.push([...validGroup, cls]);
+        for (const name of validGroup) usedStudents.add(name);
+        classIndex++;
+    }
+
+    for (const group of selectedGroups) {
+        const cls = group[4];
+        console.warn(cls)
+        for (let i = 0; i < 4; i++) {
+            window.selectedStudents.push({ name: group[i], cls });
         }
     }
 
     for (let i = selectedStudents.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [selectedStudents[i], selectedStudents[j]] = [selectedStudents[j], selectedStudents[i]];
+        [window.selectedStudents[i], window.selectedStudents[j]] = [window.selectedStudents[j], window.selectedStudents[i]];
     }
 
     table.innerHTML = '';
-
     window.toggledCount = 0;
 
     for (let i = 0; i < 4; i++) {
         const row = document.createElement('tr');
         for (let j = 0; j < 4; j++) {
             const index = i * 4 + j;
-            const { name, cls } = selectedStudents[index];
+            const { name } = selectedStudents[index];
             const cell = document.createElement('td');
-
             const button = document.createElement('button');
             button.textContent = name;
             button.className = 'cell-button';
@@ -101,14 +191,12 @@ function makeBoard() {
                 if (button.classList.contains('toggle')) {
                     button.classList.remove('toggle');
                     toggledCount--;
-                } else {
-                    if (toggledCount < 4) {
-                        button.classList.add('toggle');
-                        toggledCount++;
-                    }
+                } else if (toggledCount < 4) {
+                    button.classList.add('toggle');
+                    toggledCount++;
                 }
-                document.getElementById('submitButton').disabled = (toggledCount !== 4);
-                document.getElementById('deselectButton').disabled = (toggledCount === 0);
+                document.getElementById('submitButton').disabled = toggledCount !== 4;
+                document.getElementById('deselectButton').disabled = toggledCount === 0;
             });
 
             cell.appendChild(button);
@@ -116,10 +204,7 @@ function makeBoard() {
         }
         table.appendChild(row);
     }
-
-    for (const { name, cls } of selectedStudents) {
-        console.log(`${name} from class ${cls}`);
-    }
+    console.log(selectedGroups);
 }
 
 makeBoard();
@@ -325,7 +410,7 @@ function submitGuess() {
                     } else {
                         setTimeout(() => {
                             button.style.opacity = '0';
-                        }, 300);
+                        }, 400);
                     }
                 }
 
@@ -381,7 +466,7 @@ function submitGuess() {
             newOverlay.classList.remove('hidden');
             newOverlay.classList.add('visible');
             newOverlay.style.top = '14.8%';
-        }, 150);
+        }, 200);
 
         toggledCount = 0;
         document.getElementById('submitButton').disabled = true;
@@ -412,7 +497,7 @@ function shiftOverlaysDown() {
 function winGame(guessNum) {
     document.getElementById('shuffleButton').disabled = true;
     const winPopup = document.getElementById('winSubjectionsPopup');
-    winPopup.querySelector('p').textContent = `You won with ${guessNum} guesses to spare!`;
+    winPopup.querySelector('p').textContent = `You won with ${guessNum} ` + (guessNum == 1 ? `guess` : `guesses`) +` to spare!`;
     winPopup.style.display = "block";
 }
 
@@ -446,7 +531,6 @@ function loseGame() {
             .faded-button {
                 opacity: 0 !important;
                 pointer-events: none !important;
-                transition: none !important;
             }
         `;
         document.head.appendChild(style);
@@ -459,7 +543,7 @@ function loseGame() {
 
         group.forEach(name => {
             const btn = nameToButton.get(name);
-            btn.classList.add('correct', 'faded-button');
+            btn.classList.add('correct');
             btn.disabled = true;
         });
 
@@ -493,6 +577,11 @@ function loseGame() {
                 btn.style.transform = '';
             });
             setTimeout(() => {
+                group.forEach(name => {
+                    const btn = nameToButton.get(name);
+                    btn.classList.add('faded-button');
+                });
+
                 shiftOverlaysDown();
                 const overlay = document.getElementById('CorrectOverlay' + (++numCorrect));
                 overlay.querySelector('h').textContent =
@@ -501,8 +590,9 @@ function loseGame() {
                 overlay.classList.remove('hidden');
                 overlay.classList.add('visible');
                 overlay.style.top = '14.8%';
-                setTimeout(nextReveal, 200);
-            }, 200);
+
+                setTimeout(nextReveal, 400);
+            }, 300);
         });
     }
 
@@ -513,7 +603,6 @@ function loseGame() {
     nextReveal();
 }
 
-
 function closeWinPopup() {
   document.getElementById('winSubjectionsPopup').style.display = 'none';
 }
@@ -521,55 +610,3 @@ function closeWinPopup() {
 function closeGameOverPopup() {
   document.getElementById('gameOverSubjectionsPopup').style.display = 'none';
 }
-
-
-const subjects = {
-  "Jones": "Mathematics Advanced",
-  "Treleaven": "English Advanced",
-  "Clarke": "Economics",
-  "Bullock": "Biology",
-  "Ireland": "Legal Studies",
-  "McGavock": "Chemistry",
-  "Jones-ext": "Mathematics Extension",
-  "Richmond": "English Standard",
-  "Richmond-drama": "Drama",
-  "Hirsch": "French",
-  "Rayment": "Chemistry",
-  "Free": "Study",
-  "Offner": "Studies Of Religon",
-  "Unity": "Mathematics Advanced",
-  "Marsh": "Software Engineering",
-  "Smith": "Physics",
-  "Naito": "Japanese",
-  "Tsaccounis": "Business Studies",
-  "Penn": "English Advanced",
-  "Penn-ext": "English Extension",
-  "Treleaven-ext": "English Extension",
-  "Herrman": "Physics",
-  "Emaneni": "Enterprise Computing",
-  "White": "English Advanced",
-  "Silibek": "Chemistry",
-  "Tweddle": "Health & Movement Science",
-  "Doyle": "Biology",
-  "Phelps": "English Advanced",
-  "Parkinson": "Biology",
-  "Vyas": "Mathematics Advanced",
-  "Taylor": "Engineering",
-  "Groves": "Design & Technology",
-  "Vyas-ext": "Mathematics Extension",
-  "Black-ext": "Mathematics Extension",
-  "Court": "English Advanced",
-  "Black": "Mathematics Advanced",
-  "Heka": "Modern History",
-  "Moller": "German",
-  "Foran": "Business Studies",
-  "Weekes": "Mathematics Standard",
-  "Metson": "Society & Culture",
-  "Phelps-anc": "Ancient History",
-  "Limbrey": "Geography",
-  "Robinson": "Mathematics Advanced",
-  "Robinson-ext": "Mathematics Extension",
-  "Wellings": "Music",
-  "Woodley": "Mathematics Advanced",
-  "Milnes": "Visual Art"
-};
