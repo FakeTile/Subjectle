@@ -8,7 +8,7 @@ const data = {'Sebin P': ['Unity', 'White', 'Silibek', 'Tweddle', 'Free', 'Naito
  */
 
 const daysSinceEpoch = getDaysSinceEpoch(new Date());
-const names = seededShuffle(Object.keys(data), "mudgil");
+const rngToday = mulberry32(daysSinceEpoch);
 
 const subjects = {
   "Jones": "Mathematics Advanced",
@@ -102,10 +102,10 @@ function makeBoard() {
         if (cat === 'elective') {
             weightedClasses.push(cls);
         } else {
-            if (Math.random() < 0.5) weightedClasses.push(cls);
+            if (rngToday() < 0.5) weightedClasses.push(cls);
         }
     }
-    weightedClasses.sort(() => Math.random() - 0.5);
+    weightedClasses.sort(() => rngToday() - 0.5);
 
     function numSharedClasses(students) {
         const counts = {};
@@ -142,7 +142,7 @@ function makeBoard() {
             const sample = [];
             const copy = [...pool];
             while (sample.length < 4 && copy.length > 0) {
-                const idx = Math.floor(Math.random() * copy.length);
+                const idx = Math.floor(rngToday() * copy.length);
                 sample.push(copy.splice(idx, 1)[0]);
             }
             if (sample.length === 4 && numSharedClasses(sample) <= 2) {
@@ -170,7 +170,7 @@ function makeBoard() {
     }
 
     for (let i = selectedStudents.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(rngToday() * (i + 1));
         [window.selectedStudents[i], window.selectedStudents[j]] = [window.selectedStudents[j], window.selectedStudents[i]];
     }
 
