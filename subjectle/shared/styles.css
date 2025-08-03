@@ -501,10 +501,6 @@ a:hover {
   animation: fadeIn 1.875s ease-in-out forwards;
 }
 
-#controls * {
-  cursor: pointer;
-}
-
 
 .control-button {
   border-radius: 2.5vh;
@@ -517,11 +513,13 @@ a:hover {
   font-size: 1.5vh;
   opacity: 1;
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .control-button:disabled {
   opacity: 0.5;
   pointer-events: none;
+  cursor: default;
 }
 
 .submit-button {
