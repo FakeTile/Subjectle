@@ -42,9 +42,10 @@ Fix google analytics
 Changelog
 (i had a stupid idea, could we somehow get commit history from github and display it in a popup? very possible its a silly idea though)
 
-Settings Menu (add new settings [themes {?}, statistic view {when done}, changelog, game switcher, etc])
+Settings Menu (add new settings [themes {?}, statistic view {when done}, changelog, etc])
 
 better histogram css
+
 subjections histogram
 
 Get all data correct (remote etc.)

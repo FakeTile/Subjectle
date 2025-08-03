@@ -449,6 +449,7 @@ a:hover {
   opacity: 1;
   z-index: 50;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .cell-button.correct {
@@ -498,8 +499,12 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -30%);
   animation: fadeIn 1.875s ease-in-out forwards;
-
 }
+
+#controls * {
+  cursor: pointer;
+}
+
 
 .control-button {
   border-radius: 2.5vh;
