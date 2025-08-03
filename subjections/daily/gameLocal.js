@@ -138,7 +138,6 @@ function makeBoard() {
 
     for (const group of selectedGroups) {
         const cls = group[4];
-        console.warn(cls);
         for (let i = 0; i < 4; i++) {
             window.selectedStudents.push({ name: group[i], cls });
         }
