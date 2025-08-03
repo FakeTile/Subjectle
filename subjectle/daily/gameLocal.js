@@ -18,20 +18,12 @@ function showWinPopup(num_guesses) {
   renderHistogram("winHistogram");
 }
 
-function disableLink(link) {
-  link.style.pointerEvents = "none";
-  link.style.opacity = "0.5";
-  link.style.cursor = "default";
-  link.onclick = e => e.preventDefault();
-  link.removeAttribute("href");
+function betterDisable() {
+  document.querySelectorAll('a, #footerA').forEach(el => el.classList.add('disabled'));
 }
 
-function enableLink(link, href, onclickHandler = null) {
-  link.style.pointerEvents = "auto";
-  link.style.opacity = "1";
-  link.style.cursor = "pointer";
-  link.setAttribute("href", href);
-  link.onclick = onclickHandler;
+function betterEnable() {
+  document.querySelectorAll('a, #footerA').forEach(el => el.classList.remove('disabled'));
 }
 
 window.enterGuess = async function (name) {
@@ -43,11 +35,7 @@ window.enterGuess = async function (name) {
     const input_element = input_wrapper.querySelector('input');
     const button_element = input_wrapper.querySelector('button');
 
-    const infiniteModeButton = document.getElementById("infiniteA");
-    const welcomeButton = document.getElementById("welcomeA")
-
-    disableLink(infiniteModeButton);
-    disableLink(welcomeButton);
+    betterDisable();
   
     input_element.disabled = true;
     button_element.disabled = true;
@@ -60,8 +48,7 @@ window.enterGuess = async function (name) {
 });
     await flipCards(name, num_guesses);
 
-    enableLink(infiniteModeButton, "../infinite/");
-    enableLink(welcomeButton, "javascript:void(0);", showWelcome);
+    betterEnable();
 
     if (num_guesses === 1) {
     gtag('event', 'game_started', {

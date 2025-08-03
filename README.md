@@ -40,14 +40,12 @@ Get everybody on
 Fix google analytics
 
 Changelog
+(i had a stupid idea, could we somehow get commit history from github and display it in a popup? very possible its a silly idea though)
 
 Settings Menu (add new settings [themes {?}, statistic view {when done}, changelog, game switcher, etc])
 
-Add tooltips to all settings buttons
-
 better histogram css
-
-better file layout
+subjections histogram
 
 Get all data correct (remote etc.)
 Isabella jara vidal remote???

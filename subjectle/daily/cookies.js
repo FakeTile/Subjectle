@@ -27,15 +27,20 @@ async function loadSavedGuesses() {
 }
 
 function saveGuess(guess) {
-    const c = getCookie("savedGuess");
     const d = getCookie("lastGuess");
 
     if (d == daysSinceEpoch) {
-        setCookie("savedGuess", (c + "_" + guess), 1);
+        const c = getCookie("savedGuess") || "";
+        const newVal = (c ? c + "_" : "") + guess;
+        setCookie("savedGuess", newVal, 1);
     } else {
         setCookie("savedGuess", guess, 1);
         setCookie("lastGuess", daysSinceEpoch, 1);
     }
+
+    let saved = getCookie("savedGuess") || "";
+    saved = saved.replace(/null_/g, "");
+    setCookie("savedGuess", saved, 1);
 }
 
 loadSavedGuesses();

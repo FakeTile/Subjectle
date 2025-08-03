@@ -55,15 +55,15 @@ def write_first_line(path: str, content: str):
   except:
     print("You fucked up")
 
-write_first_line('shared/textbox.js',
+write_first_line('subjectle/shared/textbox.js',
   f'const studentNames = {names};\n'
 )
 
-write_first_line('shared/game.js', 
+write_first_line('subjectle/shared/game.js', 
   f'const data = {data};\n'
 )
 
-write_first_line('subjections/game.js',
+write_first_line('subjections/common/game.js',
   f'const data = {data};\n'
 )
 

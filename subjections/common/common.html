@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../shared/styles.css">
-  <link rel="icon" type="image/png" href="../assets/favicon2.png">
-  <title>Subjections</title>
-</head>
-<body>
-
   <div id="welcomePopup" class="popupOverlay" style="display: none;">
     <div class="popupContent">
       <h2>Welcome to Subjections!</h2>
@@ -45,8 +35,6 @@
     </div>
   </div>
 
-  <p class="para">Subjections</p>
-
   <table id="board"></table>
   
   <p class="guesses" id="guessP">Guesses remaining: <span class="dots">•••••</span></p>
@@ -68,27 +56,22 @@
   </table>
 
   <center>
-    <div id="CorrectOverlay1" class="correctOverlay hidden" style="top: 14.8%;">
-      <h>Class</h>
-      <p>People, In, The, Class</p>
-    </div>
-    <div id="CorrectOverlay2" class="correctOverlay hidden" style="top: 14.8%;">
-      <h>Class</h>
-      <p>People, In, The, Class</p>
-    </div>
-    <div id="CorrectOverlay3" class="correctOverlay hidden" style="top: 14.8%;">
-      <h>Class</h>
-      <p>People, In, The, Class</p>
-    </div>
-    <div id="CorrectOverlay4" class="correctOverlay hidden" style="top: 14.8%;">
-      <h>Class</h>
-      <p>People, In, The, Class</p>
+    <div class="overlayContainer">
+      <div id="CorrectOverlay1" class="correctOverlay hidden" style="top: 14.8%;">
+        <h>Class</h>
+        <p>People, In, The, Class</p>
+      </div>
+      <div id="CorrectOverlay2" class="correctOverlay hidden" style="top: 14.8%;">
+        <h>Class</h>
+        <p>People, In, The, Class</p>
+      </div>
+      <div id="CorrectOverlay3" class="correctOverlay hidden" style="top: 14.8%;">
+        <h>Class</h>
+        <p>People, In, The, Class</p>
+      </div>
+      <div id="CorrectOverlay4" class="correctOverlay hidden" style="top: 14.8%;">
+        <h>Class</h>
+        <p>People, In, The, Class</p>
+      </div>
     </div>
   </center>
-
-  <script src="../shared/utils.js"></script>
-  <script src="../shared/popup.js"></script>
-  <script src="../shared/cookies.js"></script>
-  <script src="game.js"></script>
-</body>
-</html>

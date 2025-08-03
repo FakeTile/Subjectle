@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEN08SD8KD"></script>
+  <!-- Google adsense thing -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5038083869596671"
+     crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZEN08SD8KD');
+</script>
+  <meta charset="UTF-8">
+  <title>Daily Subjectle</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body>
+  <div class="wrapper">
+    <main>
+      <!-- move all your popups and main content into here -->
+
+      <div id="welcomePopup" class="popupOverlay" style="display: none;">
+        <div class="popupContent">
+          <h2>Welcome to Subjectle!</h2>
+          <p>It’s a Wordle clone with a twist.</p>
+          <p>Your goal is to guess a hidden student based on the classes they take.</p>
+          <p><span class="highlight-green">Green</span> means the mystery student is in that class.</p>
+          <p><span class="highlight-yellow">Yellow</span> means they take the subject, but are not in the class ie. different teacher and/or line.</p>
+          <p>You have <strong>6 tries</strong> to find the right student. You should start with yourself as you know who's in your classes.</p>
+          <p>You won't lose your daily streak on weekends.</p>
+          <button type="button" id="popupCloseBtn" class="popupCloseBtn" onclick="closePopup()">Good Luck</button>
+        </div>
+      </div>
+
+      <div id="winPopup" class="popupOverlay" style="display: none;">
+        <div class="popupContent">
+          <h2>Congratulations!</h2>
+          <p id="winMessage">You won in X attempts!</p>
+          <h3>Performance Summary</h3>
+          <div id="winHistogram"></div>
+          <button type="button" class="popupCloseBtn" onclick="closeWinPopup()">Close</button>
+        </div>
+      </div>
+
+      <div id="gameOverPopup" class="popupOverlay" style="display: none;">
+        <div class="popupContent">
+          <h2>Game Over</h2>
+          <p id="gameOverMessage">You lose. The correct student was: [placeholder]</p>
+          <h3>Performance Summary</h3>
+          <div id="gameOverHistogram"></div>
+          <button type="button" class="popupCloseBtn" onclick="closeGameOverPopup()">Close</button>
+        </div>
+      </div>
+
+      <p id="num-subjectle" class="para"></p>
+
+      <a id="welcomeA" href="javascript:void(0);" onclick="showWelcome()">
+        <svg class="welcome-icon" fill="currentColor" viewBox="0 0 32 32">
+          <path d="M16 4C11.6 4 8 7.1 8 11h4c0-2.1 1.8-3.5 4-3.5s4 1.4 4 3.5c0 1.8-1.2 2.6-2.6 3.5-1.6 1.1-3.4 2.3-3.4 5.5h4c0-1.5 1.1-2.2 2.4-3 1.6-1 3.6-2.4 3.6-5.9C24 7.3 20.4 4 16 4zM14 24h4v4h-4z"/>
+        </svg>
+      </a>
+
+      <div id="common"></div>
+
+      <div class="streak">
+        <div class="streak-unfilled"></div>
+        <div class="streak-filled"></div>
+        <p class="streak-label">day streak</p>
+      </div>
+    </main>
+
+    <footer>
+      <table>
+        <tr>
+          <td>
+            <h3>Subjectle</h3>
+            <a id="footerA" href="javascript:void(0);">Daily</a>
+            <a id="footerA" href="../infinite">Random</a>
+          </td>
+          <td>
+            <h3>Subjections</h3>
+            <a id="footerA" href="../../subjections/daily">Daily</a>
+            <a id="footerA" href="../../subjections/infinite">Random</a>
+          </td>
+        </tr>
+      </table>
+    </footer>
+  </div>
+
+  <script>
+    fetch("../shared/common.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("common").innerHTML = html;
+        const loadScript = src => new Promise(resolve => {
+          const s = document.createElement("script");
+          s.src = src;
+          s.onload = resolve;
+          document.body.appendChild(s);
+        });
+
+        loadScript("../shared/textbox.js")
+          .then(() => loadScript("../shared/utils.js"))
+          .then(() => loadScript("../shared/game.js"))
+          .then(() => loadScript("../shared/cookies.js"))
+          .then(() => loadScript("../shared/cookiesUtils.js"))
+          .then(() => loadScript("../shared/histogram.js"))
+          .then(() => loadScript("../shared/popup.js"))
+          .then(() => loadScript("gameLocal.js"))
+          .then(() => loadScript("cookies.js"))
+          .then(() => loadScript("title.js"));
+      });
+  </script>
+</body>
+</html>

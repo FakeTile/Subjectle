@@ -1,24 +1,39 @@
 body {
   font-family: sans-serif;
   background: #121212;
-  overflow-y: hidden;
   overflow-x: hidden;
-  padding-bottom: 5vh;
+  margin: 0;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* ensures .streak is pushed to bottom */
+  align-items: center;
+}
+
+.main-content-spacer {
+  flex-grow: 1;
 }
 
 .para {
   color: gainsboro;
-  display: absolute;
-  top: 3.5vh;
-  left: 50vw;
-  position: fixed;
-  transform: translate(-50%, -50%);
-  margin: 0 auto;  
-  height: 1vh;
   font-size: 4vh;
   font-weight: bold;
+  margin: 3vh auto 0;
+  height: 1vh;
   padding-top: 10px;
   animation: fadeIn 0.75s ease-in-out forwards;
+  text-align: center;
+  position: static;
+  transform: none;
 }
 
 @keyframes fadeIn {
@@ -27,22 +42,22 @@ body {
 }
 
 .grid-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;      
-    width: 110vh;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);   
+  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  margin: 5vh auto;
+  transform: none;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 2vh;
+  row-gap: 2vh;
+  column-gap: 5vh;
   height: 75vh;  
   width: 100%;  
 }
@@ -198,7 +213,7 @@ body {
   color: white;
 }
 
-a {
+a:not(#footerA) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -208,26 +223,27 @@ a {
   border-radius: 1vh;
   text-decoration: none;
   transition: 200ms ease-out;
-
   color: rgb(196, 196, 196);
   position: fixed;
   z-index: 10;
+  pointer-events: auto;
 }
 
-#dailyA, #infiniteA {
-  top: 1vh;
-  right: 1vw;
+a:not(#footerA).disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 #welcomeA {
   top: 1vh;
-  right: 5vw;
+  right: 1vw;
   /* or swapped for vertical layout */
 }
 
 #resetA {
   top: 1vh;
-  right: 9vw;
+  right: 5vw;
   /* or swapped for vertical layout */
 }
 
@@ -416,6 +432,7 @@ a:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -80%);
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 .cell-button {
@@ -427,40 +444,47 @@ a:hover {
   border-radius: 1.5vh;
   margin: 0.4vh;
   font-size: 2.25vh;
-  transition: background 0.3s ease, border 0.3s ease, transform 0.4s ease, opacity 0.3s ease;
+  transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
   position: relative;
   opacity: 1;
   z-index: 50;
+  box-shadow: none;
 }
 
 .cell-button.correct {
-    transition: opacity 0.9s ease-out;
-    pointer-events: none;
+  transition: opacity 0.9s ease-out;
+  pointer-events: none;
 }
 
 .cell-button:hover {
-  background: #303030;
-  border: 0.35vh solid #3E3E3E;
+  background: #3d3d3d;
+  border-color: #555;
+  box-shadow: 0 0 0.8vh 0.2vh #444 inset, 0 0 1.2vh rgba(255,255,255,0.05);
 }
 
 .cell-button.toggle {
-  background: #393939;
-  border: 0.35vh solid #494949;
+  background: #4b4b4b;
+  border-color: #666;
+  box-shadow: 0 0 1vh 0.3vh #555 inset;
 }
 
 .cell-button.toggle:hover {
-  background: #444444;
-  border: 0.35vh solid #525252;
+  background: #595959;
+  border-color: #777;
+  box-shadow: 0 0 1.2vh 0.2vh #666 inset;
 }
 
-#guessP {position: absolute;
+
+#guessP {
   position: absolute;
   top: 61.5%;
   left: 50%;
   transform: translate(-50%, -40%);
   color: gainsboro;
   font-size: 1.75vh;
+  animation: fadeIn 1.75s ease-in-out forwards;
 }
+
 
 .dots {
   font-size: 5vh;
@@ -473,6 +497,8 @@ a:hover {
   top: 70%;
   left: 50%;
   transform: translate(-50%, -30%);
+  animation: fadeIn 1.875s ease-in-out forwards;
+
 }
 
 .control-button {
@@ -510,8 +536,14 @@ a:hover {
   opacity: 0.5;
 }
 
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* or desired height */
+}
+
 .correctOverlay {
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 62.4vw;
@@ -521,7 +553,9 @@ a:hover {
   z-index: 20;
   transition: opacity 1s ease, top 0.5s ease;
   opacity: 1;
+  /* control top as needed */
 }
+
 
 .correctOverlay.visible {
   opacity: 1;
@@ -532,7 +566,6 @@ a:hover {
   opacity: 0;
   pointer-events: none;
 }
-
 
 .correctOverlay h {
   display: block;
@@ -621,4 +654,97 @@ a:hover {
   width: 35%;
   padding: 2vh;
   margin-top: 35vh;
+}
+
+footer {
+  width: 99%;
+  background: #121212;
+  border-top: 1px solid #333;
+  height: 15vh;
+  padding: 0;
+  box-sizing: border-box;
+  color: gainsboro;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+footer table {
+  width: 100%;
+  table-layout: fixed;
+  height: 12vh;
+  border-collapse: collapse;
+  color: inherit;
+  margin-top: 4vh;
+}
+
+footer td {
+  vertical-align: top;
+  padding: 0 2vw;
+  text-align: center;
+}
+
+footer h3 {
+  margin: 0 0 0.5vh 0;
+  font-size: 2.2vh;
+}
+
+#footerA {
+  display: block;
+  font-size: 1.8vh;
+  color: inherit;
+  text-decoration: none;
+  margin: 0.2vh 0;
+  pointer-events: auto;
+  transition: color 0.3s ease;
+}
+
+#footerA:hover {
+  background-color: transparent !important;
+  color: inherit;
+  text-decoration: underline;
+}
+
+#footerA.disabled {
+  pointer-events: none;
+  color: grey;
+  cursor: not-allowed;
+}
+
+.reset-icon {
+    padding-top: 0.7vh;
+    transform: scaleX(-1);
+    transform-origin: center;
+}
+
+.streak {
+  position: static; /* or unset */
+  margin: 0 auto 2vh auto; /* vertical margin to create space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 3vh;
+  font-weight: bold;
+  animation: fadeIn 2s ease-in-out forwards;
+  transform: none;
+}
+  
+  .streak-unfilled,
+  .streak-filled {
+    position: relative;
+    color: gainsboro;
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+  
+  .streak-label {
+    color: gainsboro;
+    font-size: 1.3vh;
+    margin-top: 0.2em; 
+    position: relative; 
+    transform: none;
+    font-weight: normal;
+    animation: fadeIn 2.5s ease-in-out forwards;
+}
+
+.streak-wrapper {
+  margin-top: 74vh; 
+  margin-bottom: 3vh;
 }
