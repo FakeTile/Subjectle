@@ -247,7 +247,7 @@ a:not(#footerA).disabled {
   /* or swapped for vertical layout */
 }
 
-a:hover {
+a:not(#footerA):hover {
   background-color: #333333;
 }
 
