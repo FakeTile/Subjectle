@@ -60,7 +60,8 @@ function makeBoard() {
             if (rngToday() < 0.5) weightedClasses.push(cls);
         }
     }
-    weightedClasses.sort(() => rngToday() - 0.5);
+    const reweightedClasses = seededShuffle(weightedClasses, daysSinceEpoch);
+
 
     function numSharedClasses(students) {
         const counts = {};
@@ -85,8 +86,8 @@ function makeBoard() {
     const selectedGroups = [];
 
     let classIndex = 0;
-    while (selectedGroups.length < 4 && classIndex < weightedClasses.length) {
-        const cls = weightedClasses[classIndex];
+    while (selectedGroups.length < 4 && classIndex < reweightedClasses.length) {
+        const cls = reweightedClasses[classIndex];
 
         const pool = classMap[cls].filter(name => {
             if (usedStudents.has(name)) return false;
