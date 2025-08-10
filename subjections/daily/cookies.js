@@ -119,7 +119,7 @@ async function loadGameStateSubjections() {
         .map((guess, idx) => {
             const normGuess = normalizeArray(guess);
             const matchedIndex = selectedGroups.findIndex(group => {
-                const normGroup = normalizeArray(group.slice(0, 4));
+                const normGroup = normalizeArray(group.students.slice(0, 4));
                 if (normGroup.length !== normGuess.length) return false;
                 for (let i = 0; i < normGroup.length; i++) {
                     if (normGroup[i] !== normGuess[i]) return false;
@@ -129,7 +129,7 @@ async function loadGameStateSubjections() {
             return matchedIndex !== -1 ? { members: guess, indexInSelected: matchedIndex, guessIndex: idx } : null;
         })
         .filter(Boolean)
-        .sort((a, b) => a.guessIndex - b.guessIndex);
+        .sort((a, b) => b.guessIndex - a.guessIndex);
 
     const totalCorrect = groupsWithGuessIndex.length;
 
@@ -139,7 +139,7 @@ async function loadGameStateSubjections() {
         if (!overlay) continue;
 
         const group = groupsWithGuessIndex[i];
-        const cls = selectedGroups[group.indexInSelected][4];
+        const cls = selectedGroups[group.indexInSelected].class;
         const className = subjects[cls] || cls;
 
         const h = overlay.querySelector('h');

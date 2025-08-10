@@ -169,14 +169,15 @@ function submitGuess() {
     if (isDaily) {
         const selectedGroups = JSON.parse(getCookie("selectedGroupsSubjections") || "[]");
 
-        const guessCorrect = selectedGroups.find(g => arraysEqualUnordered(g.slice(0, 4), selectedNames));
+        const guessCorrect = selectedGroups.find(g => arraysEqualUnordered(g.students, selectedNames));
         const guessOneAway = selectedGroups.some(g => {
-            const a = new Set(g.slice(0, 4));
+            const a = new Set(g.students);
             const b = new Set(selectedNames);
             let match = 0;
             for (const x of a) if (b.has(x)) match++;
             return match === 3;
         });
+
 
         if (!guessCorrect) {
             if (guessOneAway) {
@@ -189,8 +190,9 @@ function submitGuess() {
             return;
         }
 
-        correctClass = guessCorrect[4];
-        classGroups[correctClass] = guessCorrect.slice(0, 4);
+        correctClass = guessCorrect.class;
+        classGroups[correctClass] = guessCorrect.students;
+
 
     } else {
         const studentToClass = {};
@@ -218,8 +220,6 @@ function submitGuess() {
             for (const x of a) if (b.has(x)) match++;
             return match === 3;
         });
-
-        console.log(guessOneAway, classGroups)
 
         if (guessOneAway) {
             snackbar.textContent = "One away!";
@@ -377,6 +377,8 @@ function winGame(guessNum) {
 
 function loseGame() {
     document.getElementById('gameOverSubjectionsPopup').style.display = 'block';
+
+    document.querySelectorAll('.cell-button').forEach(btn => btn.classList.remove('toggle'));
 
     const classGroups = {};
     for (const { name, cls } of selectedStudents) {
