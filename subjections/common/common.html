@@ -11,26 +11,26 @@
     </div>
   </div>
 
-  <div id="winSubjectionsPopup" class="popupOverlay" style="display: none;">
+  <div id="winPopup" class="popupOverlay" style="display: none;">
     <!-- replace winSubjectionsPopup with winPopup when histogram implemented -->
     <div class="popupContent">
       <button type="button" class="xButton" id="xButtonID" onclick="closeWinPopup()">⨯</button>
       <h2>Congratulations!</h2>
       <p id="winSubjectionsMessage">You won with X guesses to spare!</p>
-      <!--<h3>Performance Summary</h3>
-      //<div id="winHistogram"></div>-->
+      <h3>Performance Summary</h3>
+      <div id="winHistogram"></div>
       <button type="button" class="popupCloseBtn" id="winClose" onclick="closeWinPopup()">Close</button>
     </div>
   </div>
 
-  <div id="gameOverSubjectionsPopup" class="popupOverlay" style="display: none;">
+  <div id="gameOverPopup" class="popupOverlay" style="display: none;">
     <!-- replace gameOverSubjectionsPopup with gameOverPopup when histogram implemented -->
     <div class="popupContent">
       <button type="button" class="xButton" id="xButtonID" onclick="closeGameOverPopup()">⨯</button>
       <h2>Game Over</h2>
       <p id="gameOverSubjectionsMessage">You lost. Close this popup to see the correct Subjections.</p>
-      <!--<h3>Performance Summary</h3>
-      <div id="gameOverHistogram"></div>-->
+      <h3>Performance Summary</h3>
+      <div id="gameOverHistogram"></div>
       <button type="button" class="popupCloseBtn" id="gameOverClose" onclick="closeGameOverPopup()">Close</button>
     </div>
   </div>

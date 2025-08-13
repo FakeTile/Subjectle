@@ -1,9 +1,6 @@
 function reset_game() {
     num_guesses = 0;
 
-    // at game start add one to failed, will subtract/not later depending on win/lose
-    updateHistogram(0);
-
     const today = getDaysSinceEpoch(new Date());
     const newSeed = Math.floor(Math.random() * 100000);
     const shuffled = seededShuffle(Object.keys(data), newSeed);
@@ -117,6 +114,7 @@ window.enterGuess = async function (name) {
         'event_category': 'engagement',
         'event_label': 'subjectle'
       });
+      updateHistogram(0);
 }
   
     if (name === guesee) {

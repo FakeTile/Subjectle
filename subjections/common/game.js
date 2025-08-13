@@ -64,7 +64,9 @@ function removeAGuess() {
     if (window.location.pathname.includes('/subjections/daily')) {
         saveGameStateSubjections();
     }
-
+    if (window.location.pathname.includes('/subjections/infinite') && guesses === 4) {
+      updateHistogram(0);
+    }
 }
 
 function deselectAll() {
@@ -229,7 +231,7 @@ function submitGuess() {
             removeAGuess();
             if (guesses === 0) loseGame();
 
-            return;  // Stop further processing so message persists
+            return;  
         }
 
     }
@@ -368,15 +370,22 @@ function winGame(guessNum) {
         updateWinstreak();
         setCookie("lastWinSubjections", daysSinceEpoch, 30);
     }
+
+    if (window.location.pathname.includes('/subjections/infinite')) {
+        removeFailedHistogram();
+    }
     
     document.getElementById('shuffleButton').disabled = true;
-    const winPopup = document.getElementById('winSubjectionsPopup');
+    updateHistogram(guessNum);
+    const winPopup = document.getElementById('winPopup');
     winPopup.querySelector('p').textContent = `You won with ${guessNum} ` + (guessNum == 1 ? `guess` : `guesses`) +` to spare!`;
+    renderHistogram("winHistogram");
     winPopup.style.display = "block";
 }
 
 function loseGame() {
-    document.getElementById('gameOverSubjectionsPopup').style.display = 'block';
+    renderHistogram("gameOverHistogram");
+    document.getElementById('gameOverPopup').style.display = 'block';
 
     document.querySelectorAll('.cell-button').forEach(btn => btn.classList.remove('toggle'));
 
@@ -480,6 +489,7 @@ function loseGame() {
         if (window.location.pathname.includes('/subjections/daily')) {
             numCorrect = 4;
             saveGameStateSubjections();
+            updateHistogram(0);
         }
     }
 
@@ -491,11 +501,11 @@ function loseGame() {
 }
 
 function closeWinPopup() {
-  document.getElementById('winSubjectionsPopup').style.display = 'none';
+  document.getElementById('winPopup').style.display = 'none';
 }
 
 function closeGameOverPopup() {
-  document.getElementById('gameOverSubjectionsPopup').style.display = 'none';
+  document.getElementById('gameOverPopup').style.display = 'none';
 }
 
 function showWelcome() {
