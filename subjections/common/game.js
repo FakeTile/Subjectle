@@ -475,8 +475,7 @@ function loseGame() {
 
                     shiftOverlaysDown();
                     const overlay = document.getElementById('CorrectOverlay' + (++numCorrect));
-                    overlay.querySelector('h').textContent =
-                        subjects[cls] + ' – ' + cls.replace(/-ext|-drama|-anc/g, '');
+                    overlay.querySelector('h').textContent = subjects[cls] + ' – ' + cls.replace(/-ext|-drama|-anc/g, '');
                     overlay.querySelector('p').textContent = group.join(', ');
                     overlay.classList.remove('hidden');
                     overlay.classList.add('visible');
