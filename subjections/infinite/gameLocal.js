@@ -16,7 +16,6 @@ function makeBoard() {
   }
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
 
-  // --- id-based structures for speed ---
   const studentNames = Object.keys(data);
   const nStudents = studentNames.length;
   const studentIndex = {};
@@ -80,7 +79,6 @@ function makeBoard() {
       genCount++;
       if (genCount > 8000) break;
       const combo = idxArr.map(i => pool[i]);
-      // base-name duplicate check
       const seenBases = new Set();
       let dup = false;
       for (const s of combo) {
@@ -104,11 +102,10 @@ function makeBoard() {
 
   const viableClassesBase = candidates.filter(cid => (combosPerClassBase.get(cid) || []).length > 0);
 
-  // fast state arrays
   const usedStudentFlag = new Uint8Array(nStudents);
   const pickedClassCounts = new Uint8Array(nClasses);
   const usedBaseCount = {};
-  const pickedGroups = []; // { cid, comboObj }
+  const pickedGroups = []; 
 
   function canPlaceCombo(comboObj, targetCid) {
     for (const s of comboObj.students) if (usedStudentFlag[s]) return false;
