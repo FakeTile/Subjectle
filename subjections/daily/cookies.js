@@ -133,7 +133,6 @@ async function loadGameStateSubjections() {
 
     const tableCells = Array.from(document.querySelectorAll('td'));
     
-    // Combine guessed + unguessed groups (only if numCorrect === 4)
     const allGroupsToShow = [...groupsWithGuessIndex];
     if (numCorrect === 4) {
         selectedGroups.forEach((group, idx) => {
@@ -145,21 +144,18 @@ async function loadGameStateSubjections() {
 
     const totalOverlays = allGroupsToShow.length;
 
-    // overlay elements in fixed color order (yellow=1 bottom, purple=4 top)
     const overlays = [1, 2, 3, 4].map(i => document.getElementById('CorrectOverlay' + i));
 
     allGroupsToShow.forEach((groupObj, guessIdx) => {
         const group = groupObj.members;
         const selectedGroup = selectedGroups[groupObj.indexInSelected];
 
-        // move buttons into cells
         group.forEach((name, idx) => {
             const btn = Array.from(document.querySelectorAll('.cell-button')).find(b => b.textContent === name);
             if (btn && tableCells[guessIdx * 4 + idx]) tableCells[guessIdx * 4 + idx].appendChild(btn);
         });
 
-        // overlay element assigned by chronological order
-        const overlay = overlays[guessIdx]; // 0=yellow, 1=green, 2=blue, 3=purple
+        const overlay = overlays[guessIdx]; 
 
         if (overlay) {
             const h = overlay.querySelector('h');
@@ -171,7 +167,6 @@ async function loadGameStateSubjections() {
             overlay.classList.remove('hidden');
             overlay.classList.add('visible');
 
-            // reversed vertical position: oldest guess (yellow) at bottom, newest (purple) at top
             overlay.style.top = (14.8 + (totalOverlays - 1 - guessIdx) * overlayShiftPercent) + '%';
         }
     });
