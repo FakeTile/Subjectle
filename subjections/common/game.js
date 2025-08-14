@@ -64,10 +64,6 @@ function removeAGuess() {
     if (window.location.pathname.includes('/subjections/daily')) {
         saveGameStateSubjections();
     }
-    if (window.location.pathname.includes('/subjections/infinite') && guesses === 4) {
-      updateHistogram(0);
-      console.log("bimmle");
-    }
 }
 
 function deselectAll() {
@@ -134,9 +130,15 @@ function shuffleBoard() {
 
 let numCorrect = 0;
 
-let guessLog = []
+let guessLog = [];
+
+window.answeredYet = false;
 
 function submitGuess() {
+    if (window.location.pathname.includes('/subjections/infinite') && guesses === 5 && !window.answeredYet) {
+      updateHistogram(0);
+      answeredYet = true;
+    }
     const selectedButtons = Array.from(document.querySelectorAll('.cell-button.toggle'));
     if (selectedButtons.length !== 4) return;
 
@@ -382,17 +384,10 @@ function winGame(guessNum) {
     winPopup.querySelector('p').textContent = `You won with ${guessNum} ` + (guessNum == 1 ? `guess` : `guesses`) +` to spare!`;
     renderHistogram("winHistogram");
     winPopup.style.display = "block";
+    window.answeredYet = false;
 }
 
 function loseGame() {
-    if (window.location.pathname.includes('/subjections/daily')) {
-        numCorrect = 4;
-        saveGameStateSubjections();
-        updateHistogram(0);
-    }
-    renderHistogram("gameOverHistogram");
-    document.getElementById('gameOverPopup').style.display = 'block';
-
     document.querySelectorAll('.cell-button').forEach(btn => btn.classList.remove('toggle'));
 
     const classGroups = {};
@@ -466,7 +461,7 @@ function loseGame() {
                     btn.style.transition = 'transform 0.4s ease';
                     btn.style.transform = '';
                 });
-
+                
                 setTimeout(() => {
                     group.forEach(name => {
                         const btn = nameToButton.get(name);
@@ -474,12 +469,17 @@ function loseGame() {
                     });
 
                     shiftOverlaysDown();
-                    const overlay = document.getElementById('CorrectOverlay' + (++numCorrect));
+
+                    const visibleCount = document.querySelectorAll('.correctOverlay.visible').length;
+
+                    const overlay = document.getElementById('CorrectOverlay' + (visibleCount + 1));
+
                     overlay.querySelector('h').textContent = subjects[cls] + ' – ' + cls.replace(/-ext|-drama|-anc/g, '');
                     overlay.querySelector('p').textContent = group.join(', ');
                     overlay.classList.remove('hidden');
                     overlay.classList.add('visible');
                     overlay.style.top = '14.8%';
+
 
                     setTimeout(resolve, 400);
                 }, 300);
@@ -498,6 +498,15 @@ function loseGame() {
     document.getElementById('shuffleButton').disabled = true;
 
     revealAllAndSave();
+
+    if (window.location.pathname.includes('/subjections/daily')) {
+        numCorrect = 4;
+        updateHistogram(0);
+        saveGameStateSubjections();
+    }
+    renderHistogram("gameOverHistogram");
+    document.getElementById('gameOverPopup').style.display = 'block';
+    window.answeredYet = false;
 }
 
 function closeWinPopup() {

@@ -129,34 +129,59 @@ async function loadGameStateSubjections() {
             return matchedIndex !== -1 ? { members: guess, indexInSelected: matchedIndex, guessIndex: idx } : null;
         })
         .filter(Boolean)
-        .sort((a, b) => b.guessIndex - a.guessIndex);
+        .sort((a, b) => a.guessIndex - b.guessIndex);
 
-    const totalCorrect = groupsWithGuessIndex.length;
-
-    for (let i = 0; i < totalCorrect; i++) {
-        const overlayIndex = totalCorrect - i;
-        const overlay = document.getElementById('CorrectOverlay' + overlayIndex);
-        if (!overlay) continue;
-
-        const group = groupsWithGuessIndex[i];
-        const cls = selectedGroups[group.indexInSelected].class;
-        const className = subjects[cls] || cls;
-
-        const h = overlay.querySelector('h');
-        const p = overlay.querySelector('p');
-
-        if (h) h.textContent = `${className} - ${cls.replace(/-ext|-drama|-anc/g, '')}`;
-        if (p) p.textContent = group.members.join(", ");
-
-        overlay.classList.remove('hidden');
-        overlay.classList.add('visible');
-        overlay.style.top = (14.8 + (totalCorrect - overlayIndex) * overlayShiftPercent) + '%';
+    const tableCells = Array.from(document.querySelectorAll('td'));
+    
+    // Combine guessed + unguessed groups (only if numCorrect === 4)
+    const allGroupsToShow = [...groupsWithGuessIndex];
+    if (numCorrect === 4) {
+        selectedGroups.forEach((group, idx) => {
+            if (!groupsWithGuessIndex.some(g => g.indexInSelected === idx)) {
+                allGroupsToShow.push({ members: group.students, indexInSelected: idx });
+            }
+        });
     }
+
+    const totalOverlays = allGroupsToShow.length;
+
+    // overlay elements in fixed color order (yellow=1 bottom, purple=4 top)
+    const overlays = [1, 2, 3, 4].map(i => document.getElementById('CorrectOverlay' + i));
+
+    allGroupsToShow.forEach((groupObj, guessIdx) => {
+        const group = groupObj.members;
+        const selectedGroup = selectedGroups[groupObj.indexInSelected];
+
+        // move buttons into cells
+        group.forEach((name, idx) => {
+            const btn = Array.from(document.querySelectorAll('.cell-button')).find(b => b.textContent === name);
+            if (btn && tableCells[guessIdx * 4 + idx]) tableCells[guessIdx * 4 + idx].appendChild(btn);
+        });
+
+        // overlay element assigned by chronological order
+        const overlay = overlays[guessIdx]; // 0=yellow, 1=green, 2=blue, 3=purple
+
+        if (overlay) {
+            const h = overlay.querySelector('h');
+            const p = overlay.querySelector('p');
+            const cls = selectedGroup.class;
+            const className = subjects[cls] || cls;
+            if (h) h.textContent = `${className} - ${cls.replace(/-ext|-drama|-anc/g, '')}`;
+            if (p) p.textContent = group.join(", ");
+            overlay.classList.remove('hidden');
+            overlay.classList.add('visible');
+
+            // reversed vertical position: oldest guess (yellow) at bottom, newest (purple) at top
+            overlay.style.top = (14.8 + (totalOverlays - 1 - guessIdx) * overlayShiftPercent) + '%';
+        }
+    });
+
 
     document.getElementById('submitButton').disabled = toggledCount !== 4;
     document.getElementById('deselectButton').disabled = toggledCount === 0;
     document.getElementById('shuffleButton').disabled = numCorrect === 4;
 }
+
 
 makeBoard();
 
