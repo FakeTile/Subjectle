@@ -6,7 +6,7 @@ body {
 }
 
 .wrapper {
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +15,7 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* ensures .streak is pushed to bottom */
+  justify-content: flex-end; 
   align-items: center;
 }
 
@@ -213,7 +213,7 @@ main {
   color: white;
 }
 
-a:not(#footerA) {
+a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -229,7 +229,7 @@ a:not(#footerA) {
   pointer-events: auto;
 }
 
-a:not(#footerA).disabled {
+a.disabled {
   pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed;
@@ -245,6 +245,16 @@ a:not(#footerA).disabled {
   top: 1vh;
   right: 5vw;
   /* or swapped for vertical layout */
+}
+
+#dailyA {
+  top: 1vh;
+  left: 5vw
+}
+
+#infiniteA {
+  top: 1vh;
+  left: 5vw;
 }
 
 a:not(#footerA):hover {
@@ -669,59 +679,6 @@ a:not(#footerA):hover {
   margin-top: 35vh;
 }
 
-footer {
-  width: 99%;
-  background: #121212;
-  border-top: 1px solid #333;
-  height: 15vh;
-  padding: 0;
-  box-sizing: border-box;
-  color: gainsboro;
-  animation: fadeIn 3s ease-in-out forwards;
-}
-
-footer table {
-  width: 100%;
-  table-layout: fixed;
-  height: 12vh;
-  border-collapse: collapse;
-  color: inherit;
-  margin-top: 4vh;
-}
-
-footer td {
-  vertical-align: top;
-  padding: 0 2vw;
-  text-align: center;
-}
-
-footer h3 {
-  margin: 0 0 0.5vh 0;
-  font-size: 2.2vh;
-}
-
-#footerA {
-  display: block;
-  font-size: 1.8vh;
-  color: inherit;
-  text-decoration: none;
-  margin: 0.2vh 0;
-  pointer-events: auto;
-  transition: color 0.3s ease;
-}
-
-#footerA:hover {
-  background-color: transparent !important;
-  color: inherit;
-  text-decoration: underline;
-}
-
-#footerA.disabled {
-  pointer-events: none;
-  color: grey;
-  cursor: not-allowed;
-}
-
 .reset-icon {
     padding-top: 0.7vh;
     transform: scaleX(-1);
@@ -760,4 +717,27 @@ footer h3 {
 .streak-wrapper {
   margin-top: 74vh; 
   margin-bottom: 3vh;
+}
+
+.calendar-icon, .reset-icon, .welcome-icon {
+    width: 5vh;
+    height: 5vh;
+    z-index: 10;
+}
+
+.infinite-icon {
+  transform: scale(75%);
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+#subjectleA, #subjectionsA {
+  top: 1vh;
+  left: 1vw;
+}
+
+.subjectleIcon, .subjectionsIcon {
+  transform: scale(8%);
+  filter: grayscale(1);
 }

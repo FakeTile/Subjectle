@@ -46,17 +46,15 @@ Settings Menu (add new settings [themes {?}, statistic view {when done}, changel
 
 better histogram css
 
-subjections histogram
-
 Get all data correct (remote etc.)
 Isabella jara vidal remote???
 narelle remote
 
 Cookies
- - Keep stats from previous guesses
+  - Keep stats from previous guesses
 
 Improve searching
-- Support alternate names
+  - Support alternate names
 
   - source from this folder, not main
   - Add python script to get the google sheet, reformat, do any name substitutions or alternates, add this to js files automatically
