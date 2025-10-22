@@ -2,7 +2,7 @@ name: Update People Daily
 
 on:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '9 15 * * *'
 
 jobs:
   build:
