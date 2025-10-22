@@ -2,7 +2,8 @@ name: Update People Daily
 
 on:
   schedule:
-    - cron: '12 3 * * *'
+    - cron: '17 3 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
