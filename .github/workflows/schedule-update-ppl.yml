@@ -2,7 +2,7 @@ name: Update People Daily
 
 on:
   schedule:
-    - cron: '38 3 * * *'
+    - cron: '50 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -20,12 +20,12 @@ jobs:
 
       - name: install python packages
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Update people
         run: |
-          python3 update-ppl.py
+          python update-ppl.py
 
       - name: commit files
         run: |
