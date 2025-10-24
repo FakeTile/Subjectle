@@ -80,24 +80,30 @@ function output(name) {
   const usedSubjs = target.map((char, i) => guess[i] === char ? null : char);
   let out = [];
   guess.forEach((val, index) => {
+    // Unknowns grey no matter what
+    console.log(val);
+    if (val === "Unknown") {
+      out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`]);
+    } else if (val === target[index]) {
+      out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
+      unmatched[index] = null;
+      usedSubjs[index] = null;
+    } else if (val === "Woodley-phys" && target[index] === "Herrman" || val == "Herrman" && target[index] === "Woodley-phys") {
+      out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
+      unmatched[index] = null;
+      usedSubjs[index] = null;
+    } else if (unmatched.includes(val)) {
+      out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
+      unmatched[unmatched.indexOf(val)] = null; // prevent dup yellow
 
-      if (val === target[index]) {
-          out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
-          unmatched[index] = null;
-          usedSubjs[index] = null;
+    } else if (Object.values(subjects).includes(subjects[val]) && usedSubjs.some(code => code && subjects[code] === subjects[val])) {
+      out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
+      let firstMatch = usedSubjs.findIndex(code => code && subjects[code] === subjects[val]);
+      usedSubjs[firstMatch] = null; // prevent dup yellow on same subj
 
-      } else if (unmatched.includes(val)) {
-          out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
-          unmatched[unmatched.indexOf(val)] = null; // prevent dup yellow
-
-      } else if (Object.values(subjects).includes(subjects[val]) && usedSubjs.some(code => code && subjects[code] === subjects[val])) {
-          out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
-          let firstMatch = usedSubjs.findIndex(code => code && subjects[code] === subjects[val]);
-          usedSubjs[firstMatch] = null; // prevent dup yellow on same subj
-
-      } else {
-          out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`])
-      }
+    } else {
+      out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`])
+    }
   });
 
   return out;
@@ -108,7 +114,6 @@ function showWelcome() {
 }
 
 const PATH = "ppl.csv";
-const extensionTeachers = ["Robinson", "Black", "Vyas", "Treleaven", "Penn", "Jones"];
 const subjects = {
   "Jones": "Mathematics Advanced",
   "Treleaven": "English Advanced",
@@ -157,5 +162,8 @@ const subjects = {
   "Robinson-ext": "Mathematics Extension",
   "Wellings": "Music",
   "Woodley": "Mathematics Advanced",
-  "Milnes": "Visual Art"
+  "Milnes": "Visual Art",
+  "Woodley-phys": "Physics",
+  "Black-ext-2": "Mathematics Extension 2",
+  "Unknown": "Unknown"
 };
