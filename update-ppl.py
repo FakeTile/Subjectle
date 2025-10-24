@@ -13,7 +13,8 @@ with open('ppl.csv', 'wb') as f:
 
 
 PATH = 'ppl.csv'
-extensionTeachers = ['Robinson', 'Black', 'Vyas', 'Treleaven', 'Penn', 'Jones']
+extensionTeachers = ['Robinson', 'Black', 'Vyas', 'Treleaven', 'Penn', 'Jones', 'Heka', 'Parkinson']
+ext2Teachers = ['Black', 'Bryan']
 
 names = []
 data = {}
@@ -26,16 +27,22 @@ with open(PATH, 'r') as f:
     first, last = row[2].split()
     fname = first + ' ' + last[0]
     names.append(fname)
-    subj = row[5:13]
+    subj = row[5:14]
     fsubj = []
     for index, raw  in enumerate(subj):
       s = str(raw.split('-')[0]).strip()
-      if s == "Richmond" and index == 2:
+      if not raw:
+        s = "Unknown"
+      elif s == "Richmond" and index == 2:
         s = s + "-drama"
       elif s == "Phelps" and index == 5:
         s = s + "-anc"
-      elif s in extensionTeachers and index > 5:
+      elif s == "Woodley" and index == 2:
+        s = s + "-phys"
+      elif s in extensionTeachers and 5 < index and (s != 'Black' or index != 8):
         s = s + "-ext"
+      elif s in ext2Teachers and index == 8:
+        s = s + "-ext-2"
       fsubj.append(s)
     data[fname] = fsubj
 
