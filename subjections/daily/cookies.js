@@ -162,7 +162,7 @@ async function loadGameStateSubjections() {
             const p = overlay.querySelector('p');
             const cls = selectedGroup.class;
             const className = subjects[cls] || cls;
-            if (h) h.textContent = `${className} - ${cls.replace(/-ext|-drama|-anc/g, '')}`;
+            if (h) h.textContent = `${className} - ${cls.replace(/-ext|-drama|-anc|-phys/g, '')}`;
             if (p) p.textContent = group.join(", ");
             overlay.classList.remove('hidden');
             overlay.classList.add('visible');
