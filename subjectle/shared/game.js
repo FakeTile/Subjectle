@@ -79,30 +79,37 @@ function output(name) {
   let unmatched = target.slice();
   const usedSubjs = target.map((char, i) => guess[i] === char ? null : char);
   let out = [];
+
+  const change = val => {
+    if (val === "Herrman") return "Woodley-phys";
+    return val;
+  };
+
   guess.forEach((val, index) => {
     // Unknowns grey no matter what
-    console.log(val);
-    if (val === "Unknown") {
-      out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`]);
-    } else if (val === target[index]) {
-      out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
+    const changedVal = change(val);
+    // console.log(changedVal);
+    if (changedVal === "Unknown") {
+      out.push(['#3A3A3C', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
+    } else if (changedVal === target[index]) {
+      out.push(['#6CA965', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
       unmatched[index] = null;
       usedSubjs[index] = null;
-    } else if (val === "Woodley-phys" && target[index] === "Herrman" || val == "Herrman" && target[index] === "Woodley-phys") {
-      out.push(['#6CA965', `${subjects[val]} - ${val.split('-')[0]}`]);
+    } else if (changedVal === "Woodley-phys" && target[index] === "Herrman" || changedVal == "Herrman" && target[index] === "Woodley-phys") {
+      out.push(['#6CA965', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
       unmatched[index] = null;
       usedSubjs[index] = null;
-    } else if (unmatched.includes(val)) {
-      out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
-      unmatched[unmatched.indexOf(val)] = null; // prevent dup yellow
+    } else if (unmatched.includes(changedVal)) {
+      out.push(['#C8B653', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
+      unmatched[unmatched.indexOf(changedVal)] = null; // prevent dup yellow
 
-    } else if (Object.values(subjects).includes(subjects[val]) && usedSubjs.some(code => code && subjects[code] === subjects[val])) {
-      out.push(['#C8B653', `${subjects[val]} - ${val.split('-')[0]}`]);
-      let firstMatch = usedSubjs.findIndex(code => code && subjects[code] === subjects[val]);
+    } else if (Object.values(subjects).includes(subjects[changedVal]) && usedSubjs.some(code => code && subjects[code] === subjects[changedVal])) {
+      out.push(['#C8B653', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
+      let firstMatch = usedSubjs.findIndex(code => code && subjects[code] === subjects[changedVal]);
       usedSubjs[firstMatch] = null; // prevent dup yellow on same subj
 
     } else {
-      out.push(['#3A3A3C', `${subjects[val]} - ${val.split('-')[0]}`])
+      out.push(['#3A3A3C', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`])
     }
   });
 

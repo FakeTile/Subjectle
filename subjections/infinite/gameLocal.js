@@ -5,12 +5,13 @@ function makeBoard() {
   window.inList = [];
 
   function baseClass(cls) {
+    if (cls === 'Herrman') return 'Woodley-phys';
     if (cls === 'Treleaven-ext' || cls === 'Penn-ext') return 'Treleaven & Penn-ext';
     if (cls.endsWith('-ext')) return cls;
     return cls;
   }
   function getBaseName(name) {
-    const baseNames = ['Jones', 'Black', 'Vyas', 'Robinson'];
+    const baseNames = ['Jones', 'Black', 'Vyas', 'Robinson'];    
     for (const base of baseNames) if (name === base || name === base + '-ext') return base;
     return null;
   }
@@ -24,7 +25,7 @@ function makeBoard() {
   const classMapRaw = {};
   for (const name of studentNames) {
     for (let cls of data[name]) {
-      if (cls === 'Free') continue;
+      if (cls === 'Free' || cls === 'Unknown') continue;
       cls = baseClass(cls);
       (classMapRaw[cls] || (classMapRaw[cls] = new Set())).add(studentIndex[name]);
     }
@@ -41,7 +42,7 @@ function makeBoard() {
   for (let s = 0; s < nStudents; s++) {
     const name = studentNames[s];
     for (const raw of data[name]) {
-      if (raw === 'Free') continue;
+      if (raw === 'Free' || raw === 'Unknown') continue;
       const bc = baseClass(raw);
       const cid = classIndex[bc];
       if (cid !== undefined) studentClasses[s].push(cid);
@@ -235,7 +236,7 @@ function makeBoard() {
     const counts = {};
     for (const sObj of window.selectedStudents) {
       for (const raw of data[sObj.name]) {
-        if (raw === 'Free') continue;
+        if (raw === 'Free' || raw === 'Unknown') continue;
         const bc = baseClass(raw);
         counts[bc] = (counts[bc] || 0) + 1;
       }

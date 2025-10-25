@@ -24,6 +24,7 @@ const subjects = {
   "Treleaven-ext": "English Extension",
   "Treleaven & Penn-ext": "English Extension",
   "Herrman": "Physics",
+  "Woodley-phys": "Physics",
   "Emaneni": "Enterprise Computing",
   "White": "English Advanced",
   "Silibek": "Chemistry",
@@ -339,7 +340,7 @@ function submitGuess() {
             shiftOverlaysDown();
             const newOverlay = document.getElementById('CorrectOverlay' + numCorrect);
             const className = subjects[correctClass] || correctClass;
-            newOverlay.querySelector('h').textContent = `${className} - ${correctClass.replace('-ext', '').replace('-drama', '').replace('-anc', '')}`;
+            newOverlay.querySelector('h').textContent = `${className} - ${correctClass.replace('-ext', '').replace('-drama', '').replace('-anc', '').replace('-phys', '')}`;
             newOverlay.querySelector('p').textContent = `${classGroups[correctClass].join(", ")}`;
             newOverlay.classList.remove('hidden');
             newOverlay.classList.add('visible');
