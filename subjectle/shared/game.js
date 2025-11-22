@@ -172,5 +172,6 @@ const subjects = {
   "Milnes": "Visual Art",
   "Woodley-phys": "Physics",
   "Black-ext-2": "Mathematics Extension 2",
+  "Heka-ext": "History Extension",
   "Unknown": "Unknown"
 };
