@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../subjectle/shared/styles.css">
+  <link rel="stylesheet" href="../../common/styles.css">
   <link rel="icon" type="image/png" href="../../assets/favicon2.png">
   <title>Daily Subjections</title>
 </head>
@@ -13,6 +13,8 @@
       <p id="num-subjections" class="para"></p>
 
       <div id="common"></div>
+
+      <div id="formUpdate"></div>
 
       <div class="main-content-spacer"></div>
 
@@ -41,24 +43,34 @@
   <script>
       fetch("../common/common.html")
         .then(res => res.text())
-        .then(html => {
-          document.getElementById("common").innerHTML = html;
-          const loadScript = src => new Promise(resolve => {
+        .then(commonHtml => {
+          document.getElementById("common").innerHTML = commonHtml;
+
+          return fetch("../../common/formUpdate.html");
+        })
+        .then(res => res.text())
+        .then(formHtml => {
+          document.getElementById("formUpdate").innerHTML = formHtml;
+
+          const loadScript = src =>
+            new Promise(resolve => {
               const s = document.createElement("script");
               s.src = src;
               s.onload = resolve;
               document.body.appendChild(s);
-          });
+            });
 
-          loadScript("../../subjectle/shared/utils.js")
-              .then(() => loadScript("../../subjectle/shared/popup.js"))
-              .then(() => loadScript("../../subjectle/shared/cookiesUtils.js"))
-              .then(() => loadScript("../common/game.js"))
-              .then(() => loadScript("../common/popupCookie.js"))
-              .then(() => loadScript("../common/histogram.js"))
-              .then(() => loadScript("gameLocal.js"))
-              .then(() => loadScript("cookies.js"))
-              .then(() => loadScript("title.js"));
+          return loadScript("../../common/utils.js")
+            .then(() => loadScript("../../subjectle/shared/popup.js"))
+            .then(() => loadScript("../../common/cookiesUtils.js"))
+            .then(() => loadScript("../common/game.js"))
+            .then(() => loadScript("../common/popupCookie.js"))
+            .then(() => loadScript("../common/histogram.js"))
+            .then(() => loadScript("gameLocal.js"))
+            .then(() => loadScript("cookies.js"))
+            .then(() => loadScript("../../common/formStuff.js"))
+            .then(() => loadScript("title.js"))
+            .then(() => loadScript("../../common/closeTimer.js"));
         });
     </script>
 </body>

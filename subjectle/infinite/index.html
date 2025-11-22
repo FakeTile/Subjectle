@@ -15,8 +15,7 @@
 </script>
   <meta charset="UTF-8">
   <title>Random Subjectle</title>
-  <link rel="stylesheet" href="../shared/styles.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../common/styles.css">
   <link rel="icon" type="image/png" href="../../assets/favicon.png">
 </head>
 <body>
@@ -61,6 +60,8 @@
 
       <div id="common"></div>
 
+      <div id="formUpdate"></div>
+
       <a id="resetA" href="javascript:void(0);" onclick="reset_game()">
         <svg class="reset-icon" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 5V1L7 6l5 5V7c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5H5c0 3.87 3.13 7 7 7s7-3.13 7-7-3.13-7-7-7z"/>
@@ -79,28 +80,35 @@
     </main>
     
     <script>
-        fetch("../shared/common.html")
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById("common").innerHTML = html;
-            const loadScript = src => new Promise(resolve => {
-                const s = document.createElement("script");
-                s.src = src;
-                s.onload = resolve;
-                document.body.appendChild(s);
+      fetch("../shared/common.html")
+        .then(res => res.text())
+        .then(commonHtml => {
+          document.getElementById("common").innerHTML = commonHtml;
+
+          return fetch("../../common/formUpdate.html");
+        })
+        .then(res => res.text())
+        .then(formHtml => {
+          document.getElementById("formUpdate").innerHTML = formHtml;
+
+          const loadScript = src =>
+            new Promise(resolve => {
+              const s = document.createElement("script");
+              s.src = src;
+              s.onload = resolve;
+              document.body.appendChild(s);
             });
-            
-            // loads scripts in order
-            // dependencies:
-            // textbox -> game as textbox inits the templates
-            loadScript("../shared/textbox.js")
-                .then(() => loadScript("../shared/utils.js"))
-                .then(() => loadScript("../shared/game.js"))
-                .then(() => loadScript("../shared/cookiesUtils.js"))
-                .then(() => loadScript("../shared/cookies.js"))
-                .then(() => loadScript("../shared/histogram.js"))
-                .then(() => loadScript("../shared/popup.js"))
-                .then(() => loadScript("gameLocal.js"));
+
+          return loadScript("../shared/textbox.js")
+            .then(() => loadScript("../../common/utils.js"))
+            .then(() => loadScript("../shared/game.js"))
+            .then(() => loadScript("../../common/cookiesUtils.js"))
+            .then(() => loadScript("../shared/cookies.js"))
+            .then(() => loadScript("../shared/histogram.js"))
+            .then(() => loadScript("../shared/popup.js"))
+            .then(() => loadScript("gameLocal.js"))
+            .then(() => loadScript("../../common/formStuff.js"))
+            .then(() => loadScript("../../common/closeTimer.js"));
           });
       </script>
 </body>
