@@ -173,7 +173,7 @@ const subjects = {
   "Woodley-phys": "Physics",
   "Black-ext-2": "Mathematics Extension 2",
   "Heka-ext": "History Extension",
-  "Unknown": "Unknown"
+  "Unknown": "Unknown",
   "Parkinson-ext": "Science Extension",
   "Cutler": "English Extension 2",
 };
