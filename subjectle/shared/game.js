@@ -174,6 +174,6 @@ const subjects = {
   "Black-ext-2": "Mathematics Extension 2",
   "Heka-ext": "History Extension",
   "Unknown": "Unknown"
-  "Parkinson-ext": "Science Extension,
+  "Parkinson-ext": "Science Extension",
   "Cutler": "English Extension 2",
 };
