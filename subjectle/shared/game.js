@@ -170,7 +170,7 @@ const subjects = {
   "Wellings": "Music",
   "Nguyen": "Mathematics Advanced",
   "Milnes": "Visual Art",
-  "Woodley-Phys": "Physics",
+  "Woodley-phys": "Physics",
   "Black-ext-2": "Mathematics Extension 2",
   "Heka-ext": "History Extension",
   "Unknown": "Unknown",
