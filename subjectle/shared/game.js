@@ -81,7 +81,7 @@ function output(name) {
   let out = [];
 
   const change = val => {
-    if (val === "Herrman") return "Woodley-Phys";
+    if (val === "Herrman") return "Woodley-phys";
     return val;
   };
 
@@ -95,7 +95,7 @@ function output(name) {
       out.push(['#6CA965', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
       unmatched[index] = null;
       usedSubjs[index] = null;
-    } else if (changedVal === "Woodley-Phys" && target[index] === "Herrman" || changedVal == "Herrman" && target[index] === "Woodley-Phys") {
+    } else if (changedVal === "Woodley-phys" && target[index] === "Herrman" || changedVal == "Herrman" && target[index] === "Woodley-phys") {
       out.push(['#6CA965', `${subjects[changedVal]} - ${changedVal.split('-')[0]}`]);
       unmatched[index] = null;
       usedSubjs[index] = null;
